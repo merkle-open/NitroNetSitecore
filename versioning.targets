@@ -1,0 +1,13 @@
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+      define solution version here or pass it as MSBuild parameter
+      (f.e. "... /p:PackageVersion="1.0.0.156" ...")
+    -->
+	<AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">1.0.0.0</PackageVersion>
+  </PropertyGroup>
+  <Target Name="SetAssemblyVersion" BeforeTargets="BeforeBuild">
+    <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(AssemblyVersion)" AssemblyFileVersion="$(PackageVersion)" />
+  </Target>
+</Project>

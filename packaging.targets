@@ -1,0 +1,46 @@
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT'">
+    <!-- Windows specific commands -->
+    <NuGetToolsPath>$([System.IO.Path]::Combine($(SolutionDir), ".nuget"))</NuGetToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' != 'Windows_NT'">
+    <!-- We need to launch nuget.exe with the mono command if we're not on windows -->
+    <NuGetToolsPath>$(SolutionDir).nuget</NuGetToolsPath>
+  </PropertyGroup>
+  <!--
+    NuGet default properties
+    Can be overwritten with MSBuild parameters (f.e. "... /p:BuildPackageCustom=false ...")
+  -->
+  <PropertyGroup>
+    <!-- use custom nuget package build -->
+    <BuildPackageCustom Condition="'$(BuildPackageCustom)' == ''">true</BuildPackageCustom>
+    <!-- publish nuget packages -->
+    <PublishPackage Condition="'$(PublishPackage)' == ''">true</PublishPackage>
+    <!-- push to local nuget repository -->
+    <NugetRepository Condition="'$(NugetRepository)' == ''">C:\nuget_local</NugetRepository>
+    <!-- get package version from versioning.target, if any -->
+    <PackageVersion Condition="'$(PackageVersion)' != ''">$(PackageVersion)</PackageVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      BuildPackageCustom;
+      PublishPackage;
+    </BuildDependsOn>
+    <NuGetExePath Condition=" '$(NuGetExePath)' == '' ">$(NuGetToolsPath)\NuGet.exe</NuGetExePath>
+    <NuGetCommand Condition=" '$(OS)' == 'Windows_NT'">"$(NuGetExePath)"</NuGetCommand>
+    <NuGetCommand Condition=" '$(OS)' != 'Windows_NT' ">mono --runtime=v4.0.30319 $(NuGetExePath)</NuGetCommand>
+    <_NugetApiKey Condition="'$(NugetApiKey)' != ''"> -ApiKey "$(NugetApiKey)"</_NugetApiKey>
+    <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
+    <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
+    <PackageOutput>$(ProjectName.Replace('.csproj', '')).*.nupkg</PackageOutput>
+    <BuildCommandSolution Condition="'$(PackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" $(IncludeReferencedProjects) -Version "$(PackageVersion)"</BuildCommandSolution>
+    <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
+  </PropertyGroup>
+  <Target Name="PublishPackage" Condition="'$(PublishPackage)' == 'true'">
+    <Exec Command="$(PublishCommand)" LogStandardErrorAsError="true" />
+  </Target>
+  <Target Name="BuildPackageCustom" Condition="$(BuildPackageCustom) == 'true'">
+    <Exec Command="$(BuildCommandSolution)" LogStandardErrorAsError="true" />
+  </Target>
+</Project>

@@ -13,7 +13,7 @@
     <copyright>Copyright 2016</copyright>
     <tags>nitro sitecore unity handlebars viewengine</tags>
     <dependencies>
-      <dependency id="NitroNet" version="$version$" />
+      <dependency id="NitroNet.Core" version="$version$" />
       <dependency id="NitroNet.UnityModules" version="$version$" />
       <dependency id="NitroNet.Sitecore" version="$version$" />
     </dependencies>

@@ -13,7 +13,7 @@ NitroNet is a full integration of Nitro-Frontends into ASP.NET. Nitro itself bas
 
 ### ...and NitroNet for Sitecore ?
 
-The name says it all: NitroNet for Sitecore is a special View-Engine, based on ASP.NET MVC for the Content Management System [Sitecore](http://www.sitecore.net). It handles all possible presentation scenarios to integrate a Nitro-Frontend into Sitecore without functional loss (Sublayouting, Placeholders, Experience-Editor Full-Support, Personalization, ...). In addition it's possible to get a hybrid integration with Nitro-Frontends (based on simple and logic-less View-Pages) and own Razor-Views (*.cshtml).
+The name says it all: NitroNet for Sitecore is a special View-Engine, based on ASP.NET MVC for the Content Management System [Sitecore](http://www.sitecore.net). It handles all possible presentation scenarios to integrate a Nitro-Frontend into Sitecore without functional loss (Sublayouting, Placeholders, Experience-Editor Full-Support, Personalization, ...). In addition it's possible to get a hybrid integration with Nitro-Frontends (based on simple and logic-less View-Pages) and own Razor-Views (*.cshtml). NitroNet is created by [Fabian Geiger](https://github.com/fgeiger).
 
 
 
@@ -35,14 +35,29 @@ There are several ways to install NitroNet into Sitecore. The easiest way is to 
 `PM >` `Install-Package NitroNet.Sitecore.UnityModules` 
 
 ##### Extend your Global.asax
-To activate NitroNet it's important to add/register the new View-Engine in your Application. You can do this, with these lines of code:
+To activate NitroNet it's important to add/register the new View-Engine in your Application. You can do this, with these lines of code ([Gist](https://gist.github.com/daniiiol/216b161462db3dc2f7a3f43745bbfad0)):
 
-<script src="https://gist.github.com/daniiiol/216b161462db3dc2f7a3f43745bbfad0.js"></script>
+	<%@Application Language='C#' Inherits="Sitecore.Web.Application" %>
+	<%@ Import Namespace="NitroNet.Sitecore" %>
+	<script RunAt="server">
+	    
+	    public void Application_Start()
+	    {
+	        ViewEngines.Engines.Add(DependencyResolver.Current.GetService<SitecoreNitroNetViewEngine>());
+	    }
+	</Script>
 
 ##### Register the Unity IoC Containers
-In this NuGet Package, you got all necessary code classes to configure and register NitroNet with Unity. To Activate NitroNet, please add these lines to your UnityConfig.cs (Line 29 to 33 is only custom code)
+In this NuGet Package, you got all necessary code classes to configure and register NitroNet with Unity. To Activate NitroNet, please add these lines to your UnityConfig.cs ([Gist](https://gist.github.com/daniiiol/90b63503bfe0665c642f862f3ec2553f))
 
-<script src="https://gist.github.com/daniiiol/90b63503bfe0665c642f862f3ec2553f.js"></script>
+	public static void RegisterTypes(IUnityContainer container)
+    {
+        var rootPath = HostingEnvironment.MapPath("~/");
+        var basePath = PathInfo.Combine(PathInfo.Create(rootPath), PathInfo.Create(ConfigurationManager.AppSettings["NitroNet.BasePath"])).ToString();
+        
+        new DefaultUnityModule(basePath).Configure(container);
+        new SitecoreUnityModule().Configure(container);
+    }
 
 #### (B) Directly without the Unity IoC Framework
 You don't like Unity and you design your application with an other IoC Framework? No Problem. In this case, you can install NitroNet only with our Base-Package:
@@ -53,8 +68,36 @@ You don't like Unity and you design your application with an other IoC Framework
 *Please extend your Global.asax in the same way as in scenario (A)* 
 
 ##### Register NitroNet with your own IoC Framework
-Actually, we only made a Unity-Integration with NitroNet. But it's easy to use an other IoC Framework. Following our Unity-Sample as a template for you:
-<script src="https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180.js"></script>
+Actually, we only made a Unity-Integration with NitroNet. But it's easy to use an other IoC Framework. Following our Unity-Sample as a template for you ([Gist](https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180)):
+
+
+	using Microsoft.Practices.Unity;
+	using NitroNet.Sitecore;
+	using NitroNet.Sitecore.Caching;
+	using NitroNet.Sitecore.Rendering;
+	using NitroNet.UnityModules;
+	using NitroNet.ViewEngine.TemplateHandler;
+	using NitroNet.ViewEngine.TemplateHandler.Grid;
+	using Sitecore.Mvc.Common;
+	using System;
+	using Veil;
+	
+	namespace NitroNet.Sitecore.UnityModules
+	{
+	  public class SitecoreUnityModule : IUnityModule
+	  {
+	    public void Configure(IUnityContainer container)
+	    {
+	      UnityContainerExtensions.RegisterType<GridContext>(container, new InjectionMember[1]
+	      {
+	        (InjectionMember) new InjectionFactory((Func<IUnityContainer, object>) (u => (object) GridContext.GetFromRenderingContext(ContextService.Get().GetCurrent<RenderingContext>())))
+	      });
+	      UnityContainerExtensions.RegisterType<ISitecoreRenderingRepository, SitecoreRenderingRepository>(container);
+	      UnityContainerExtensions.RegisterType<ISitecoreCacheManager, SitecoreCacheManager>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	      UnityContainerExtensions.RegisterType<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	    }
+	  }
+	}
 
 
 ### Step 3

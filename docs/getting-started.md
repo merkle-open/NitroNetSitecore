@@ -31,11 +31,11 @@ To use a Nitro based component in Sitecore, you can create a normal `System.Web.
 
 The whole magic would be execute on the returning line `return View("teaser", model);`
 
-The string `"teaser"` must be fit with the name of a Nitro component. The guidelines of a model would be explained under chapter "Create a Model".
+The string `"teaser"` must be fit with the name of a Nitro component. The guidelines of a model would be explained under chapter *"Create a Model"*.
 
 #### Create a Model
 
-The Model definition is very simple and smart. In the Nitro Folder of your selected component (e.g. `.../frontend/components/molecules/teaser`) it's possible to see all needed information of your model definition. This is the contract with the Frontend. You can see the contract under `./_data/<molecule-name>.json`:
+The Model definition is very simple and smart. In the Nitro Folder of your selected component (e.g. `.../frontend/components/molecules/teaser`) it's possible to see all needed information of your model definition. This is the contract with the Frontend. You can find it under `./_data/<molecule-name>.json`:
 
 	{
 		"headline" : "Headline first-line",
@@ -44,7 +44,7 @@ The Model definition is very simple and smart. In the Nitro Folder of your selec
 		"bubbleCenter":false
 	}
 
-In this case, you can create an equivalent .Net Class with the same properties:
+In this case, create an equivalent .Net Class with same properties:
 
 	public class TeaserModel
     {

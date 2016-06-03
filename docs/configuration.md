@@ -9,9 +9,11 @@
 ## Configuration
 
 ### Connect the Nitro Frontend to your Application
-The location of your Nitro-Application could be configure very flexible.
+The location of your Nitro-Application could be configured very flexible.
 
-As default-value it would be taken the website-root-folder itself. If you like to change it, you can add an AppSetting with the Key-Value `NitroNet.BasePath` in your *web.config*.
+As default-value it would be taken the website-root-folder itself. If you like to change it, you can add an AppSetting with the Key-Value `NitroNet.BasePath` in your *web.config*. 
+
+Sample:
 
 	<appSettings>
 	    <add key="NitroNet.BasePath" value ="Nitro/Sample" />
@@ -33,7 +35,5 @@ In addition, you got a new `config.json`-File in the root-directory of the websi
 	  ]
 	}
 
-That `config.json` File defines your *view*-, *partial*- and *components*-paths, starting on your `NitroNet.BasePath`.
-
-###### Conclusion
-Back to my sample configuration, the *atoms* would be located under `~/Nitro/Sample/frontend/components/atoms/`. That's all about view-logic resolving.
+The `config.json` File defines *view*-, *partial*- and *components*-paths, starting at your `NitroNet.BasePath`.
+In this case, the *atoms* would be located under `~/Nitro/Sample/frontend/components/atoms/`. That's all about view-logic resolving of Nitro.

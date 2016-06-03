@@ -9,7 +9,9 @@
 ## View Samples
 
 #### The easy view sample
+This sample shows a simple Nitro Html View.
 
+###### View
 	<div class="m-teaser">
 		<div class="m-teaser__wrapper-left">
 	
@@ -33,7 +35,39 @@
 		<a href="#" class="a-button a-button--primary m-teaser__button">{{buttonText}}</a>
 	</div>
 
-This case shows a simple Nitro Html View-File. This Sample can be execute with the Controller and Model of above sample snippets.
+###### Model
+	public class TeaserModel
+    {
+        public string Headline { get; set; }
+        public string Abstract { get; set; }
+        public string Richtext { get; set; }
+        public string ButtonText { get; set; }
+    }
+
+#### A view with repeating subentities
+
+###### View
+
+	<ul class="m-link-list">
+		{{#each links}}
+			<li class="m-link-list__item font-meta-navi"><a class="a-link" href="{{target}}">{{linkText}}</a></li>
+		{{/each}}
+	</ul>
+
+###### Model
+
+In this case, we need a Model-Class with a Enumerable-Property called `links`. The main-model self, hasn't any other properties:
+
+	public class LinkListModel
+	{
+	    public IEnumerable<LinkModel> Links { get; set; }
+	}
+	
+	public class LinkModel
+	{
+	    public string Target { get; set; }
+		public string LinkText { get; set; }
+	}
 
 #### A view with sub-components
 
@@ -67,29 +101,4 @@ This case shows a simple Nitro Html View-File. This Sample can be execute with t
 		public string LocationKey { get; set; }
 		public string Target { get; set; }
 		public string Name { get; set; }
-	}
-
-#### A view with repeating sub-elements
-
-###### View
-
-	<ul class="m-link-list">
-		{{#each links}}
-			<li class="m-link-list__item font-meta-navi"><a class="a-link" href="{{target}}">{{linkText}}</a></li>
-		{{/each}}
-	</ul>
-
-###### Model
-
-In this case, we need a Model-Class with a Enumerable-Property called `links`. The main-model self, hasn't any other properties:
-
-	public class LinkListModel
-	{
-	    public IEnumerable<LinkModel> Links { get; set; }
-	}
-	
-	public class LinkModel
-	{
-	    public string Target { get; set; }
-		public string LinkText { get; set; }
 	}

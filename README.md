@@ -27,6 +27,8 @@ Please install a basicly Sitecore version on your local machine and create a Vis
 
 ### Step 2 - Install NitroNet for Sitecore
 
+Please choose between variant **A** with Unity or **B** with another IoC Framework.
+
 #### (A) Directly with Unity IoC Container
 
 ##### NuGet Package Installation
@@ -69,6 +71,63 @@ You don't like Unity and you design your application with an other IoC Framework
 
 ##### Register NitroNet with your own IoC Framework
 Actually, we only made a Unity-Integration with NitroNet. But it's easy to use an other IoC Framework. Following our Unity-Sample as a template for you ([Gist](https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180)):
+
+###### DefaultUnityModule
+
+	using Microsoft.Practices.Unity;
+	using NitroNet;
+	using NitroNet.Mvc;
+	using NitroNet.ViewEngine;
+	using NitroNet.ViewEngine.Cache;
+	using NitroNet.ViewEngine.Config;
+	using NitroNet.ViewEngine.IO;
+	using NitroNet.ViewEngine.TemplateHandler;
+	using NitroNet.ViewEngine.ViewEngines;
+	using System.Web;
+	using Veil.Compiler;
+	using Veil.Helper;
+	
+	namespace NitroNet.UnityModules
+	{
+	  public class DefaultUnityModule : IUnityModule
+	  {
+	    private readonly string _basePath;
+	
+	    public DefaultUnityModule(string basePath)
+	    {
+	      this._basePath = basePath;
+	    }
+	
+	    public void Configure(IUnityContainer container)
+	    {
+	      this.RegisterConfiguration(container);
+	      this.RegisterApplication(container);
+	    }
+	
+	    protected virtual void RegisterConfiguration(IUnityContainer container)
+	    {
+	      INitroNetConfig nitroNetConfig = ConfigurationLoader.LoadNitroConfiguration(this._basePath);
+	      UnityContainerExtensions.RegisterInstance<INitroNetConfig>(container, nitroNetConfig);
+	      UnityContainerExtensions.RegisterInstance<IFileSystem>(container, (IFileSystem) new FileSystem(this._basePath, nitroNetConfig));
+	    }
+	
+	    protected virtual void RegisterApplication(IUnityContainer container)
+	    {
+	      UnityContainerExtensions.RegisterInstance<AsyncLocal<HttpContext>>(container, new AsyncLocal<HttpContext>(), (LifetimeManager) new ContainerControlledLifetimeManager());
+	      UnityContainerExtensions.RegisterType<IHelperHandlerFactory, DefaultRenderingHelperHandlerFactory>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	      UnityContainerExtensions.RegisterType<IMemberLocator, MemberLocatorFromNamingRule>(container);
+	      UnityContainerExtensions.RegisterType<INamingRule, NamingRule>(container);
+	      UnityContainerExtensions.RegisterType<IModelTypeProvider, DefaultModelTypeProvider>(container);
+	      UnityContainerExtensions.RegisterType<IViewEngine, VeilViewEngine>(container);
+	      UnityContainerExtensions.RegisterType<ICacheProvider, MemoryCacheProvider>(container);
+	      UnityContainerExtensions.RegisterType<IComponentRepository, DefaultComponentRepository>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	      UnityContainerExtensions.RegisterType<ITemplateRepository, NitroTemplateRepository>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	      UnityContainerExtensions.RegisterType<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>(container, (LifetimeManager) new ContainerControlledLifetimeManager(), new InjectionMember[0]);
+	    }
+	  }
+	}
+
+###### SitecoreUnityModule
 
 
 	using Microsoft.Practices.Unity;

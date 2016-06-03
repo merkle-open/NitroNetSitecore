@@ -70,6 +70,7 @@ In this case, we need a Model-Class with a Enumerable-Property called `links`. T
 	}
 
 #### A view with sub-components
+Nested components (a molecule has internally atom components) would be created into the same controller and doesn't invoke a new controller. In the following case, the LocationController has the responsibility to create all parts of the LocationModel.
 
 ###### View
 
@@ -102,3 +103,78 @@ In this case, we need a Model-Class with a Enumerable-Property called `links`. T
 		public string Target { get; set; }
 		public string Name { get; set; }
 	}
+
+####### Situation A - Component with name attribute
+View snippet
+
+	{{component name="Bubble"}}
+
+Model snippet
+
+	public BubbleLocationModel Bubble { get; set; }
+
+####### Situation B - Component with name and data
+View snippet
+
+	{{component name="Bubble" data="bubbleLocation"}}
+
+Model snippet
+
+	public BubbleLocationModel BubbleLocation { get; set; }
+
+*or*
+
+	public BubbleLocationModel Bubble { get; set; }
+
+
+#### A view with placeholders
+
+Placeholders doesn't need a special interaction in user code. In Sitecore you need to create a placeholder setting with the same key as the `name` attribute of the placeholder.
+
+	<div class="m-accordion" data-t-name="Accordion">
+		{{{placeholder name="AccordionArea" template="accordion-area"}}}
+	</div>
+
+### A Layout view
+In Sitecore you can add only components without a datasource or placeholders to a layout-file.
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		{{partial name="head"}}
+	</head>
+	<body ontouchstart="">
+	<header class="l-header">
+		{{{placeholder name="HeaderArea" template="header"}}}
+	</header>
+	<div class="l-container l-container--tile l-container--tile-home">
+		<div class="l-1of1">
+			{{component name="Breadcrumb"}}
+		</div>
+		<div class="l-tile l-tile--home-movie l-1of1">
+			<div class="l-tile__content l-tile__content--full">
+				{{placeholder name="StageArea" template="stage"}}
+			</div>
+		</div>
+		{{placeholder name="ContentArea" template="home"}}
+	</div>
+	<footer class="l-footer">
+		{{{placeholder name="FooterArea" template="footer"}}}
+	</footer>
+	{{partial name="foot" }}
+	</body>
+	</html>
+
+##### Partials
+Partials are simple includes into a base file and could be used for reducing the complexity of large view-files.
+NitroNet supports partials with the keyword `partial`:
+
+	{{partial name="head"}}
+
+
+##### Components
+Components in Layout-Files have an other execution behaviour than in normal components and revoke all time a MVC Controller with the same name.
+
+	{{component name="Breadcrumb"}}
+
+This component calls a Controller with classname `BreadcrumbController` in our website project.

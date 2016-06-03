@@ -162,4 +162,184 @@ Actually, we only made a Unity-Integration with NitroNet. But it's easy to use a
 
 
 ## Configuration
-... comming very, very soon.
+
+### Connect the Nitro Frontend to your Application
+The location of your Nitro-Application could be configure very flexible.
+
+As default-value it would be taken the website-root-folder itself. If you like to change it, you can add an AppSetting with the Key-Value `NitroNet.BasePath` in your *web.config*.
+
+	<appSettings>
+	    <add key="NitroNet.BasePath" value ="Nitro/Sample" />
+	</appSettings>
+
+In addition, you got a new `config.json`-File in the root-directory of the website-project after installation of NitroNet:
+
+	{
+	  "viewPaths": [
+	    "frontend/views"
+	  ],
+	  "partialPaths": [
+	    "frontend/views/_partials"
+	  ],
+	  "componentPaths": [
+	    "frontend/components/atoms",
+	    "frontend/components/molecules",
+	    "frontend/components/organisms"
+	  ]
+	}
+
+That `config.json` File defines your *view*-, *partial*- and *components*-paths, starting on your `NitroNet.BasePath`.
+
+###### Conclusion
+Back to my sample configuration, the *atoms* would be located under `~/Nitro/Sample/frontend/components/atoms/`. That's all about view-logic resolving.
+
+### Getting started with NitroNet
+
+#### Create a Controller
+
+To use a Nitro based component in Sitecore, you can create a normal `System.Web.Mvc.Controller` of ASP.NET MVC:
+
+	public class TeaserController : System.Web.Mvc.Controller
+	    {
+	        // GET: Teaser
+	        public ActionResult Index()
+	        {
+	            var model = new TeaserModel
+	            {
+	                Headline = "Headline first-line",
+	                Abstract = "Praesent ac massa at ligula laoreet iaculis. Cras id dui. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Fusce fermentum odio nec arcu.",
+	                Richtext = "<p>Sed lectus. Suspendisse nisl elit, rhoncus eget, <a href='#'>elementum ac</a>, condimentum eget, diam. Curabitur turpis. Ut non enim eleifend felis pretium feugiat. Vivamus aliquet elit ac nisl.</p><ul><li>Primis in faucibus orci luctus et ultrices</li><li>Dignissim dolor, <a href='#'>pretium</a> mi sem ut ipsum.</li><li>Etiam ut purus mattis mauris sodales aliquam.</li></ul>",
+	                ButtonText = "Button Text"
+	            };
+	
+	            return View("teaser", model);
+	        }
+	    }
+
+The whole magic would be execute on the returning line `return View("teaser", model);`
+
+The string `"teaser"` must be fit with the name of a Nitro component. The guidelines of a model would be explained under chapter "Create a Model".
+
+#### Create a Model
+
+The Model definition is very simple and smart. In the Nitro Folder of your selected component (e.g. `.../frontend/components/molecules/teaser`) it's possible to see all needed information of your model definition. This is the contract with the Frontend. You can see the contract under `./_data/<molecule-name>.json`:
+
+	{
+		"headline" : "Headline first-line",
+		"abstract" : "Praesent ac massa at ligula laoreet iaculis. Cras id dui. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Fusce fermentum odio nec arcu.",
+		"richtext" : "<p>Sed lectus. Suspendisse nisl elit, rhoncus eget, <a href='#'>elementum ac</a>, condimentum eget, diam. Curabitur turpis. Ut non enim eleifend felis pretium feugiat. Vivamus aliquet elit ac nisl.</p><ul><li>Primis in faucibus orci luctus et ultrices</li><li>Dignissim dolor, <a href='#'>pretium</a> mi sem ut ipsum.</li><li>Etiam ut purus mattis mauris sodales aliquam.</li></ul>",
+		"bubbleCenter":false
+	}
+
+In this case, you can create an equivalent .Net Class with the same properties:
+
+	public class TeaserModel
+    {
+        public string Headline { get; set; }
+        public string Abstract { get; set; }
+        public string Richtext { get; set; }
+        public string ButtonText { get; set; }
+    }
+
+##### Supported Types
+
+	public class FooModel
+	{
+	    public string Text { get; set; }
+		public int Numeric { get; set; }
+	    public bool Abstract { get; set; }
+	    public SpecialClassModel Bar { get; set; }
+	    public IEnumerable<SpecialClassModel> Items { get; set; }
+		...
+	}
+
+### View Types
+
+#### The easy view sample
+
+	<div class="m-teaser">
+		<div class="m-teaser__wrapper-left">
+	
+			<h2 class="font-page-title m-teaser__headline">
+				{{#if headline}}
+					<span class="m-teaser__headline-text">{{headline}}</span>
+				{{/if}}
+			</h2>
+		</div>
+	
+		<div class="l-tile__content">
+			{{#if abstract}}
+				<h3 class="font-big-title m-teaser__abstract">{{{abstract}}}</h3>
+			{{/if}}
+			{{#if richtext}}
+				<div class="font-copy-text m-teaser__rte">
+					{{{richtext}}}
+				</div>
+			{{/if}}
+		</div>
+		<a href="#" class="a-button a-button--primary m-teaser__button">{{buttonText}}</a>
+	</div>
+
+This case shows a simple Nitro Html View-File. This Sample can be execute with the Controller and Model of above sample snippets.
+
+#### A view with sub-components
+
+###### View
+
+	<div class="m-location" data-t-name="Location">
+		<a href="#" class="a-link m-location__location-link js-m-location__location-link">{{selectedLocation}}</a>
+		<div class="m-location__location js-m-location__location l-overlay-container">
+			{{component name="Bubble" data="bubbleLocation"}}
+			<ul class="m-location__list">
+				{{#each locations}}
+					<li class="m-location__location-item font-title"><a class="font-region-title a-link{{#if active}} a-link--active{{/if}} m-location__link js-m-location__link" data-location-key="{{locationKey}}" href="{{target}}">{{name}}</a></li>
+				{{/each}}
+			</ul>
+			<a href="/" class="icon l-overlay-container__close js-m-location__location-link"></a>
+		</div>
+	</div>
+
+###### Model
+	public class LocationModel
+	{
+		public string SelectedLocation { get; set; }
+	    public IEnumerable<LocationModel> Locations { get; set; }
+		public BubbleLocationModel BubbleLocation { get; set; }
+	}
+	
+	public class LocationModel
+	{
+	    public bool Active { get; set; }
+		public string LocationKey { get; set; }
+		public string Target { get; set; }
+		public string Name { get; set; }
+	}
+
+#### A view with repeating sub-elements
+
+###### View
+
+	<ul class="m-link-list">
+		{{#each links}}
+			<li class="m-link-list__item font-meta-navi"><a class="a-link" href="{{target}}">{{linkText}}</a></li>
+		{{/each}}
+	</ul>
+
+###### Model
+In this case, we need a Model-Class with a Enumerable-Property called `links`. The main-model self, hasn't any other properties:
+
+	public class LinkListModel
+	{
+	    public IEnumerable<LinkModel> Links { get; set; }
+	}
+	
+	public class LinkModel
+	{
+	    public string Target { get; set; }
+		public string LinkText { get; set; }
+	}
+
+
+### Actually not implemented
+
+*TBD*

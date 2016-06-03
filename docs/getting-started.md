@@ -41,7 +41,7 @@ The Model definition is very simple and smart. In the Nitro Folder of your selec
 		"headline" : "Headline first-line",
 		"abstract" : "Praesent ac massa at ligula laoreet iaculis. Cras id dui. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Fusce fermentum odio nec arcu.",
 		"richtext" : "<p>Sed lectus. Suspendisse nisl elit, rhoncus eget, <a href='#'>elementum ac</a>, condimentum eget, diam. Curabitur turpis. Ut non enim eleifend felis pretium feugiat. Vivamus aliquet elit ac nisl.</p><ul><li>Primis in faucibus orci luctus et ultrices</li><li>Dignissim dolor, <a href='#'>pretium</a> mi sem ut ipsum.</li><li>Etiam ut purus mattis mauris sodales aliquam.</li></ul>",
-		"bubbleCenter":false
+		"ButtonText" : "Next"
 	}
 
 In this case, create an equivalent .Net Class with same properties:

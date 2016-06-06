@@ -9,10 +9,10 @@
 ## Installation
 
 ### Preconditions
-Its important to have a Nitro Project as precondition of this installation manual. Please follow the beautiful guide of Nitro: [Link](https://github.com/namics/generator-nitro/)
+It's important to have a Nitro project as precondition of this installation manual. Please follow the beautiful guide of Nitro: [Link](https://github.com/namics/generator-nitro/)
 
 ### Step 1 - Install Sitecore
-Please install a Sitecore System on your local machine and create a Visual Studio Project (a clear ASP.Net MVC Solution) around of this. As a Sitecore Developer you know what I mean. :)
+Please install a Sitecore system on your local machine and create a Visual Studio project (a clear ASP.Net MVC solution) around of this. As a Sitecore developer you know what I mean. :)
 
 ### Step 2 - Install NitroNet for Sitecore
 
@@ -23,10 +23,10 @@ Please choose between variant **A** with Unity or **B** with another IoC Framewo
 ##### NuGet Package Installation
 There are several ways to install NitroNet into Sitecore. The easiest way is to use NitroNet together with Unity. Execute following line in your NuGet Package Manager to install NitroNet for Sitecore:
 
-`PM >` `Install-Package NitroNet.Sitecore.UnityModules` 
+`PM >` `Install-Package NitroNet.Sitecore.UnityModules`
 
 ##### Extend your Global.asax
-To activate NitroNet it's important to add/register the new View-Engine in your Application. You can do this, with these lines of code ([Gist](https://gist.github.com/daniiiol/216b161462db3dc2f7a3f43745bbfad0)):
+To activate NitroNet it's important to add/register the new view engine in your application. You can do this, with these lines of code ([Gist](https://gist.github.com/daniiiol/216b161462db3dc2f7a3f43745bbfad0)):
 
 	<%@Application Language='C#' Inherits="Sitecore.Web.Application" %>
 	<%@ Import Namespace="NitroNet.Sitecore" %>
@@ -43,23 +43,20 @@ You got all necessary code classes to configure and register NitroNet with Unity
 
 	public static void RegisterTypes(IUnityContainer container)
     {
-        var rootPath = HostingEnvironment.MapPath("~/");
-        var basePath = PathInfo.Combine(PathInfo.Create(rootPath), PathInfo.Create(ConfigurationManager.AppSettings["NitroNet.BasePath"])).ToString();
-        
-        new DefaultUnityModule(basePath).Configure(container);
+        new DefaultUnityModule(HostingEnvironment.MapPath("~/")).Configure(container);
         new SitecoreUnityModule().Configure(container);
     }
 
 #### (B) Directly without the Unity IoC Framework
-You don't like Unity and you design your application with an other IoC Framework? No Problem. In this case, you can install NitroNet only with our Base-Package:
+You don't like Unity and you design your application with an other IoC framework? No problem. In this case, you can install NitroNet only with our base package:
 
 `PM >` `Install-Package NitroNet.Sitecore`
 
 ##### Extend your Global.asax
-*Please extend your Global.asax in the same way as in scenario (A)* 
+*Please extend your Global.asax in the same way as in scenario (A)*
 
 ##### Register NitroNet with your own IoC Framework
-Actually, we have made only a Unity-Integration with NitroNet. But it's easy to use an other IoC Framework. Following our Unity-Sample as a template for you ([Gist](https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180)):
+Actually, we have made only a Unity integration with NitroNet. But it's easy to use another IoC framework. Please use our Unity sample as a template for you ([Gist](https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180)):
 
 ###### DefaultUnityModule
 

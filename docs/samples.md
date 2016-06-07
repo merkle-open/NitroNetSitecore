@@ -160,15 +160,16 @@ Nested components (e.g. a molecule that consists of one or more atoms) are handl
 ##### View
 
 	<div class="m-location" data-t-name="Location">
-		<a href="#" class="a-link m-location__location-link js-m-location__location-link">{{selectedLocation}}</a>
-		<div class="m-location__location js-m-location__location l-overlay-container">
+		<a href="#">{{selectedLocation}}</a>
+		<div>
 			{{component name="Bubble" data="bubbleLocation"}}
-			<ul class="m-location__list">
+			<ul>
 				{{#each locations}}
-					<li class="m-location__location-item font-title"><a class="font-region-title a-link{{#if active}} a-link--active{{/if}} m-location__link js-m-location__link" data-location-key="{{locationKey}}" href="{{target}}">{{name}}</a></li>
+					<li>
+						<a data-location-key="{{locationKey}}" href="{{target}}">{{name}}</a>
+					</li>
 				{{/each}}
 			</ul>
-			<a href="/" class="icon l-overlay-container__close js-m-location__location-link"></a>
 		</div>
 	</div>
 
@@ -183,7 +184,6 @@ Nested components (e.g. a molecule that consists of one or more atoms) are handl
 	
 	public class BubbleLocationModel
 	{
-	    public bool Active { get; set; }
 		public string LocationKey { get; set; }
 		public string Target { get; set; }
 		public string Name { get; set; }

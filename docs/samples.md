@@ -7,6 +7,7 @@
 - [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
 
 ## View Samples
+If you need more informations and samples about Nitro, please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/app/templates/project/docs/nitro.md)!
 
 #### The easy view sample
 This sample shows a simple Nitro Html View.

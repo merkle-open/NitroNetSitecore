@@ -6,7 +6,10 @@
 - [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
 - [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
 
-## A Layout view
+## Templating
+Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/app/templates/project/docs/nitro.md) informations and samples about Nitro.
+
+## Layout view
 In Sitecore you can add only partials, placeholders or static components (which have no datasource) to a layout file.
 
 	<!DOCTYPE html>
@@ -87,9 +90,9 @@ Model snippet
 		public string Id { get; set; }
 	}
 
-## Component
+### Component
 
-### The easy view sample
+#### The easy view sample
 This sample shows a simple Nitro Html View.
 
 ##### View
@@ -125,7 +128,7 @@ This sample shows a simple Nitro Html View.
         public string ButtonText { get; set; }
     }
 
-### A view with repeating subentities
+#### A view with repeating subentities
 
 ##### View
 
@@ -150,7 +153,7 @@ In this case, we need a model class with an enumerable property called `links`. 
 		public string LinkText { get; set; }
 	}
 
-### A view with sub-components
+#### A view with sub-components
 Nested components (e.g. a molecule that consists of one or more atoms) are handled by one controller action and doesn't invoke a new controller for each sub component. In the following case, the LocationController has the responsibility to create all parts of the LocationModel which also includes data of the sub component `Bubble`.
 
 ##### View
@@ -204,4 +207,3 @@ View snippet
 Model snippet (maps the `data` attribute)
 
 	public BubbleLocationModel BubbleLocation { get; set; }
-

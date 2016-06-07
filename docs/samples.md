@@ -10,6 +10,8 @@
 Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/app/templates/project/docs/nitro.md) informations and samples about Nitro.
 
 ## Layout view
+
+### The easy layout view example 
 In Sitecore you can add only partials, placeholders or static components (which have no datasource) to a layout file.
 
 	<!DOCTYPE html>
@@ -17,27 +19,26 @@ In Sitecore you can add only partials, placeholders or static components (which 
 	<head>
 		{{partial name="head"}}
 	</head>
-	<body ontouchstart="">
-	<header class="l-header">
-		{{{placeholder name="HeaderArea" template="header"}}}
+	<body>
+	<header>
+		{{placeholder name="HeaderArea"}}
 	</header>
-	<div class="l-container l-container--tile l-container--tile-home">
-		<div class="l-1of1">
-			{{component name="Breadcrumb"}}
-		</div>
-		<div class="l-tile l-tile--home-movie l-1of1">
-			<div class="l-tile__content l-tile__content--full">
-				{{placeholder name="StageArea" template="stage"}}
-			</div>
-		</div>
-		{{placeholder name="ContentArea" template="home"}}
+	<div>
+		{{component name="Breadcrumb"}}
+		{{placeholder name="ContentArea"}}
 	</div>
-	<footer class="l-footer">
-		{{{placeholder name="FooterArea" template="footer"}}}
+	<footer>
+		{{placeholder name="FooterArea"}}
 	</footer>
-	{{partial name="foot" }}
+	{{partial name="foot"}}
 	</body>
 	</html>
+
+In order to get this layout view to work you need to create a layout item, a controller rendering called `Breadcrumb` and a controller `BreadcrumbController`. Please follow the [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md) page for this simple case.
+
+### The specific component template example
+
+*tbd*
 
 ## Handlebars helpers
 

@@ -31,7 +31,7 @@ To use a Nitro based component in Sitecore, you can create a normal `System.Web.
 
 The whole magic would be execute on the returning line `return View("teaser", model);`
 
-The string `"teaser"` must be fit with the name of a Nitro component. The guidelines of a model would be explained under chapter *"Create a Model"*.
+The string `"teaser"` must fit the directory name of a Nitro component. The guidelines of a model would be explained under chapter *"Create a Model"*.
 
 #### Create a Model
 
@@ -65,3 +65,22 @@ In this case, create an equivalent .Net class with same properties. Please make 
 	    public IEnumerable<SpecialClassModel> Items { get; set; }
 		...
 	}
+
+#### Create a Layout in Sitecore
+
+Create a layout item below `/sitecore/layout/Layouts` and set the `Path` field relative to path you configured in the setting `NitroNet.BasePath`. Please make sure that you set the file name without extension.
+
+##### Example
+
+Preconditions:
+
+- View file path is `/Nitro/Sample/frontend/views/layout.html`
+- `NitroNet.BasePath` setting is `Nitro/Sample`
+
+The resulting `Path` field value is `frontend/views/layout`
+
+#### Create a Controller rendering in Sitecore
+
+You only need to create controller rendings for static components or renderings you want to place on a placeholder. For more information on this matter please follow the [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md) page. 
+
+Create a Controller rendering item below `/sitecore/layout/Renderings` and set the item name accoording to the components directory name. Also set the `Controller` field to the controller you have created as shown in the example above.

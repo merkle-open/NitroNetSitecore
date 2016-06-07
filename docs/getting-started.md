@@ -35,7 +35,7 @@ The string `"teaser"` must be fit with the name of a Nitro component. The guidel
 
 #### Create a Model
 
-The Model definition is very simple and smart. In the Nitro Folder of your selected component (e.g. `.../frontend/components/molecules/teaser`) it's possible to see all needed information of your model definition. This is the contract with the Frontend. You can find it under `./_data/<molecule-name>.json`:
+The Model definition is very simple and smart. In the Nitro folder of your selected component (e.g. `.../frontend/components/molecules/teaser`) it's possible to see all needed information of your model definition. This is the contract with the frontend. You can find it under `./_data/<molecule-name>.json`:
 
 	{
 		"headline" : "Headline first-line",
@@ -44,7 +44,7 @@ The Model definition is very simple and smart. In the Nitro Folder of your selec
 		"ButtonText" : "Next"
 	}
 
-In this case, create an equivalent .Net Class with same properties:
+In this case, create an equivalent .Net class with same properties. Please make sure that the properties have the same name. The only thing you don't need to worry about is case sensitivity:
 
 	public class TeaserModel
     {

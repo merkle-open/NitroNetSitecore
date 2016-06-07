@@ -56,7 +56,7 @@ This sample shows a simple Nitro Html View.
 
 ###### Model
 
-In this case, we need a Model-Class with a Enumerable-Property called `links`. The main-model self, hasn't any other properties:
+In this case, we need a model class with an enumerable property called `links`. The main model itself hasn't any other properties:
 
 	public class LinkListModel
 	{
@@ -70,7 +70,7 @@ In this case, we need a Model-Class with a Enumerable-Property called `links`. T
 	}
 
 #### A view with sub-components
-Nested components (a molecule has internally atom components) would be created into the same controller and doesn't invoke a new controller. In the following case, the LocationController has the responsibility to create all parts of the LocationModel.
+Nested components (e.g. a molecule that consists of one or more atoms) would be created into the same controller and doesn't invoke a new controller. In the following case, the LocationController has the responsibility to create all parts of the LocationModel.
 
 ###### View
 
@@ -96,7 +96,7 @@ Nested components (a molecule has internally atom components) would be created i
 		public BubbleLocationModel BubbleLocation { get; set; }
 	}
 	
-	public class LocationModel
+	public class BubbleLocationModel
 	{
 	    public bool Active { get; set; }
 		public string LocationKey { get; set; }
@@ -122,10 +122,6 @@ Model snippet
 
 	public BubbleLocationModel BubbleLocation { get; set; }
 
-*or*
-
-	public BubbleLocationModel Bubble { get; set; }
-
 
 #### A view with placeholders
 
@@ -136,7 +132,7 @@ Placeholders doesn't need a special interaction in user code. In Sitecore you ne
 	</div>
 
 ### A Layout view
-In Sitecore you can add only components without a datasource or placeholders to a layout-file.
+In Sitecore you can add only components without a datasource or placeholders to a layout file.
 
 	<!DOCTYPE html>
 	<html>

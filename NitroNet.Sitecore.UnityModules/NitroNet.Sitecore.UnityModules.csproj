@@ -31,15 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Develop|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Develop\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -71,30 +62,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Schema.1.0.8\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\NitroNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\NitroNet.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\NitroNet.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet.UnityModules, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.UnityModules.1.0.0.4\lib\net45\NitroNet.UnityModules.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet.ViewEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\NitroNet.ViewEngine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NitroNet.ViewEngine.TemplateHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Mvc">
@@ -140,17 +107,31 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Veil, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\Veil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Veil.Handlebars, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NitroNet.1.0.0.0\lib\net45\Veil.Handlebars.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Develop'">
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="NitroNet.Common">
+          <HintPath>..\..\NitroNet\NitroNet.Common\bin\release\NitroNet.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.Mvc">
+          <HintPath>..\..\NitroNet\NitroNet.Mvc\bin\release\NitroNet.Mvc.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.UnityModules">
+          <HintPath>..\..\NitroNet\NitroNet.UnityModules\bin\release\NitroNet.UnityModules.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.ViewEngine">
+          <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\release\NitroNet.ViewEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.ViewEngine.TemplateHandler">
+          <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\release\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
+        </Reference>
+        <Reference Include="Veil">
+          <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\release\Veil.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Debug'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\debug\NitroNet.Common.dll</HintPath>

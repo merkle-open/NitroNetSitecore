@@ -5,6 +5,8 @@ using NitroNet.Sitecore.Caching;
 using NitroNet.Sitecore.Rendering;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
+using Sitecore;
+using Sitecore.Data;
 using Sitecore.Mvc.Common;
 using Veil;
 
@@ -18,6 +20,7 @@ namespace NitroNet.Sitecore.CastleWindsorModules
             container.Register(Component.For<ISitecoreRenderingRepository>().ImplementedBy<SitecoreRenderingRepository>());
             container.Register(Component.For<ISitecoreCacheManager>().ImplementedBy<SitecoreCacheManager>());
             container.Register(Component.For<INitroTemplateHandlerFactory>().ImplementedBy<SitecoreMvcNitroTemplateHandlerFactory>());
+            container.Register(Component.For<Database>().UsingFactoryMethod(() => Context.Database));
         }
     }
 }

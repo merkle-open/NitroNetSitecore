@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore", "NitroNet.Sitecore\NitroNet.Sitecore.csproj", "{D5228116-9EBD-4055-B50B-33A2F28B2A6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore.UnityModules", "NitroNet.Sitecore.UnityModules\NitroNet.Sitecore.UnityModules.csproj", "{F836AB0E-1182-4D45-836F-0066DEDE0D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore.CastleWindsorModules", "NitroNet.Sitecore.CastleWindsorModules\NitroNet.Sitecore.CastleWindsorModules.csproj", "{7AB3D8F6-200A-4C56-8310-4FCBF862815B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,12 @@ Global
 		{F836AB0E-1182-4D45-836F-0066DEDE0D68}.Develop|Any CPU.Build.0 = Develop|Any CPU
 		{F836AB0E-1182-4D45-836F-0066DEDE0D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F836AB0E-1182-4D45-836F-0066DEDE0D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Develop|Any CPU.Build.0 = Debug|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB3D8F6-200A-4C56-8310-4FCBF862815B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

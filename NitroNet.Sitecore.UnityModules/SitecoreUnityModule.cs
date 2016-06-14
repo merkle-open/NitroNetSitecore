@@ -4,6 +4,8 @@ using NitroNet.Sitecore.Rendering;
 using NitroNet.UnityModules;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
+using Sitecore;
+using Sitecore.Data;
 using Sitecore.Mvc.Common;
 using Veil;
 
@@ -19,6 +21,7 @@ namespace NitroNet.Sitecore.UnityModules
             container.RegisterType<ISitecoreCacheManager, SitecoreCacheManager>(new ContainerControlledLifetimeManager());
             container.RegisterType<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>(
                 new ContainerControlledLifetimeManager());
+            container.RegisterType<Database>(new InjectionFactory(u => Context.Database));
         }
     }
 }

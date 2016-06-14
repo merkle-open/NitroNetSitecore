@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using NitroNet.Sitecore.Caching;
+using Sitecore.Data;
 using SC = Sitecore;
 
 namespace NitroNet.Sitecore.Rendering
 {
     public class SitecoreRenderingRepository : ISitecoreRenderingRepository
     {
+        private readonly Database _contextDatabase;
         public const string ControllerRenderingId = "{2A3E91A0-7987-44B5-AB34-35C2D9DE83B9}";
         public const string SitecoreRenderingCache = "NitroNet.SitecoreRenderings";
         private readonly ISitecoreCache _cache;
 
-        public SitecoreRenderingRepository(ISitecoreCacheManager cacheManager)
+        public SitecoreRenderingRepository(ISitecoreCacheManager cacheManager, Database contextDatabase)
         {
+            _contextDatabase = contextDatabase;
             _cache = cacheManager.Get(SitecoreRenderingCache);
         }
 
@@ -24,7 +27,7 @@ namespace NitroNet.Sitecore.Rendering
         private IDictionary<string, string> GetAllRenderings()
         {
             var allRenderings = new Dictionary<string, string>();
-            var layoutItem = SC.Context.Database.GetItem(SC.ItemIDs.LayoutRoot);
+            var layoutItem = _contextDatabase.GetItem(SC.ItemIDs.LayoutRoot);
 
             if (layoutItem != null)
             {

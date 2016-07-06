@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,11 +56,14 @@ namespace NitroNet.Sitecore
 		public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
 		{
 			var htmlHelper = CreateHtmlHelper(context);
+		    var dynamicKey = key;
+		    if (!string.IsNullOrEmpty(index))
+		    {
+		        dynamicKey = key + "_" + index;
+		    }
+				
 
-			if (!string.IsNullOrEmpty(index))
-				key += "_" + index;
-
-			context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key));
+			context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
 		}
 
 	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
@@ -188,21 +192,21 @@ namespace NitroNet.Sitecore
             return null;
         }
 
-        private string CleanControllerName(string text)
+        private static string CleanControllerName(string text)
         {
             if (string.IsNullOrEmpty(text))
             {
                 return string.Empty;
             }
 
-            string[] words = text.Split(' ', '-');
-            StringBuilder sb = new StringBuilder();
+            var words = text.Split(' ', '-');
+            var sb = new StringBuilder();
 
-            foreach (string s in words)
+            foreach (var s in words)
             {
-                string firstLetter = s.Substring(0, 1);
-                string rest = s.Substring(1, s.Length - 1);
-                sb.Append(firstLetter.ToUpper() + rest);
+                var firstLetter = s.Substring(0, 1);
+                var rest = s.Substring(1, s.Length - 1);
+                sb.Append(firstLetter.ToUpper(CultureInfo.InvariantCulture) + rest);
             }
 
             return sb.ToString();
@@ -215,7 +219,7 @@ namespace NitroNet.Sitecore
                 return string.Empty;
             }
 
-            return text.Replace(" ", string.Empty).Replace("-", string.Empty).ToLower();
+            return text.Replace(" ", string.Empty).Replace("-", string.Empty).ToLower(CultureInfo.InvariantCulture);
         }
 
         private bool GetValueFromObjectHierarchically(object model, string propertyName, out object modelValue)

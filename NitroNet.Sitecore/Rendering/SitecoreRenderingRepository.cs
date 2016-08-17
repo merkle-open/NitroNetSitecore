@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using NitroNet.Sitecore.Caching;
 using Sitecore.Data;
 using SC = Sitecore;
@@ -55,22 +56,12 @@ namespace NitroNet.Sitecore.Rendering
                 _cache.Set(GetCacheKey(), renderings);
             }
 
-            if (!renderings.ContainsKey(cleanRenderingName))
-            {
-                return null;
-            }
-
-            return renderings[cleanRenderingName];
+            return !renderings.ContainsKey(cleanRenderingName) ? null : renderings[cleanRenderingName];
         }
 
-        private string CleanName(string text)
+        private static string CleanName(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return string.Empty;
-            }
-
-            return text.Replace(" ", string.Empty).Replace("-", string.Empty).ToLower();
+            return string.IsNullOrEmpty(text) ? string.Empty : text.Replace(" ", string.Empty).Replace("-", string.Empty).ToLower(CultureInfo.InvariantCulture);
         }
     }
 }

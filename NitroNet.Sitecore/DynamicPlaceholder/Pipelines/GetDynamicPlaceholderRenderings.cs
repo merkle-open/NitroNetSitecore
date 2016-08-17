@@ -59,17 +59,6 @@ namespace NitroNet.Sitecore.DynamicPlaceholder.Pipelines
                 }
                 args.PlaceholderRenderings.AddRange(collection);
             }
-
-            //var innerArgs = new GetPlaceholderRenderingsArgs(placeholderKey, args.LayoutDefinition, args.ContentDatabase, args.DeviceId);
-            //_innerAllowedRenderings.Process(innerArgs);
-
-            //args.DialogURL = innerArgs.DialogURL;
-            //args.HasPlaceholderSettings = innerArgs.HasPlaceholderSettings;
-            //args.OmitNonEditableRenderings = innerArgs.OmitNonEditableRenderings;
-            //args.PlaceholderRenderings = innerArgs.PlaceholderRenderings;
-            //args.PredefinedRenderingIds = innerArgs.PredefinedRenderingIds;
-
-            //CopyOptions(innerArgs.Options, args.Options);
         }
     }
 }

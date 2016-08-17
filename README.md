@@ -22,3 +22,12 @@ The name says it all: NitroNet for Sitecore is a special view engine, based on A
 - [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
 - [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
 - [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
+
+
+## Credits and special thanks
+
+Thanks to all the people who made and released these awesome resources for free!
+
+Special thanks to [Marco Schälle](https://github.com/marcoschaelle) and [Stefan Schälle](https://github.com/schaelle) who fight for a smart way to integrate Frontends into ASP.NET and create the predecessor [TerrificNet](https://github.com/namics/TerrificNet) of NitroNet itself. Marco and Stefan were our opinion leaders of this product.
+
+Also special thanks to [Mark Cassidy](https://github.com/cassidydotdk) for all product commits and propagation of our idea to the whole world.

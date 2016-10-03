@@ -4,7 +4,7 @@
       define solution version here or pass it as MSBuild parameter
       (f.e. "... /p:PackageVersion="1.0.0.156" ...")
     -->
-    <PackageVersion Condition="'$(PackageVersion)' == ''">1.0.0.0</PackageVersion>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0.0</PackageVersion>
   </PropertyGroup>
   <Target Name="SetAssemblyVersion" BeforeTargets="BeforeBuild">
     <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(PackageVersion)" AssemblyFileVersion="$(PackageVersion)" />

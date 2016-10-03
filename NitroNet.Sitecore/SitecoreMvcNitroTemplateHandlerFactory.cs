@@ -13,8 +13,7 @@ namespace NitroNet.Sitecore
         private readonly ISitecoreRenderingRepository _sitecoreRenderingRepository;
         private static readonly string SlotName = Guid.NewGuid().ToString("N");
 
-        public SitecoreMvcNitroTemplateHandlerFactory(AsyncLocal<HttpContext> asyncLocal,
-            IComponentRepository componentRepository, ISitecoreRenderingRepository sitecoreRenderingRepository)
+        public SitecoreMvcNitroTemplateHandlerFactory(AsyncLocal<HttpContext> asyncLocal, IComponentRepository componentRepository, ISitecoreRenderingRepository sitecoreRenderingRepository)
         {
             _asyncLocal = asyncLocal;
             _componentRepository = componentRepository;

@@ -66,8 +66,7 @@ namespace NitroNet.Sitecore
 			context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
 		}
 
-	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
-	        object model, RenderingContext context)
+	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation, object model, RenderingContext context)
 	    {
             var requestContext = PageContext.Current.RequestContext;
 	        var savedSkin = requestContext.RouteData.Values["skin"];
@@ -109,8 +108,7 @@ namespace NitroNet.Sitecore
 
 	            if (modelFound && subModel == null)
 	            {
-	                Log.Error(
-                        string.Format("Property {0} of model {1} is null.", propertyName, model.GetType()), this);
+	                Log.Error($"Property {propertyName} of model {model.GetType()} is null.", this);
 	                return;
 	            }
 
@@ -134,12 +132,7 @@ namespace NitroNet.Sitecore
 
                     context.Writer.Write(htmlHelper.Sitecore().Controller(controller));
 
-                    Log.Warn(
-                        string.Format(
-                            "Controller {0} gets directly called by NitroNet. " +
-                            "Consider to create a rendering with name \"{1}\" in order to let the controller be called by the Sitecore rendering pipeline. " +
-                            "Component: {2}, Skin: {3}, Data: {4}",
-                            controller, cleanComponentName, component.Value, skin.Value, dataVariation.Value), this);
+                    Log.Warn($"Controller {controller} gets directly called by NitroNet. " + $"Consider to create a rendering with name \"{cleanComponentName}\" in order to let the controller be called by the Sitecore rendering pipeline. " + $"Component: {component.Value}, Skin: {skin.Value}, Data: {dataVariation.Value}", this);
                 }
 	        }
 	        finally

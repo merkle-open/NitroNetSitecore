@@ -39,9 +39,9 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -111,6 +111,7 @@
     <Compile Include="Caching\ISitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCache.cs" />
+    <Compile Include="Configurator.cs" />
     <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
     <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
     <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
@@ -172,8 +173,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
+    <Content Include="App_Config\Include\NitroNet\Configurator.config" />
     <None Include="NitroNet.Sitecore.nuspec" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

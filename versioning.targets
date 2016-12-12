@@ -9,10 +9,10 @@
 	<PatchVersion Condition="'$(PatchVersion)' == ''">0</PatchVersion>
 	<BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
 	<PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)</PackageVersion>
-	<AssemblyVersion>$(MajorVersion).$(MinorVersion).0.0</AssemblyVersion>
-	<AssemblyFileVersion>$(PackageVersion).$(BuildNumber)</AssemblyFileVersion>
+	<FullAssemblyVersion>$(MajorVersion).$(MinorVersion).0.0</FullAssemblyVersion>
+	<FullAssemblyFileVersion>$(PackageVersion).$(BuildNumber)</FullAssemblyFileVersion>
   </PropertyGroup>
   <Target Name="SetAssemblyVersion" BeforeTargets="BeforeBuild">
-    <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(AssemblyVersion)" AssemblyFileVersion="$(AssemblyFileVersion)" />
+    <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(FullAssemblyVersion)" AssemblyFileVersion="$(FullAssemblyFileVersion)" />
   </Target>
 </Project>

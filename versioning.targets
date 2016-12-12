@@ -4,9 +4,15 @@
       define solution version here or pass it as MSBuild parameter
       (f.e. "... /p:PackageVersion="1.0.0.156" ...")
     -->
-    <PackageVersion Condition="'$(PackageVersion)' == ''">1.0.0.0</PackageVersion>
+	<MajorVersion Condition="'$(MajorVersion)' == ''">1</MajorVersion>
+	<MinorVersion Condition="'$(MinorVersion)' == ''">1</MinorVersion>
+	<PatchVersion Condition="'$(PatchVersion)' == ''">0</PatchVersion>
+	<BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+	<PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)</PackageVersion>
+	<AssemblyVersion>$(MajorVersion).$(MinorVersion).0.0</AssemblyVersion>
+	<AssemblyFileVersion>$(PackageVersion).$(BuildNumber)</AssemblyFileVersion>
   </PropertyGroup>
   <Target Name="SetAssemblyVersion" BeforeTargets="BeforeBuild">
-    <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(PackageVersion)" AssemblyFileVersion="$(PackageVersion)" />
+    <MSBuild.ExtensionPack.Framework.AssemblyInfo AssemblyInfoFiles="Properties\AssemblyInfo.cs" AssemblyVersion="$(AssemblyVersion)" AssemblyFileVersion="$(AssemblyFileVersion)" />
   </Target>
 </Project>

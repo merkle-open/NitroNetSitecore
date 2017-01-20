@@ -29,6 +29,42 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-SC82\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'">
+    <OutputPath>bin\Release-SC82\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-SC81\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'">
+    <OutputPath>bin\Release-SC81\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
@@ -36,14 +72,6 @@
     </Reference>
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.1.160519\lib\NET45\Sitecore.Kernel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Mvc.NoReferences.8.1.160519\lib\NET45\Sitecore.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -55,8 +83,46 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+   <Choose>
+    <When Condition="'$(Configuration)' == 'Release-SC81' Or '$(Configuration)' == 'Debug-SC81' ">
+      <ItemGroup>
+        <Reference Include="Sitecore.Kernel">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC81\Sitecore.Kernel.dll</HintPath>
+        </Reference>
+        <Reference Include="Sitecore.Mvc">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC81\Sitecore.Mvc.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82'">
+      <ItemGroup>
+        <Reference Include="Sitecore.Kernel">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC82\Sitecore.Kernel.dll</HintPath>
+        </Reference>
+        <Reference Include="Sitecore.Mvc">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC82\Sitecore.Mvc.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Sitecore.Kernel">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\Sitecore.Kernel.dll</HintPath>
+        </Reference>
+        <Reference Include="Sitecore.Mvc">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\Sitecore.Mvc.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\release\NitroNet.Common.dll</HintPath>
@@ -78,7 +144,7 @@
         </Reference>
       </ItemGroup>
     </When>
-    <When Condition="'$(Configuration)' == 'Debug'">
+    <When Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug-SC82' Or '$(Configuration)' == 'Debug-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\debug\NitroNet.Common.dll</HintPath>

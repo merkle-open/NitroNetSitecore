@@ -19,6 +19,8 @@
     <!-- push to local nuget repository -->
     <NugetRepository Condition="'$(NugetRepository)' == ''">C:\nuget_local</NugetRepository>
     <PrereleaseVersion Condition="'$(PrereleaseVersion)' == ''">alpha</PrereleaseVersion>
+	<!-- product version -->
+    <ProductVersion Condition="'$(ProductVersion)' == ''">Sitecore82</ProductVersion>
   </PropertyGroup>
   <!-- get package version from versioning.target, if any -->
   <Choose>  
@@ -46,7 +48,7 @@
     <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
     <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
     <PackageOutput>$(ProjectName.Replace('.csproj', '')).*.nupkg</PackageOutput>
-    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -MSBuildVersion 14 $(IncludeReferencedProjects) -Properties "DependentVersion=$(NugetPackageVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
+    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -MSBuildVersion 14 $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
     <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
   </PropertyGroup>
   <Target Name="PublishPackage" Condition="'$(PublishPackage)' == 'true'">

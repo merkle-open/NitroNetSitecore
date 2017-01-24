@@ -42,9 +42,9 @@
 				<DependentNitroNetVersion>$(NugetPackageVersion)</DependentNitroNetVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(NitroNetCorePrerelaseVersion)' !=''">
+		<When Condition="'$(NitroNetCorePrereleaseVersion)' !=''">
 			<PropertyGroup>
-				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrerelaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrereleaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
 			</PropertyGroup>
 		</When>
 		<Otherwise>

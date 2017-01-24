@@ -44,12 +44,12 @@
 		</When>
 		<When Condition="'$(NitroNetCorePrerelaseVersion)' !=''">
 			<PropertyGroup>
-				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchrVersion)-$(NitroNetCorePrerelaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrerelaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchrVersion).$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion).$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>

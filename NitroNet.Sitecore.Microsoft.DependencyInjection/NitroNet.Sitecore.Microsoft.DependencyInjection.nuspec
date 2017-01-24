@@ -13,7 +13,7 @@
     <copyright>Copyright 2016</copyright>
     <tags>nitro sitecore microsoft extensions handlebars viewengine</tags>
     <dependencies>
-      <dependency id="NitroNet.Core" version="$dependentVersion$" />
+      <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />
       <dependency id="NitroNet.Sitecore.$productVersion$" version="$dependentVersion$" />
     </dependencies>
   </metadata>

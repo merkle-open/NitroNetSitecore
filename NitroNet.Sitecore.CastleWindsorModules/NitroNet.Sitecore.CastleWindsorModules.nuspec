@@ -13,8 +13,8 @@
     <copyright>Copyright 2016</copyright>
     <tags>nitro sitecore castle windsor handlebars viewengine</tags>
     <dependencies>
-      <dependency id="NitroNet.Core" version="$dependentVersion$" />
-      <dependency id="NitroNet.CastleWindsorModules" version="$dependentVersion$" />
+      <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />
+      <dependency id="NitroNet.CastleWindsorModules" version="$dependentNitroNetVersion$" />
       <dependency id="NitroNet.Sitecore.$productVersion$" version="$dependentVersion$" />
     </dependencies>
   </metadata>

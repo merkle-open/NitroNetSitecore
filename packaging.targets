@@ -35,24 +35,24 @@
 	  </PropertyGroup>
 	</Otherwise>
   </Choose>
-  <Choose>
+	<Choose>
 	<!-- No core version provided by the build command therefore use the same version for NitroNetCore as for the actual build-->
-	<When Condition="'$(NitroNetCoreVersion)' == ''">
-		<PropertyGroup>
-			<DependentNitroNetVersion>$(NugetPackageVersion)</DependentNitroNetVersion>
-		</PropertyGroup>
-	</When>
-	<When Condition="'$(NitroNetCorePrerelaseVersion)' !=''">
-		<PropertyGroup>
-			<DependentNitroNetVersion>$(NitroNetCoreVersion)-$(NitroNetCorePrerelaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
-		</PropertyGroup>
-	</When>
-	<Otherwise>
-		<PropertyGroup>
-			<DependentNitroNetVersion>$(NitroNetCoreVersion).$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
-		</PropertyGroup>
-	</Otherwise>
-  </Choose>
+		<When Condition="'$(NitroNetCoreMajorVersion)' == '' Or '$(NitroNetCoreMinorVersion)'=='' Or '$(NitroNetCorePatchVersion)'=='' Or '$(NitroNetCoreBuildnumber)'==''">
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NugetPackageVersion)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(NitroNetCorePrerelaseVersion)' !=''">
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchrVersion)-$(NitroNetCorePrerelaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchrVersion).$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
   <PropertyGroup>
     <BuildDependsOn>
       $(BuildDependsOn);

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>$id$</id>
+    <id>$id$.$productVersion$</id>
     <version>$version$</version>
     <authors>Namics AG</authors>
     <owners>Namics AG</owners>
@@ -13,7 +13,7 @@
     <copyright>Copyright 2016</copyright>
     <tags>nitro sitecore handlebars viewengine</tags>
     <dependencies>
-      <dependency id="NitroNet.Core" version="$dependentVersion$" />
+      <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />
     </dependencies>
   </metadata>
 </package>

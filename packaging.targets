@@ -18,7 +18,9 @@
     <PublishPackage Condition="'$(PublishPackage)' == ''">true</PublishPackage>
     <!-- push to local nuget repository -->
     <NugetRepository Condition="'$(NugetRepository)' == ''">C:\nuget_local</NugetRepository>
-    <PrereleaseVersion Condition="'$(PrereleaseVersion)' == ''">alpha</PrereleaseVersion>
+    <PrereleaseVersion Condition="'$(PrereleaseVersion)' == ''"></PrereleaseVersion>
+	<!-- product version -->
+    <ProductVersion Condition="'$(ProductVersion)' == ''">Sitecore82</ProductVersion>
   </PropertyGroup>
   <!-- get package version from versioning.target, if any -->
   <Choose>  
@@ -33,6 +35,24 @@
 	  </PropertyGroup>
 	</Otherwise>
   </Choose>
+	<Choose>
+	<!-- No core version provided by the build command therefore use the same version for NitroNetCore as for the actual build-->
+		<When Condition="'$(NitroNetCoreMajorVersion)' == '' Or '$(NitroNetCoreMinorVersion)'=='' Or '$(NitroNetCorePatchVersion)'=='' Or '$(NitroNetCoreBuildnumber)'==''">
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NugetPackageVersion)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(NitroNetCorePrereleaseVersion)' !=''">
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrereleaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)</DependentNitroNetVersion>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
   <PropertyGroup>
     <BuildDependsOn>
       $(BuildDependsOn);
@@ -46,7 +66,7 @@
     <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
     <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
     <PackageOutput>$(ProjectName.Replace('.csproj', '')).*.nupkg</PackageOutput>
-    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -MSBuildVersion 14 $(IncludeReferencedProjects) -Properties "DependentVersion=$(NugetPackageVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
+    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -MSBuildVersion 14 $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
     <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
   </PropertyGroup>
   <Target Name="PublishPackage" Condition="'$(PublishPackage)' == 'true'">

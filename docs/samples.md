@@ -36,6 +36,32 @@ In Sitecore you can add only partials, placeholders or static components (which 
 
 In order to get this layout view to work you need to create a layout item, a controller rendering called `Breadcrumb` and a controller `BreadcrumbController`. Please follow the [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md) page for this simple case.
 
+### Model on layout view level ###
+
+In the above example you can only see partials, placeholders and components without data. But what if you need to add direct value, e.g. a simple string indicating the language?
+You can make use of the out of the box functionality of Sitecore where you can define a model on your layout. First change your layout to this:
+
+	<!DOCTYPE html>
+	<html lang="{{htmlLanguage}}">
+		...
+	</html>
+
+Create a model inheriting from the Sitecore.Mvc.Presentation.IRenderingModel and implement the Initialize method where you fill your properties.
+
+	public class DefaultRenderingModel : IRenderingModel
+ 	{
+		public string HtmlLanguage { get; set; }
+
+		public void Initialize(Rendering rendering)
+		{
+			HtmlLanguage = Sitecore.Context.Language.Name;
+		}
+	}
+
+In the Sitecore backend create a new model item under /sitecore/layout/Models. On the newly created item in the field Model Type enter the fully qualified name of the DefaultRenderingModel you've created above.
+
+Finally you need to link your layout to the model item in the Model field. Reload your page and voila, the value is there.
+
 ### The specific component template example
 
 *tbd*
@@ -259,5 +285,4 @@ Controller for the `footer-link-list`
 		}
 	}
 
-For direct values like `title` there needs to be property, for the `footer-link-list` component not. 
-
+For direct values like `title` there needs to be property, for the `footer-link-list` component not.

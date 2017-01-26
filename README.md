@@ -21,7 +21,7 @@ The name says it all: NitroNet for Sitecore is a special view engine, based on A
 - [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
 - [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
 - [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
+- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
 
 
 ## Credits and special thanks

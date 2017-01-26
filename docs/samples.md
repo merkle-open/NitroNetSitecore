@@ -4,10 +4,10 @@
 - [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
 - [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
 - [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
+- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
 
 ## Templating
-Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/app/templates/project/docs/nitro.md) informations and samples about Nitro.
+Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md) informations and samples about Nitro.
 
 ## Layout view
 
@@ -178,7 +178,7 @@ Nested components (e.g. a molecule that consists of one or more atoms) are handl
 	public class LocationModel
 	{
 		public string SelectedLocation { get; set; }
-	    public IEnumerable<LocationModel> Locations { get; set; }
+		public IEnumerable<LocationModel> Locations { get; set; }
 		public BubbleLocationModel BubbleLocation { get; set; }
 	}
 	
@@ -208,3 +208,56 @@ View snippet
 Model snippet (maps the `data` attribute)
 
 	public BubbleLocationModel BubbleLocation { get; set; }
+
+#### A view with sub-components and dataVariation ####
+
+There is a special case where the model does not need to have a property for a specific sub-component. If you do not provide a model for the sub-component you need to ensure that at least a controller for this sub-component exists. You can also create a rendering for it inside Sitecore if you need to set special caching settings for this component because it is run through the rendering pipeline. NitroNetSitecore internally invokes the controller respectively the rendering pipeline and passes the `data` string as parameter to the action method call. If no data is present, the component name will be passed. 
+
+View snippet
+
+	<div class="o-footerContainer">
+		{{title}}
+		<div class="o-footerContainer__column"> 
+			{{component name="footer-link-list"}}
+		</div>
+		<div class="o-footerContainer__column">
+			{{component name="footer-link-list" data="social"}}
+		</div>
+	</div>
+
+Model
+
+	public class FooterContainerModel
+	{
+		public string Title { get; set; }
+	}
+
+Controller for the `footer-link-list`
+
+	public class FooterLinkListController : Controller
+	{
+		private readonly IFooterLinkService _service;
+
+		public FooterLinkListController(IFooterLinkService service)
+		{
+			_service = service;
+		}
+
+		public ActionResult Index(string dataVariation)
+		{
+			FooterLinkListViewModel model;
+			if (dataVariation.Equals("social", StringComparison.InvariantCultureIgnoreCase))
+			{
+				model = _service.CreateSocialLinks()
+			}
+			else
+			{
+				model = _service.CreateFooterLinks();
+			}
+
+			return View("path/to/your/template/footer-link-list", model);
+		}
+	}
+
+For direct values like `title` there needs to be property, for the `footer-link-list` component not. 
+

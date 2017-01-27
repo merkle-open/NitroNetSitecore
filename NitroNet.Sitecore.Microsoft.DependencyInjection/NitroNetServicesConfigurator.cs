@@ -16,7 +16,6 @@ using Sitecore.Mvc.Common;
 using Veil;
 using Veil.Compiler;
 using Veil.Helper;
-using SitecoreReferences = Sitecore;
 
 namespace NitroNet.Sitecore.Microsoft.DependencyInjection
 {
@@ -35,7 +34,6 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddTransient(x => GridContext.GetFromRenderingContext(ContextService.Get().GetCurrent<RenderingContext>()));
             serviceCollection.AddSingleton<ISitecoreCacheManager, SitecoreCacheManager>();
             serviceCollection.AddSingleton<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>();
-            serviceCollection.AddTransient(x => SitecoreReferences.Context.Database);
         }
 
         private static void RegisterNitroNet(IServiceCollection serviceCollection)
@@ -45,8 +43,6 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             var config = ConfigurationLoader.LoadNitroConfiguration(rootPath);
             serviceCollection.AddSingleton(config);
             serviceCollection.AddSingleton<IFileSystem>(new FileSystem(rootPath, config));
-
-            serviceCollection.AddSingleton(new AsyncLocal<HttpContext>());
 
             serviceCollection.AddSingleton<IHelperHandlerFactory, DefaultRenderingHelperHandlerFactory>();
             serviceCollection.AddTransient<IMemberLocator, MemberLocatorFromNamingRule>();

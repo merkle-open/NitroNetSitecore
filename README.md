@@ -16,12 +16,12 @@ NitroNet is a full integration of Nitro frontends into ASP.NET. It is based on t
 The name says it all: NitroNet for Sitecore is a special view engine, based on ASP.NET MVC for the Content Management System [Sitecore](http://www.sitecore.net). It handles all possible presentation scenarios to integrate a Nitro frontend into Sitecore without functional loss (Sublayouting, Placeholders, Experience-Editor Full-Support, Personalization, ...). In addition it's possible to get a hybrid integration with Nitro frontends (based on simple and logic-less View-Pages) and own Razor views (*.cshtml). 
 
 ## Table of contents
-- [What's NitroNet](https://github.com/namics/NitroNetSitecore)
-- [Installation](https://github.com/namics/NitroNetSitecore/blob/master/docs/installation.md)
-- [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
-- [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
-- [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
+- [What's NitroNet](https://github.com/namics/NitroNet)
+- [Installation](docs/installation.md)
+- [Configuration](docs/configuration.md)
+- [Getting started](docs/getting-started.md)
+- [Samples](docs/samples.md)
+- [Known Issues](docs/known-issues.md)
 
 
 ## Credits and special thanks

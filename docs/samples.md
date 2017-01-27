@@ -4,10 +4,10 @@
 - [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
 - [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
 - [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Not yet implemented](https://github.com/namics/NitroNetSitecore/blob/master/docs/not-implemented.md)
+- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
 
 ## Templating
-Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/app/templates/project/docs/nitro.md) informations and samples about Nitro.
+Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md) informations and samples about Nitro.
 
 ## Layout view
 
@@ -35,6 +35,32 @@ In Sitecore you can add only partials, placeholders or static components (which 
 	</html>
 
 In order to get this layout view to work you need to create a layout item, a controller rendering called `Breadcrumb` and a controller `BreadcrumbController`. Please follow the [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md) page for this simple case.
+
+### Model on layout view level ###
+
+In the above example you can only see partials, placeholders and components without data. But what if you need to add direct value, e.g. a simple string indicating the language?
+You can make use of the out of the box functionality of Sitecore where you can define a model on your layout. First change your layout to this:
+
+	<!DOCTYPE html>
+	<html lang="{{htmlLanguage}}">
+		...
+	</html>
+
+Create a model inheriting from the Sitecore.Mvc.Presentation.IRenderingModel and implement the Initialize method where you fill your properties.
+
+	public class DefaultRenderingModel : IRenderingModel
+ 	{
+		public string HtmlLanguage { get; set; }
+
+		public void Initialize(Rendering rendering)
+		{
+			HtmlLanguage = Sitecore.Context.Language.Name;
+		}
+	}
+
+In the Sitecore backend create a new model item under /sitecore/layout/Models. On the newly created item in the field Model Type enter the fully qualified name of the DefaultRenderingModel you've created above.
+
+Finally you need to link your layout to the model item in the Model field. Reload your page and voila, the value is there.
 
 ### The specific component template example
 
@@ -178,7 +204,7 @@ Nested components (e.g. a molecule that consists of one or more atoms) are handl
 	public class LocationModel
 	{
 		public string SelectedLocation { get; set; }
-	    public IEnumerable<LocationModel> Locations { get; set; }
+		public IEnumerable<LocationModel> Locations { get; set; }
 		public BubbleLocationModel BubbleLocation { get; set; }
 	}
 	
@@ -208,3 +234,55 @@ View snippet
 Model snippet (maps the `data` attribute)
 
 	public BubbleLocationModel BubbleLocation { get; set; }
+
+#### A view with sub-components and dataVariation ####
+
+There is a special case where the model does not need to have a property for a specific sub-component. If you do not provide a model for the sub-component you need to ensure that at least a controller for this sub-component exists. You can also create a rendering for it inside Sitecore if you need to set special caching settings for this component because it is run through the rendering pipeline. NitroNetSitecore internally invokes the controller respectively the rendering pipeline and passes the `data` string as parameter to the action method call. If no data is present, the component name will be passed. 
+
+View snippet
+
+	<div class="o-footerContainer">
+		{{title}}
+		<div class="o-footerContainer__column"> 
+			{{component name="footer-link-list"}}
+		</div>
+		<div class="o-footerContainer__column">
+			{{component name="footer-link-list" data="social"}}
+		</div>
+	</div>
+
+Model
+
+	public class FooterContainerModel
+	{
+		public string Title { get; set; }
+	}
+
+Controller for the `footer-link-list`
+
+	public class FooterLinkListController : Controller
+	{
+		private readonly IFooterLinkService _service;
+
+		public FooterLinkListController(IFooterLinkService service)
+		{
+			_service = service;
+		}
+
+		public ActionResult Index(string dataVariation)
+		{
+			FooterLinkListViewModel model;
+			if (dataVariation.Equals("social", StringComparison.InvariantCultureIgnoreCase))
+			{
+				model = _service.CreateSocialLinks()
+			}
+			else
+			{
+				model = _service.CreateFooterLinks();
+			}
+
+			return View("path/to/your/template/footer-link-list", model);
+		}
+	}
+
+For direct values like `title` there needs to be property, for the `footer-link-list` component not.

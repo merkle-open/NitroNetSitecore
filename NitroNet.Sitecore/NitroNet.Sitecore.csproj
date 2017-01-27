@@ -91,6 +91,12 @@
       <HintPath>..\packages\Newtonsoft.Json.Schema.1.0.8\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Support.387950">
+      <HintPath>..\Libs\Support\Sitecore.Support.387950.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Support.414987">
+      <HintPath>..\Libs\Support\Sitecore.Support.414987.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -144,6 +150,7 @@
     <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
     <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderRenderings.cs" />
     <Compile Include="Events\EventHandlingInitializer.cs" />
+    <Compile Include="MvcRendering\Pipelines\GenerateCacheKey.cs" />
     <Compile Include="Rendering\ISitecoreRenderingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecoreMvcNitroTemplateHandler.cs" />
@@ -236,8 +243,11 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Content Include="App_Config\Include\NitroNet\MvcRenderingPipeline.config" />
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
+    <Content Include="App_Config\Include\NitroNet\Sitecore.Support.387950.config" />
+    <Content Include="App_Config\Include\NitroNet\Sitecore.Support.414987.config" />
     <None Include="NitroNet.Sitecore.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

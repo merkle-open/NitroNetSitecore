@@ -1,10 +1,10 @@
 ## Table of contents
 - [What's NitroNet](https://github.com/namics/NitroNetSitecore)
-- [Installation](https://github.com/namics/NitroNetSitecore/blob/master/docs/installation.md)
-- [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
-- [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
-- [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
+- [Installation](../installation.md)
+- [Configuration](../configuration.md)
+- [Getting started](../getting-started.md)
+- [Samples](../samples.md)
+- [Known Issues](../known-issues.md)
 
 ## Configuration
 

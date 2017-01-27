@@ -1,10 +1,9 @@
 ## Table of contents
-- [What's NitroNet](https://github.com/namics/NitroNetSitecore)
-- [Installation](https://github.com/namics/NitroNetSitecore/blob/master/docs/installation.md)
-- [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
-- [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
-- [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
+- [Installation](installation.md)
+- [Configuration](configuration.md)
+- [Getting started](getting-started.md)
+- [Samples](samples.md)
+- [Known Issues](known-issues.md)
 
 ### Limitations ###
 
@@ -14,7 +13,7 @@ The versions Sitecore 8.1 and 8.2 have a bug that the above mentioned method doe
 
 Sitecore provides two support DLLs for these issues (387950 and 414987) which are now included in the solution.
 
-As explained in the [samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md#a-view-with-sub-components-and-datavariation) there is the possibility to statically add sub-components to another component and those sub-components are rendered via the Sitecore rendering pipeline. NitroNetSitecore needs to add this dataVariation parameter to the cache key in order for the components to be cached correctly. Therefore we made some further adjustments to the GenerateCacheKey processor of the mvc.renderRendering pipeline. This is also automatically included in the solution.
+As explained in the [samples](samples.md#a-view-with-sub-components-and-datavariation) there is the possibility to statically add sub-components to another component and those sub-components are rendered via the Sitecore rendering pipeline. NitroNetSitecore needs to add this dataVariation parameter to the cache key in order for the components to be cached correctly. Therefore we made some further adjustments to the GenerateCacheKey processor of the mvc.renderRendering pipeline. This is also automatically included in the solution.
 
 **Important:** If you already have included these fixes or customized the SetCacheability or the GenerateCacheKey processor in your solution please pay attention!
 

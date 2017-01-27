@@ -1,10 +1,9 @@
 ## Table of contents
-- [What's NitroNet](https://github.com/namics/NitroNetSitecore)
-- [Installation](https://github.com/namics/NitroNetSitecore/blob/master/docs/installation.md)
-- [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
-- [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
-- [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
+- [Installation](installation.md)
+- [Configuration](configuration.md)
+- [Getting started](getting-started.md)
+- [Samples](samples.md)
+- [Known Issues](known-issues.md)
 
 ## Templating
 Please visit the [Nitro Example Documentation](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md) informations and samples about Nitro.
@@ -34,7 +33,7 @@ In Sitecore you can add only partials, placeholders or static components (which 
 	</body>
 	</html>
 
-In order to get this layout view to work you need to create a layout item, a controller rendering called `Breadcrumb` and a controller `BreadcrumbController`. Please follow the [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md) page for this simple case.
+In order to get this layout view to work you need to create a layout item, a controller rendering called `Breadcrumb` and a controller `BreadcrumbController`. Please follow the [Getting started](getting-started.md) page for this simple case.
 
 ### Model on layout view level ###
 

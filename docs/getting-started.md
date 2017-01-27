@@ -1,10 +1,9 @@
 ## Table of contents
-- [What's NitroNet](https://github.com/namics/NitroNetSitecore)
-- [Installation](https://github.com/namics/NitroNetSitecore/blob/master/docs/installation.md)
-- [Configuration](https://github.com/namics/NitroNetSitecore/blob/master/docs/configuration.md)
-- [Getting started](https://github.com/namics/NitroNetSitecore/blob/master/docs/getting-started.md)
-- [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md)
-- [Known Issues](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md)
+- [Installation](installation.md)
+- [Configuration](configuration.md)
+- [Getting started](getting-started.md)
+- [Samples](samples.md)
+- [Known Issues](known-issues.md)
 
 ## Getting started with NitroNet
 
@@ -81,6 +80,6 @@ The resulting `Path` field value is `frontend/views/layout`
 
 #### Create a Controller rendering in Sitecore
 
-You only need to create controller rendings for static components or renderings you want to place on a placeholder. For more information on this matter please follow the [Samples](https://github.com/namics/NitroNetSitecore/blob/master/docs/samples.md) page. 
+You only need to create controller rendings for static components or renderings you want to place on a placeholder. For more information on this matter please follow the [Samples](samples.md) page. 
 
 Create a Controller rendering item below `/sitecore/layout/Renderings` and set the item name accoording to the components directory name. Also set the `Controller` field to the controller you have created as shown in the example above.

@@ -1,5 +1,4 @@
 ## Table of contents
-- [What's NitroNet](https://github.com/namics/NitroNetSitecore)
 - [Installation](installation.md)
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)

@@ -21,7 +21,7 @@ As default it is set to be located at the root folder of your web application. I
 ```
 
 ### Change the Nitro file paths
-In addition, you got a new `nitronet-sitecore-config.json.example`-File in the root directory of the website project after installation of NitroNet for Sitecore. Remove the *example* in the file name to activate the config.
+In addition, you got a new `nitronet-config.json.example`-File in the root directory of the website project after installation of NitroNet for Sitecore. Rename it to `nitronet-config.json` to activate the config.
 
 ```json
 {
@@ -53,7 +53,5 @@ Explanation to the individual settings/properties:
 * **componentPaths**: The file path to your components, starting at your `NitroNet.BasePath`
 * **extensions**: The extensions of your handlebar files.
 * **filters**: File paths which match with the `filters` regex are being ignored
-
-
 
 That's all about view logic resolving of Nitro.

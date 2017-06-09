@@ -7,32 +7,53 @@
 
 ## Configuration
 
-### Connect the Nitro frontend to your application
-The location of your Nitro application could be configured very flexible.
+### Change the location of your Nitro application
+The location of your Nitro application can be configured very flexibly.
 
-As default it is set to be located at the root folder of your web application. If you like to change it, you can add an AppSetting with the Key-Value `NitroNet.BasePath` in your *web.config*. 
+As default it is set to be located at the root folder of your web application. If you like to change it, you can add an AppSetting with the Key-Value *NitroNet.BasePath* in your *Web.config*:
 
-Sample:
+```xml
+<configuration>
+  <appSettings>
+    <add key="NitroNet.BasePath" value="[path of your choice]" />
+  </appSettings>
+</configuration>
+```
 
-	<appSettings>
-	    <add key="NitroNet.BasePath" value ="Nitro/Sample" />
-	</appSettings>
+### Change the Nitro file paths
+In addition, you got a new `nitronet-sitecore-config.json.example`-File in the root directory of the website project after installation of NitroNet for Sitecore. Remove the *example* in the file name to activate the config.
 
-In addition, you got a new `config.json`-File in the root directory of the website project after installation of NitroNet:
+```json
+{
+  "viewPaths": [
+    "frontend/views/"
+  ],
+  "partialPaths": [
+    "frontend/views/_partials",
+  ],
+  "componentPaths": [
+    "frontend/patterns/atoms",
+    "frontend/patterns/molecules",
+    "frontend/patterns/organisms",
+  ],
+  "extensions": [
+    "hbs",
+    "html"
+  ],
+    "filters": [
+    ".*?\\/template\\/([\\w][^\\/]+)$",
+    ".*?\\/spec\\/([\\w][^\\/]+)$"
+ ]
+}
+```
 
-	{
-	  "viewPaths": [
-	    "frontend/views"
-	  ],
-	  "partialPaths": [
-	    "frontend/views/_partials"
-	  ],
-	  "componentPaths": [
-	    "frontend/components/atoms",
-	    "frontend/components/molecules",
-	    "frontend/components/organisms"
-	  ]
-	}
+Explanation to the individual settings/properties:
+* **viewPaths**: The file path to your views, starting at your `NitroNet.BasePath`
+* **partialPaths**: The file path to your partials, starting at your `NitroNet.BasePath`
+* **componentPaths**: The file path to your components, starting at your `NitroNet.BasePath`
+* **extensions**: The extensions of your handlebar files.
+* **filters**: File paths which match with the `filters` regex are being ignored
 
-The `config.json` file defines *view*-, *partial*- and *components*-paths, starting at your `NitroNet.BasePath`.
-In this case, the *atoms* would be located under `~/Nitro/Sample/frontend/components/atoms/`. That's all about view logic resolving of Nitro.
+
+
+That's all about view logic resolving of Nitro.

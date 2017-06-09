@@ -126,11 +126,12 @@ For direct values like `title` there needs to be property, for the `footer-link-
 
 Partials are simple includes of static markup into a base file and could be used for reducing the complexity of large view files.
 
-**TODO: Rework**
-NitroNet supports partials with the keyword `partial`:
+NitroNet supports partials with the keyword `partial` or with the keyword `>` (normal convention):
 
 ```
 {{partial name="head"}}
+
+{{> head}}
 ```
 
 ### Placeholders

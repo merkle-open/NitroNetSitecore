@@ -21,12 +21,16 @@ Please choose between variant
 * **A** with Unity, CastleWindsor or Microsoft.DependencyInjection
 * **B** with another IoC Framework.
 
+*Important information*: Because there can be vital changes between different Sitecore versions, we have to make sure that a specific NitroNet.Sitecore Nuget works with a specific Sitecore version. Therefore we created the NuGets with a Sitecore suffix. So you can be sure that they are working with the declared Sitecore version.
+Currently only Sitecore 8.2 is supported (there are only Sitecore82 NuGets).
+
 #### (A) With Unity, CastleWindsor or Microsoft.DependencyInjection
 
 ##### NuGet Package Installation
-TODO: Text welche Sitecore82 erklärt
 
-Execute following line in your NuGet Package Manager to install NitroNet for Sitecore with **Unity**:
+Execute following the line in your NuGet Package Manager to install NitroNet for Sitecore with your preferred IoC framework:
+
+**Unity**
 
 `PM >` `Install-Package NitroNet.Sitecore.UnityModules.Sitecore82`
 
@@ -34,11 +38,11 @@ Optionally, we recommend to install the [Unity.Mvc](https://www.nuget.org/packag
 
 `PM >` `Install-Package Unity.Mvc`
 
-or to install NitroNet for Sitecore with **CastleWindsor**:
+**CastleWindsor**
 
 `PM >` `Install-Package NitroNet.Sitecore.CastleWindsorModules.Sitecore82`
 
-or to install NitroNet for Sitecore with **Microsoft.DependencyInjection**:
+**Microsoft.DependencyInjection**
 
 `PM >` `Install-Package NitroNet.Sitecore.Microsoft.DependencyInjection.Sitecore82`
 
@@ -94,9 +98,8 @@ The */App_Config/Include/NitroNet/DependencyInjection.config* is automatically i
 
 #### (B) With another IoC Framework
 You don't like Unity and you design your application with an other IoC framework? No Problem.
-In this case, you can install NitroNet only with our base package:
 
-TODO: Text welche Sitecore82 erklärt
+In this case, you can install NitroNet only with our base package:
 
 `PM >` `Install-Package NitroNet.Sitecore.Sitecore82 `
 

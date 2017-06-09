@@ -83,7 +83,7 @@ Let's look at the following example:
 
 View snippet:
 
-````html
+```html
 <div class="o-footerContainer">
     {{title}}
     <div class="o-footerContainer__column"> 

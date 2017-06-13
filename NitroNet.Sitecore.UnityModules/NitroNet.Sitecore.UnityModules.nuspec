@@ -9,8 +9,8 @@
     <projectUrl>https://github.com/namics/NitroNetSitecore</projectUrl>
     <iconUrl>http://sitecore.namics.com/wp-content/themes/terrific/terrific/img/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NitroNet package for Sitecore</description>
-    <copyright>Copyright 2016</copyright>
+    <description>NitroNet Unity package for Sitecore</description>
+    <copyright>Copyright 2017</copyright>
     <tags>nitro sitecore unity handlebars viewengine</tags>
     <dependencies>
       <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />

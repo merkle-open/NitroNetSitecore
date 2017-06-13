@@ -110,13 +110,14 @@ public class FooModel
 
 Create a layout item below `/sitecore/layout/Layouts` and set the `Path` field relative to path you configured in the setting `NitroNet.BasePath`. Please make sure that you set the file name without the file extension.
 
-#### Example
+*Important:* It is currently only possible to use `.html` files as layouts.
 
-Preconditions:
-- View file path is `/Nitro/Sample/frontend/views/layout.html`
+#### Example
+Assumption:
+- The layout file path is `/Nitro/Sample/frontend/views/layout.html`
 - `NitroNet.BasePath` setting is `Nitro/Sample`
 
-The resulting `Path` field value is `frontend/views/layout`
+Conclusion: The resulting `Path` field value of the layout item is `frontend/views/layout`
 
 ### Create a Controller rendering in Sitecore
 

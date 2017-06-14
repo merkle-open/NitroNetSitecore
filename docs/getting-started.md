@@ -121,7 +121,7 @@ Conclusion: The resulting `Path` field value of the layout item is `frontend/vie
 
 ### Create a Controller rendering in Sitecore
 
-You only need to create Controller renderings for static components or renderings you want to place on a placeholder. In addition a big advantage when creating a Sitecore Controller rendering for a Nitro component is that you can configure the Sitecore caching for this component.
+You only need to create Controller renderings for static components or renderings you want to place on a placeholder. But when creating a Sitecore Controller rendering for a Nitro component you also have the big advantage that you can configure the Sitecore caching for this component.
 For more information on this matter please follow the [Samples](samples.md) page.
 
 Create a Controller rendering item below `/sitecore/layout/Renderings` and set the item name accoording to the components directory name (hyphens and case sensitivity can be ignored). Also set the `Controller` field to the controller you have created as shown in the example above.

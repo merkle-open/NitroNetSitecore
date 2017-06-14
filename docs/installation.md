@@ -21,8 +21,8 @@ Please choose between variant
 * **A** with Unity, CastleWindsor or Microsoft.DependencyInjection
 * **B** with another IoC Framework.
 
-*Important information*: Because there can be vital changes between different Sitecore versions, we have to make sure that a specific NitroNet.Sitecore Nuget works with a specific Sitecore version. Therefore we created the NuGets with a Sitecore suffix. So you can be sure that they are working with the declared Sitecore version.
-Currently only Sitecore 8.2 is supported (there are only Sitecore82 NuGets).
+**Important information**: Because there can be vital changes between different Sitecore versions, we have to make sure that a specific NitroNet.Sitecore Nuget works with a specific Sitecore version. Therefore we created the NuGets with a Sitecore suffix. So you can be sure that they are working with the declared Sitecore version.
+So for each supported Sitecore version you will find the proper NuGets. (e.g. all NuGets with Sitecore 8.2 compatibility end with the suffix `.Sitecore82`)
 
 #### (A) With Unity, CastleWindsor or Microsoft.DependencyInjection
 

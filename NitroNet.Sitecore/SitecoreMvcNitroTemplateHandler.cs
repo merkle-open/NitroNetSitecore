@@ -21,6 +21,10 @@ namespace NitroNet.Sitecore
 	public class SitecoreMvcNitroTemplateHandler : INitroTemplateHandler
 	{
         private const string ThisIdentifier = "this";
+	    private const string SkinParameter = "template";
+	    private const string DataParameter = "data";
+	    private const string ModelParameter = "model";
+
 		private readonly IComponentRepository _componentRepository;
 	    private readonly ISitecoreRenderingRepository _renderingRepository;
 
@@ -70,9 +74,9 @@ namespace NitroNet.Sitecore
 	        object model, RenderingContext context)
 	    {
             var requestContext = PageContext.Current.RequestContext;
-	        var savedSkin = requestContext.RouteData.Values["skin"];
-	        var savedModel = requestContext.RouteData.Values["model"];
-	        var savedDataVariation = requestContext.RouteData.Values["dataVariation"];
+	        var savedSkin = requestContext.RouteData.Values[SkinParameter];
+	        var savedModel = requestContext.RouteData.Values[ModelParameter];
+	        var savedDataVariation = requestContext.RouteData.Values[DataParameter];
 	        try
 	        {
                 // Try to get values from model
@@ -119,8 +123,8 @@ namespace NitroNet.Sitecore
                 var componentName = parts[parts.Length - 1];
                 var cleanComponentName = CleanName(componentName);
                 var renderingId = _renderingRepository.GetRenderingId(cleanComponentName);
-                requestContext.RouteData.Values["skin"] = skin.Value ?? string.Empty;
-	            requestContext.RouteData.Values["dataVariation"] = dataVariation.Value ?? string.Empty;
+                requestContext.RouteData.Values[SkinParameter] = skin.Value ?? string.Empty;
+	            requestContext.RouteData.Values[DataParameter] = dataVariation.Value ?? string.Empty;
 
 	            if (renderingId != null)
 	            {
@@ -138,15 +142,15 @@ namespace NitroNet.Sitecore
                         string.Format(
                             "Controller {0} gets directly called by NitroNet. " +
                             "Consider to create a rendering with name \"{1}\" in order to let the controller be called by the Sitecore rendering pipeline. " +
-                            "Component: {2}, Skin: {3}, Data: {4}",
+                            "Component: {2}, Template: {3}, Data: {4}",
                             controller, cleanComponentName, component.Value, skin.Value, dataVariation.Value), this);
                 }
 	        }
 	        finally
 	        {
-	            requestContext.RouteData.Values["skin"] = savedSkin;
-	            requestContext.RouteData.Values["dataVariation"] = savedDataVariation;
-	            requestContext.RouteData.Values["model"] = savedModel;
+	            requestContext.RouteData.Values[SkinParameter] = savedSkin;
+	            requestContext.RouteData.Values[DataParameter] = savedDataVariation;
+	            requestContext.RouteData.Values[ModelParameter] = savedModel;
 	        }
 	    }
 

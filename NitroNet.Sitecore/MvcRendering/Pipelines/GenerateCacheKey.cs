@@ -6,13 +6,13 @@
         {
             var baseResult = base.GetDataPart(rendering) ?? string.Empty;
 
-            var variation = rendering["dataVariation"];
+            var variation = rendering["data"];
             if (variation == null)
             {
                 return baseResult;
             }
 
-            return baseResult + "_#dataVariation:" + variation;
+            return baseResult + "_#data:" + variation;
         }
     }
 }

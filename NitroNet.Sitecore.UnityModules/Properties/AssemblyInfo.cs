@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Namics AG")]
 [assembly: AssemblyProduct("NitroNet.Sitecore.UnityModules")]
-[assembly: AssemblyCopyright("Copyright © Namics AG 2016")]
+[assembly: AssemblyCopyright("Copyright © Namics AG 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

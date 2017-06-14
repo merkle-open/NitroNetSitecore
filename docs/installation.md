@@ -3,6 +3,7 @@
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)
 - [Samples](samples.md)
+- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
 ## Installation
@@ -48,7 +49,7 @@ Optionally, we recommend to install the [Unity.Mvc](https://www.nuget.org/packag
 
 
 ##### Extend your Global.asax(.cs)
-To activate NitroNet it's important to add/register the new view engine in your application. You can do this, with these lines of code ([Gist](https://gist.github.com/hombreDelPez/e5ad065572fdab7145dd72847d8aabd2)):
+To activate NitroNet for Sitecore it's important to add/register the new view engine in your application. You can do this, with these lines of code ([Gist](https://gist.github.com/hombreDelPez/e5ad065572fdab7145dd72847d8aabd2)):
 
 ```csharp
 protected void Application_Start()

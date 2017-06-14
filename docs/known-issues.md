@@ -3,6 +3,7 @@
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)
 - [Samples](samples.md)
+- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
 ### Limitations

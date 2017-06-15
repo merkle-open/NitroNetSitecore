@@ -6,9 +6,9 @@
 - [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
-### Limitations
+## Limitations
 
-#### Caching of components called by `Html.Sitecore().Rendering(pathOrId)`
+### Caching of components called by `Html.Sitecore().Rendering(pathOrId)`
 
 The Sitecore versions 8.1 and 8.2 have a bug that the method mentioned above doesn't read the cache settings correctly. As NitroNet for Sitecore uses this internally to render components where a Sitecore controller rendering exists for, those components won't be cached correctly.
 
@@ -18,47 +18,53 @@ As explained in the [samples](samples.md) there is the possibility to statically
 
 **Important:** If you already have included these fixes or customized the `SetCacheability` or the `GenerateCacheKey` processor in your solution please pay attention!
 
-### Currently not implemented
+
+## Currently not implemented
 
 This guide explains all exceptional cases of NitroNet and talks about features of Nitro which aren't implemented in NitroNet yet.
 
-###### The Nitro documentation
+**The Nitro documentation**
+First of all: You can find the full documentation of Nitro under this [link](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md).
 
-First of all: You can find under this [link](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md) the full documentation of Nitro.
+### Validation with the `schema.json`
+Nitro validates the patterns against their `schema.json`.
+It is currently not possible to validate the `C#` models against the `schema.json` of the corresponding Nitro patterns.
 
-#### Components without attributes
-Nitro knows two syntaxes for components:
-
-##### Variant A:
-
-```
-{{component 'Example' exampleContent}}
-```
-
-##### Variant B:
-
-```
-{{component name='Example' data='example-variant'}}
-```
-
-with the extended variant:
-
-```
-{{component name='Example' data='example-variant' template='example-2'}}
-```
-
-NitroNet supports only the absolut declarative type of **Variant B**.
-
-#### Translation handlebars helper
-Nitro ships with a Handlebars helper called `t`. This is not supported in NitroNet as there is no need for such a helper in ASP.NET. You can simply use a string expressions in its place and fill the according model property dynamically with data from any source.
-
-#### Flexible attribute on component helper
+### Flexible attributes on component helper
 You will find the Nitro documentation for the flexible attribute [here](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md#render-patterns).
 
-In the current version NitroNet does not support this feature. You need to pass a model with a modifier property.
+```
+{{pattern 'example' modifier='blue'}}
+```
 
-#### Render patterns with children
+In the current version NitroNet does not support this feature. You need to pass another data variation:
+```
+{{pattern 'example' data='example-blue'}}
+```
 
-You will find the Nitro documentation for patterns with children [here](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md#render-patterns-with-children)
+### Render patterns with children
+You will find the Nitro documentation for patterns with children [here](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md#render-patterns-with-children).
 
-In the current version NitroNet does not support this feature. Please use the placeholder feature for this.
+```
+{{#pattern 'box'}}
+    {{pattern 'example'}}
+{{/pattern}}
+```
+
+In the current version NitroNet does not support this feature. Please use the placeholder feature for this use case.
+
+### Pattern elements
+You will find the Nitro documentation for pattern elements [here](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md#creating-pattern-elements) and [here](https://github.com/namics/generator-nitro/blob/master/generators/app/templates/project/docs/nitro.md#render-pattern-elements).
+
+The current version NitroNet does not support this feature. Please use ordinary patterns for this use case.
+
+### Partials with handlebars expressions
+Currently it is not possible to have partials with handlebars expressions. Only static markup is supported.
+
+Use the `pattern` handlebars helper to achieve this functionality:
+```
+{{pattern name='head'}}
+```
+
+### Translation handlebars helper
+Nitro ships with a Handlebars helper called `t`. This is not supported in NitroNet as there is no need for such a helper in ASP.NET. You can simply use a string expressions in its place and fill the according model property dynamically with data from any source.

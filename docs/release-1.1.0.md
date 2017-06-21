@@ -33,16 +33,16 @@ You need to replace `skin` with `template` and `dataVariation` with `data`.
 
 Example:
 
-```
+```csharp
 //Before
 public ActionResult Index(string skin, string dataVariation){
-	[...]
+	//Your code
 }
 ```
 
-```
+```csharp
 //After
 public ActionResult Index(string template, string data){
-	[...]
+	//your code
 }
 ```

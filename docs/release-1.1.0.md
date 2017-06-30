@@ -23,6 +23,7 @@
 
 ### Removed Features / Breaking Changes
 - The controller parameters `skin` and `dataVariation` have been renamed to `template` and `data` to meet the naming convention of *Nitro*
+- AsyncLocal has been removed. It was legacy code from the previous project and is no longer needed.
 
 ### Update/Installation Instructions
 

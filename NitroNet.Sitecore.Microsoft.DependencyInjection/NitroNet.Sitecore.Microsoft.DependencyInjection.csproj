@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\NitroNet\DependencyInjection.config" />
+    <None Include="app.config" />
     <None Include="NitroNet.Sitecore.Microsoft.DependencyInjection.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

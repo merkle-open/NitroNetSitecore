@@ -7,10 +7,10 @@
     <owners>Namics AG</owners>
     <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx</licenseUrl>
     <projectUrl>https://github.com/namics/NitroNetSitecore</projectUrl>
-    <iconUrl>http://sitecore.namics.com/wp-content/themes/terrific/terrific/img/favicon.ico</iconUrl>
+    <iconUrl>https://github.com/namics/NitroNet/blob/master/nuget_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NitroNet package for Sitecore</description>
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>nitro sitecore handlebars viewengine</tags>
     <dependencies>
       <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />

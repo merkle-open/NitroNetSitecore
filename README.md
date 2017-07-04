@@ -29,6 +29,9 @@ It handles all possible presentation scenarios to integrate a Nitro frontend int
 - [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
 - [Known Issues](docs/known-issues.md)
 
+## Future roadmap
+- [ ] Manage Sitecore.Database object by IoC container
+- [ ] Admin pages for Sitecore to show all cached templates/components and to check strings if they are valid.
 
 ## Credits and special thanks
 Thanks to all the people who made and released these awesome resources for free!

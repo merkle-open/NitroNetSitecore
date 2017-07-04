@@ -16,6 +16,7 @@
       <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />
     </dependencies>
     <references>
+      <reference file="NitroNet.Sitecore.dll"/>
       <reference file="Sitecore.Support.387950.dll"/>
       <reference file="Sitecore.Support.414987.dll"/>
     </references>

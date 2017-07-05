@@ -1,10 +1,10 @@
 ### New Features / Enhancements
-- NitroNet updated to version **1.1.0**
-	- You can find the release notes [here](https://github.com/namics/NitroNet/releases/tag/1.1.0.0)
+- NitroNet updated to version **1.1.1**
+	- You can find the release notes [here](https://github.com/namics/NitroNet/releases/tag/1.1.1.0)
 - Prereleases are now supported by the build routine and delivered via nuget.org if necessary
 - The NuGet distribution was updated to version `3.5`
 - The assembly infos have been unified and updated
-- There will be Sitecore specific NuGets. Currently there are Sitecore 8.2 NuGets.
+- There will be Sitecore specific NuGets. Currently there are Sitecore 8.1 and 8.2 NuGets.
 - The .nuspec infos have been unified and updated
 - The SharpZipLib NuGet has been removed from the project because it is no longer used
 - The NuGet `NitroNet.Sitecore.Microsoft.DependencyInjection.Sitecorexx` was added to the project
@@ -18,6 +18,7 @@
 - Build numbers have been fixed
 - Unused DLLs were removed
 - The Caching of components has been fixed and works now corrects in Sitecore (Sitecore support DLLs are also included)
+- NitroNet.Sitecore.dll was not updated respectively installed properly. This has been fixed.
 - It is now possible to have several files in a component folder which contain hyphens in the file name. Before it was only possible to have one file with hyphens.
 - ...and many small bug-fixes
 
@@ -28,7 +29,7 @@
 ### Update/Installation Instructions
 
 #### NitroNet upgrade instructions
-Please consult the [release notes of NitroNet 1.1.0](https://github.com/namics/NitroNet/releases/tag/1.1.0.0).
+Please consult the [release notes of NitroNet 1.1.1](https://github.com/namics/NitroNet/releases/tag/1.1.1.0).
 
 #### Upgrading the NitroNet.Sitecore NuGet
 It is not possible to just update the NitroNet.Sitecore NuGet in Visual Studio. You have to uninstall it and then install the new Sitecore specific NuGet of NitroNet.Sitecore. This is because we change the names of the NuGets to have specific Sitecore version compatibility.

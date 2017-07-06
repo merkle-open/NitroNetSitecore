@@ -10,6 +10,7 @@ using NitroNet.ViewEngine.Config;
 using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
+using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
 using NitroNet.ViewEngine.ViewEngines;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
@@ -25,15 +26,6 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
         {
             RegisterNitroNet(serviceCollection);
             RegisterNitroNetSitecore(serviceCollection);
-        }
-
-        private static void RegisterNitroNetSitecore(IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddTransient<SitecoreNitroNetViewEngine>();
-            serviceCollection.AddTransient<ISitecoreRenderingRepository, SitecoreRenderingRepository>();
-            serviceCollection.AddTransient(x => GridContext.GetFromRenderingContext(ContextService.Get().GetCurrent<RenderingContext>()));
-            serviceCollection.AddSingleton<ISitecoreCacheManager, SitecoreCacheManager>();
-            serviceCollection.AddSingleton<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>();
         }
 
         private static void RegisterNitroNet(IServiceCollection serviceCollection)
@@ -52,7 +44,16 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddTransient<ICacheProvider, MemoryCacheProvider>();
             serviceCollection.AddSingleton<IComponentRepository, DefaultComponentRepository>();
             serviceCollection.AddSingleton<ITemplateRepository, NitroTemplateRepository>();
-            serviceCollection.AddSingleton<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>();
+            serviceCollection.AddSingleton<INitroTemplateHandlerUtils, NitroTemplateHandlerUtils>();
+        }
+
+        private static void RegisterNitroNetSitecore(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<SitecoreNitroNetViewEngine>();
+            serviceCollection.AddTransient<ISitecoreRenderingRepository, SitecoreRenderingRepository>();
+            serviceCollection.AddTransient(x => GridContext.GetFromRenderingContext(ContextService.Get().GetCurrent<RenderingContext>()));
+            serviceCollection.AddSingleton<ISitecoreCacheManager, SitecoreCacheManager>();
+            serviceCollection.AddSingleton<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>();
         }
     }
 }

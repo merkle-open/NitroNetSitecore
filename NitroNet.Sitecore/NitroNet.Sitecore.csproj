@@ -149,11 +149,7 @@
     <Compile Include="Rendering\SitecoreRenderingRepository.cs" />
     <Compile Include="SitecoreMvcNitroTemplateHandlerFactory.cs" />
     <Compile Include="SitecoreNitroNetViewEngine.cs" />
-    <Compile Include="Skin\ISkinDefinition.cs" />
-    <Compile Include="Skin\ISkinRepository.cs" />
     <Compile Include="Skin\ITemplateInfo.cs" />
-    <Compile Include="Skin\NitroNetSkinDefinition.cs" />
-    <Compile Include="Skin\NitroNetSkinRepository.cs" />
     <Compile Include="Skin\NitroNetTemplateInfo.cs" />
   </ItemGroup>
   <Choose>

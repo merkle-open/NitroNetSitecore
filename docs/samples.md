@@ -122,7 +122,7 @@ public ActionResult Index(string data, string template)
 
 For direct values like `title` there needs to be property, for the `footer-link-list` component not.
 
-## Standard Handlebars helpers (with focus on Sitecore)
+## Handlebars helpers for Sitecore
 
 ### Placeholders
 

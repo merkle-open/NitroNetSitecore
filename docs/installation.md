@@ -19,17 +19,23 @@ Please install Sitecore on your local machine and create a Visual Studio project
 There are several ways to install NitroNet for Sitecore. The easiest way is to use NitroNet together with Unity or CastleWindsor.
 
 Please choose between variant
-* **A** with Unity, CastleWindsor or Microsoft.DependencyInjection
+* **A** with Microsoft.DependencyInjection, Unity or CastleWindsor
 * **B** with another IoC Framework.
 
 **Important information**: Because there can be vital changes between different Sitecore versions, we have to make sure that a specific NitroNet.Sitecore Nuget works with a specific Sitecore version. Therefore we created the NuGets with a Sitecore suffix. So you can be sure that they are working with the declared Sitecore version.
 So for each supported Sitecore version you will find the proper NuGets. (e.g. all NuGets with Sitecore 8.2 compatibility end with the suffix `.Sitecore82`)
 
-#### (A) With Unity, CastleWindsor or Microsoft.DependencyInjection
+#### (A) With Microsoft.DependencyInjection, Unity or CastleWindsor
 
 ##### NuGet Package Installation
 
 Execute following the line in your NuGet Package Manager to install NitroNet for Sitecore with your preferred IoC framework:
+
+**Microsoft.DependencyInjection**
+
+Starting with Sitecore 8.2, this IoC container is supported out of the box.
+
+`PM >` `Install-Package NitroNet.Sitecore.Microsoft.DependencyInjection.Sitecore82`
 
 **Unity**
 
@@ -42,10 +48,6 @@ Optionally, we recommend to install the [Unity.Mvc](https://www.nuget.org/packag
 **CastleWindsor**
 
 `PM >` `Install-Package NitroNet.Sitecore.CastleWindsorModules.Sitecore82`
-
-**Microsoft.DependencyInjection**
-
-`PM >` `Install-Package NitroNet.Sitecore.Microsoft.DependencyInjection.Sitecore82`
 
 
 ##### Extend your Global.asax(.cs)
@@ -64,6 +66,11 @@ protected void Application_Start()
 ```
 
 ##### Register the IoC containers
+
+###### Microsoft.DependencyInjection
+When you are using NitroNet for Sitecore with Microsoft.DependencyInjection then there is nothing to do to active the IoC framework.
+The */App_Config/Include/NitroNet/DependencyInjection.config* is automatically installed with this NuGet and sets up the activation.
+
 ###### Unity
 To activate NitroNet for Sitecore with Unity, please add these lines to */App_Start/UnityConfig.cs* in your application ([Gist](https://gist.github.com/hombreDelPez/a268d69a0b03d5e117d0707f0b3132d9)):
 
@@ -92,10 +99,6 @@ public static void RegisterTypes(IWindsorContainer container)
 }
 ```
 
-###### Microsoft.DependencyInjection
-When you are using NitroNet for Sitecore with Microsoft.DependencyInjection then there is nothing to do to active the IoC framework.
-The */App_Config/Include/NitroNet/DependencyInjection.config* is automatically installed with this NuGet and sets up the activation.
-
 
 #### (B) With another IoC Framework
 You don't like Unity and you design your application with an other IoC framework? No Problem.
@@ -108,7 +111,7 @@ In this case, you can install NitroNet only with our base package:
 *Please extend your Global.asax(.cs) in the same way as in scenario A*
 
 ##### Register NitroNet for Sitecore with your own IoC Framework
-Actually, we only made a Unity,CastleWindsor and Microsoft.DependencyInjection integration with NitroNet for Sitecore. But it's easy to use another IoC Framework.
+Actually, we only made a Microsoft.DependencyInjection, Unity or CastleWindsor integration with NitroNet for Sitecore. But it's easy to use another IoC Framework.
 Please follow our Unity sample as a template for you ([Gist](https://gist.github.com/daniiiol/036be44e535768fac2df5eec0aff9180)):
 
 ###### DefaultUnityModule.cs

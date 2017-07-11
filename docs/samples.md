@@ -122,6 +122,64 @@ public ActionResult Index(string data, string template)
 
 For direct values like `title` there needs to be property, for the `footer-link-list` component not.
 
+### Use of Sitecore edit frames
+
+An important feature when developing with Sitecore is the use of edit frames for the Experience Editor.  
+The following example shows you how you can achieve this when using *handlebars* and *NitroNet.Sitecore*.
+
+#### 1.) Create a view model
+In the first step you have to create C# view model for your edit frame:
+
+```csharp
+public class EditFrame
+{
+    public string EditFrameStart { get; set; }
+    public string EditFrameStop { get; set; }
+}
+```
+
+#### 2.) Write a method to populate the view model
+In the second step you have to write a method for populating the edit frame view model. You can copy the following method or use it as a basis for your own implementation:
+
+```csharp
+public EditFrame GetEditFrame(string path, string buttons, string title, string tooltip, string css, object parameters)
+{
+    var result = new EditFrame();
+    if (!Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        return result;
+
+    var output = new StringWriter();
+    var writer = new HtmlTextWriter(output);
+    var editFrame = new Sitecore.Mvc.Common.EditFrame(path,buttons, title, tooltip, css, parameters);
+    editFrame.RenderFirstPart(writer);
+    result.EditFrameStart = output.ToString();
+
+    output = new StringWriter();
+    writer = new HtmlTextWriter(output);
+    editFrame.RenderLastPart(writer);
+    result.EditFrameStop = output.ToString();
+
+    return result;
+}
+```
+
+#### 3.) Use the edit frame in your views
+And last but not least you need this handlebars markup to activate the edit frame.
+
+```html
+{{{editframe.editframeStart}}}
+	<!--
+    	Markup you want to enclose with the edit frame
+    -->
+{{{editframe.editframeStop}}}
+```
+
+Please keep in mind that the context object needs to have a property with the following type and name:
+
+```csharp
+public EditFrame EditFrame { get; set; }
+```
+
 ## Handlebars helpers for Sitecore
 
 ### Placeholders

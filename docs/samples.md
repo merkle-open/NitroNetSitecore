@@ -7,13 +7,14 @@
 - [Known Issues](known-issues.md)
 
 
-Please see the [samples of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with Nitro.
+Please see the [samples of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with plain handlebars and/or Nitro.
 
+Some helpers mentioned below are custom handlebars helpers from Nitro such as the component or the placeholder helper. If you use a plain handlebars frontend you have to implement your own custom handlebars helper for the placeholder mechanism.
 
 ## Layout view
 
 ### An easy example
-In Sitecore you can add only partials, placeholders or static components (which have no Sitecore datasource) to a layout file:
+When working with Sitecore you can add only partials, placeholders or static components (which have no Sitecore datasource) to a layout file:
 
 ```html
 <!DOCTYPE html>
@@ -180,7 +181,7 @@ Please keep in mind that the context object needs to have a property with the fo
 public EditFrame EditFrame { get; set; }
 ```
 
-## Handlebars helpers for Sitecore
+## Nitro helpers for Sitecore
 
 ### Placeholders
 

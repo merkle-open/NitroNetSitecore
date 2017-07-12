@@ -9,21 +9,20 @@
 ## Installation
 
 ### Preconditions
-You need your own Nitro project as a precondition of this installation manual.
-Please follow the beautiful guide of Nitro: [Link](https://github.com/namics/generator-nitro/)
+You need a handlebars frontend with a specific file structure (learn more about that here) or a [Nitro](https://github.com/namics/generator-nitro/) project as a precondition of this installation manual.
 
 ### Step 1 - Install Sitecore
-Please install Sitecore on your local machine and create a Visual Studio project (a clean ASP.Net MVC solution) around of this. As a Sitecore developer you will know what I mean ;-) .
+Please install Sitecore on your local machine and create a Visual Studio project (a clean ASP.Net MVC solution) around of this. As a Sitecore developer you will know what to do ;-) .
 
 ### Step 2 - Install NitroNet for Sitecore
-There are several ways to install NitroNet for Sitecore. The easiest way is to use NitroNet together with Unity or CastleWindsor.
+There are several ways to install NitroNet for Sitecore. The easiest way is to use it together with Microsoft.DependencyInjection, Unity or CastleWindsor.
 
 Please choose between variant
 * **A** with Microsoft.DependencyInjection, Unity or CastleWindsor
 * **B** with another IoC Framework.
 
 **Important information**: Because there can be vital changes between different Sitecore versions, we have to make sure that a specific NitroNet.Sitecore Nuget works with a specific Sitecore version. Therefore we created the NuGets with a Sitecore suffix. So you can be sure that they are working with the declared Sitecore version.
-So for each supported Sitecore version you will find the proper NuGets. (e.g. all NuGets with Sitecore 8.2 compatibility end with the suffix `.Sitecore82`)
+So for each supported Sitecore version you will find the corresponding NuGets. (e.g. all NuGets with Sitecore 8.2 compatibility end with the suffix `.Sitecore82`)
 
 #### (A) With Microsoft.DependencyInjection, Unity or CastleWindsor
 

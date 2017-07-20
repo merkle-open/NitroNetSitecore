@@ -1,6 +1,6 @@
 ![NitroNet Logo](docs/logo.png)
 
-NitroNet for Sitecore extends [NitroNet](https://github.com/namics/NitroNet) with the support for the WCMS [Sitecore](http://www.sitecore.net).
+NitroNet for Sitecore extends [NitroNet](https://github.com/namics/NitroNet) with the support for the WCMS [Sitecore](http://www.sitecore.net).  
 It handles all possible presentation scenarios to integrate a [handlebars](http://handlebarsjs.com) frontend into Sitecore without functional loss. In addition it's possible to get a hybrid integration with handlebars frontends (based on simple and logic-less view pages) and own Razor views (*.cshtml).
 
 ### NitroNet for Sitecore features
@@ -33,6 +33,13 @@ There are [many features which come with NitroNet](https://github.com/namics/Nit
 ## Future roadmap
 - [ ] Manage Sitecore.Database object by IoC container
 - [ ] Admin pages for Sitecore to show all cached templates/components and to check strings if they are valid.
+
+## Contact / Contributing
+If you want to submit a bug or request a feature please feel free to open an issue.
+
+If you want to get in contact with us, just write an email to [Manuel Fischer](https://github.com/hombreDelPez) or [Fabian Geiger](https://github.com/naibafch).
+
+Pull requests are welcome!
 
 ## Credits and special thanks
 Thanks to all the people who made and released these awesome resources for free!

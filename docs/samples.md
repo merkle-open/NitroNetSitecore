@@ -125,7 +125,7 @@ For direct values like `title` there needs to be a property, for the `footer-lin
 
 ### Use of Sitecore edit frames
 
-An important feature when developing with Sitecore is the use of edit frames for the Experience Editor.
+An important feature when developing with Sitecore is the use of edit frames for the Experience Editor.  
 The following example shows you how you can achieve this when using *handlebars* and *NitroNet.Sitecore*.
 
 #### 1.) Create a view model

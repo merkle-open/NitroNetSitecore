@@ -10,7 +10,6 @@ using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
 using NitroNet.ViewEngine.ViewEngines;
-using Sitecore;
 using Sitecore.Configuration;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
@@ -20,7 +19,6 @@ using Veil.Helper;
 
 namespace NitroNet.Sitecore.Microsoft.DependencyInjection
 {
-    [UsedImplicitly]
     public class NitroNetServicesConfigurator : IServicesConfigurator
     {
         public void Configure(IServiceCollection serviceCollection)
@@ -40,7 +38,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
 
         protected virtual void RegisterNitroNet(IServiceCollection serviceCollection)
         {
-            var basePath = this.GetNitroNetBasePath();
+            var basePath = GetNitroNetBasePath();
 
             var config = ConfigurationLoader.LoadNitroConfiguration(basePath);
             serviceCollection.AddSingleton(config);

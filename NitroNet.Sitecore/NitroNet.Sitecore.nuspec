@@ -7,7 +7,7 @@
     <owners>Namics AG</owners>
     <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx</licenseUrl>
     <projectUrl>https://github.com/namics/NitroNetSitecore</projectUrl>
-    <iconUrl>https://github.com/namics/NitroNet/blob/master/nuget_icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/namics/NitroNet/master/nuget_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NitroNet package for Sitecore</description>
     <copyright>Copyright 2017</copyright>

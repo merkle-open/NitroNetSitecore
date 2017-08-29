@@ -130,7 +130,7 @@ namespace NitroNet.Sitecore
 	            {
 	                // TODO: Cache!
 	                context.Writer.Write(htmlHelper.Sitecore()
-	                    .Rendering(renderingId, new  { dataVariation = dataVariation.Value ?? string.Empty}));
+	                    .Rendering(renderingId, new  { data = dataVariation.Value ?? string.Empty}));
 	            }
 	            else
 	            {

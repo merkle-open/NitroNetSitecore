@@ -162,3 +162,6 @@ packages
 !packages/repositories.config
 
 .vs/
+
+ #SC Assemblies
+Libs/Sitecore*

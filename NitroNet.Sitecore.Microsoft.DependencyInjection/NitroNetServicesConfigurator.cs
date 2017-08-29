@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Hosting;
+﻿using System.Web.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NitroNet.Mvc;
 using NitroNet.Sitecore.Caching;
@@ -11,6 +10,7 @@ using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
 using NitroNet.ViewEngine.ViewEngines;
+using Sitecore.Configuration;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
 using Veil;
@@ -27,7 +27,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             RegisterNitroNetSitecore(serviceCollection);
         }
 
-        private static void RegisterNitroNetSitecore(IServiceCollection serviceCollection)
+        protected virtual void RegisterNitroNetSitecore(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<SitecoreNitroNetViewEngine>();
             serviceCollection.AddTransient<ISitecoreRenderingRepository, SitecoreRenderingRepository>();
@@ -36,13 +36,13 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddSingleton<INitroTemplateHandlerFactory, SitecoreMvcNitroTemplateHandlerFactory>();
         }
 
-        private static void RegisterNitroNet(IServiceCollection serviceCollection)
+        protected virtual void RegisterNitroNet(IServiceCollection serviceCollection)
         {
-            var rootPath = HostingEnvironment.MapPath("~/");
+            var basePath = GetNitroNetBasePath();
 
-            var config = ConfigurationLoader.LoadNitroConfiguration(rootPath);
+            var config = ConfigurationLoader.LoadNitroConfiguration(basePath);
             serviceCollection.AddSingleton(config);
-            serviceCollection.AddSingleton<IFileSystem>(new FileSystem(rootPath, config));
+            serviceCollection.AddSingleton<IFileSystem>(new FileSystem(basePath, config));
 
             serviceCollection.AddSingleton<IHelperHandlerFactory, DefaultRenderingHelperHandlerFactory>();
             serviceCollection.AddTransient<IMemberLocator, MemberLocatorFromNamingRule>();
@@ -53,6 +53,14 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddSingleton<IComponentRepository, DefaultComponentRepository>();
             serviceCollection.AddSingleton<ITemplateRepository, NitroTemplateRepository>();
             serviceCollection.AddSingleton<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>();
+        }
+
+        protected virtual string GetNitroNetBasePath()
+        {
+            var rootPath = HostingEnvironment.MapPath("~/");
+            var basePath = PathInfo.Combine(PathInfo.Create(rootPath), PathInfo.Create(Settings.GetAppSetting("NitroNet.BasePath")));
+
+            return basePath.ToString();
         }
     }
 }

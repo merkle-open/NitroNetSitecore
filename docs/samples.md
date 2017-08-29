@@ -7,13 +7,14 @@
 - [Known Issues](known-issues.md)
 
 
-Please see the [samples of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with Nitro.
+Please see the [samples of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with plain handlebars and/or Nitro.
 
+Some helpers mentioned below are custom handlebars helpers from Nitro such as the component or the placeholder helper.
 
 ## Layout view
 
 ### An easy example
-In Sitecore you can add only partials, placeholders or static components (which have no Sitecore datasource) to a layout file:
+When working with Sitecore you can add only partials, placeholders or static components (which have no Sitecore datasource) to a layout file:
 
 ```html
 <!DOCTYPE html>
@@ -47,7 +48,7 @@ Please follow the [Getting started](getting-started.md) page for this simple cas
 
 ### Model on layout level
 
-In the above example you can only see partials, placeholders and components in the markup without data properties. But what if you need to add direct value, e.g. a simple string indicating the language?
+In the above example you can only see partials, placeholders and components in the markup without data properties. But what if you need to add direct values to the first level of your handlebars hierarchy, e.g. a simple string indicating the language?
 
 You can make use of the out of the box functionality of Sitecore where you can define a model on your layout. First change your layout to this:
 
@@ -76,9 +77,9 @@ In the Sitecore backend create a new model item under `/sitecore/layout/Models`.
 
 Finally you need to link your layout to the model item. Do this in the `Model` field of the layout item. Reload your page and voila, the value is there.
 
-### Controller invocation with template and data variation
+### Controller invocation with template and data attribute
 
-With NitroNet for Sitecore it is possible to determine with which template and data variation a Controller was called.
+With NitroNet for Sitecore it is possible to determine with which template and data attribute a Controller was called.
 All you have to do is to add the two parameters `string template` `string data` to the `Index()` method of the Controller.
 
 Let's look at the following example:
@@ -103,7 +104,7 @@ View snippet:
 public ActionResult Index(string data, string template)
 {
     FooterLinkListViewModel model;
-    if (dataVariation.Equals("social", StringComparison.InvariantCultureIgnoreCase))
+    if (data.Equals("social", StringComparison.InvariantCultureIgnoreCase))
     {
         model = _service.CreateSocialLinks()
     }
@@ -120,9 +121,67 @@ public ActionResult Index(string data, string template)
 }
 ```
 
-For direct values like `title` there needs to be property, for the `footer-link-list` component not.
+For direct values like `title` there needs to be a property, for the `footer-link-list` component not.
 
-## Standard Handlebars helpers (with focus on Sitecore)
+### Use of Sitecore edit frames
+
+An important feature when developing with Sitecore is the use of edit frames for the Experience Editor.  
+The following example shows you how you can achieve this when using *handlebars* and *NitroNet.Sitecore*.
+
+#### 1.) Create a view model
+In the first step you have to create C# view model for your edit frame:
+
+```csharp
+public class EditFrame
+{
+    public string EditFrameStart { get; set; }
+    public string EditFrameStop { get; set; }
+}
+```
+
+#### 2.) Write a method to populate the view model
+In the second step you have to write a method for populating the edit frame view model. You can copy the following method or use it as a basis for your own implementation:
+
+```csharp
+public EditFrame GetEditFrame(string path, string buttons, string title, string tooltip, string css, object parameters)
+{
+    var result = new EditFrame();
+    if (!Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        return result;
+
+    var output = new StringWriter();
+    var writer = new HtmlTextWriter(output);
+    var editFrame = new Sitecore.Mvc.Common.EditFrame(path,buttons, title, tooltip, css, parameters);
+    editFrame.RenderFirstPart(writer);
+    result.EditFrameStart = output.ToString();
+
+    output = new StringWriter();
+    writer = new HtmlTextWriter(output);
+    editFrame.RenderLastPart(writer);
+    result.EditFrameStop = output.ToString();
+
+    return result;
+}
+```
+
+#### 3.) Use the edit frame in your views
+And last but not least you need this handlebars markup to activate the edit frame.
+
+```html
+{{{editframe.editframeStart}}}
+	<!--
+    	Markup you want to enclose with the edit frame
+    -->
+{{{editframe.editframeStop}}}
+```
+
+Please keep in mind that the context object needs to have a property with the following type and name:
+
+```csharp
+public EditFrame EditFrame { get; set; }
+```
+
+## Nitro helpers for Sitecore
 
 ### Placeholders
 
@@ -136,7 +195,7 @@ Placeholders don't need a special interaction in user code. In Sitecore you need
 
 #### Identical placeholders on the same level
 
-You might run into situations where you want to have multiple placeholders with the same key on the same hierarchical level. Therefore you need to use the `index` or `indexProp` attribute.
+You might run into situations where you want to have multiple placeholders with the same key on the same hierarchical level. Therefore you need to use the `index` or `indexProp` attribute. NitroNet uses Dynamic Placeholders by default.
 
 ##### index attribute
 
@@ -234,7 +293,9 @@ public class FooterLinkListController : Controller
 }
 ```
 
-For direct values like `title` there needs to be property, for the `footer-link-list` component not.
+For direct values like `title` there needs to be property, for the `footer-link-list` component not. At this point the controller gets invoked directly.
+
+If you want to cache the `footer-link-list` component specifically you need to create a Controller Rendering called *FooterLinkList* (hyphens and case sensitivity can be ignored) in Sitecore. Now, the rendering pipeline gets invoked and you can set all the caching configurations for the component. Note that the `data` attribute is considered if you choose *Vary By Data*.
 
 #### 2) Create only one Controller for the parent component
 You can find the code example and explanations for this case [here](https://github.com/namics/NitroNet/blob/master/docs/samples.md#a-component-with-subcomponents).

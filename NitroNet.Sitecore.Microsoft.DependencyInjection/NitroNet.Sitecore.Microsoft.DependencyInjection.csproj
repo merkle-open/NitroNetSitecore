@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NitroNet.Sitecore.Microsoft.DependencyInjection</RootNamespace>
     <AssemblyName>NitroNet.Sitecore.Microsoft.DependencyInjection</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -91,14 +92,14 @@
           <SpecificVersion>False</SpecificVersion>
           <HintPath>..\Libs\SC82\Sitecore.Mvc.dll</HintPath>
         </Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-		</Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-		</Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+        </Reference>
       </ItemGroup>
     </When>
     <Otherwise>
@@ -111,14 +112,14 @@
           <SpecificVersion>False</SpecificVersion>
           <HintPath>..\Libs\Sitecore.Mvc.dll</HintPath>
         </Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-		</Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-		</Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>

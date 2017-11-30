@@ -18,4 +18,4 @@ As explained in the [samples](samples.md) there is the possibility to statically
 **Important:** If you already have included these fixes or customized the `SetCacheability` or the `GenerateCacheKey` processor in your solution please pay attention!
 
 ## Currently not implemented
-Please consult the [known issues documentation of NitroNet](https://github.com/namics/NitroNetSitecore/blob/master/docs/known-issues.md) to see which features are currently not supported.
+Please consult the [known issues documentation of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/known-issues.md) to see which features are currently not supported.

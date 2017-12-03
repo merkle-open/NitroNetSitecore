@@ -1,4 +1,4 @@
-![NitroNet Logo](docs/logo.png)
+![NitroNet Logo](docs/imgs/logo.png)
 
 NitroNet for Sitecore extends [NitroNet](https://github.com/namics/NitroNet) with the support for the WCMS [Sitecore](http://www.sitecore.net).  
 It handles all possible presentation scenarios to integrate a [handlebars](http://handlebarsjs.com) frontend into Sitecore without functional loss. In addition it's possible to get a hybrid integration with handlebars frontends (based on simple and logic-less view pages) and own Razor views (*.cshtml).

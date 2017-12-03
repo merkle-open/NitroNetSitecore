@@ -14,7 +14,8 @@ Please see the [getting started guide of NitroNet](https://github.com/namics/Nit
 
 Create a layout item below `/sitecore/layout/Layouts` and set the `Path` field relative to the path you configured in the setting `NitroNet.BasePath`. Please make sure that you set the file name without the file extension.
 
-:exclamation: *Important:* The path must not have a leading slash.
+:exclamation: *Important:* The path must not have a leading slash:
+![Layout path](imgs/layout_path.png)
 
 #### Example
 Assumption:

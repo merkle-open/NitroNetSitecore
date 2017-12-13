@@ -54,4 +54,4 @@ namespace sitecore82rev170728.Website
 </configuration>
 ```
 
-Based on the Route-Definition defined in `RegisterRoutes` you can generate C# POCO's after entering `http(s)://<yourSitecoreSiteUrl>/nitronet/modelbuilder/` in your browser, such as presented in [NitroNet configuration guide](https://github.com/namics/NitroNet/blob/master/docs/configuration.md).
+Based on the Route-Definition defined in `RegisterRoutes` you can generate C# POCO's after entering `http(s)://yourSitecoreSolutionUrl/nitronet/modelbuilder/` in your browser, such as presented in [NitroNet configuration guide](https://github.com/namics/NitroNet/blob/master/docs/configuration.md).

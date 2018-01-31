@@ -27,6 +27,7 @@ There are [many features which come with NitroNet](https://github.com/namics/Nit
 - [Configuration](docs/configuration.md)
 - [Getting started](docs/getting-started.md)
 - [Samples](docs/samples.md)
+- [Demo Integration (Habitat)](https://github.com/hombreDelPez/Habitat/tree/feature/nitronet-sitecore-demo)
 - [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
 - [Known Issues](docs/known-issues.md)
 

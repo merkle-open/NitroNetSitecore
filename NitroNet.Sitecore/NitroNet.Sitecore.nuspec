@@ -10,19 +10,13 @@
     <iconUrl>https://raw.githubusercontent.com/namics/NitroNet/master/nuget_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NitroNet package for Sitecore</description>
-    <copyright>Copyright 2017</copyright>
+    <copyright>Copyright 2018</copyright>
     <tags>nitro sitecore handlebars viewengine</tags>
     <dependencies>
       <dependency id="NitroNet.Core" version="$dependentNitroNetVersion$" />
     </dependencies>
     <references>
       <reference file="NitroNet.Sitecore.dll"/>
-      <reference file="Sitecore.Support.387950.dll"/>
-      <reference file="Sitecore.Support.414987.dll"/>
     </references>
   </metadata>
-  <files>
-    <file src="..\Libs\Support\Sitecore.Support.387950.dll" target="lib\net452"/>
-    <file src="..\Libs\Support\Sitecore.Support.414987.dll" target="lib\net452"/>
-  </files>
 </package>

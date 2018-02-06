@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,8 +11,7 @@
     <AssemblyName>NitroNet.Sitecore.Microsoft.DependencyInjection</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,75 +49,50 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
+    <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'" />
+    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82' ">
       <ItemGroup>
-        <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
           <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\Libs\SC82\Sitecore.Kernel.dll</HintPath>
+          <HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.dll</HintPath>
         </Reference>
-        <Reference Include="Sitecore.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
           <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\Libs\SC82\Sitecore.Mvc.dll</HintPath>
+          <HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
         </Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-		</Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\SC82\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-		</Reference>
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
           <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\Libs\Sitecore.Kernel.dll</HintPath>
+          <HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.dll</HintPath>
         </Reference>
-        <Reference Include="Sitecore.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
           <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\Libs\Sitecore.Mvc.dll</HintPath>
+          <HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
         </Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-		</Reference>
-		<Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\Libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-		</Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -170,7 +144,6 @@
     <Content Include="App_Config\Include\NitroNet\DependencyInjection.config" />
     <None Include="app.config" />
     <None Include="NitroNet.Sitecore.Microsoft.DependencyInjection.nuspec" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NitroNet.Sitecore\NitroNet.Sitecore.csproj">
@@ -179,15 +152,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\MSBuild.Extension.Pack.1.8.0\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('..\packages\MSBuild.Extension.Pack.1.8.0\build\net40\MSBuild.Extension.Pack.targets')" />
   <Import Project="$(SolutionDir)\versioning.targets" />
   <Import Project="$(SolutionDir)\packaging.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuild.Extension.Pack.1.8.0\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Extension.Pack.1.8.0\build\net40\MSBuild.Extension.Pack.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -54,19 +54,21 @@
     <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
     <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'" />
-    <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'" />
   </ItemGroup>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82'">
+      <ItemGroup>
+        <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" />
+        <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release-SC81' Or '$(Configuration)' == 'Debug-SC81'">
+      <ItemGroup>
+        <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" />
+        <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" />
+      </ItemGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>

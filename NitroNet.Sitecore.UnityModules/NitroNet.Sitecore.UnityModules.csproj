@@ -76,7 +76,9 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
     <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
-    <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0" />
+    <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="1.0.8" />
     <PackageReference Include="Unity" Version="4.0.1" />

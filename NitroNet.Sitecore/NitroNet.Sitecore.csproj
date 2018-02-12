@@ -9,43 +9,66 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NitroNet.Sitecore</RootNamespace>
     <AssemblyName>NitroNet.Sitecore</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SC9</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>SC9</DefineConstants>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-SC90|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SC9</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-SC90|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;SC9</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-SC82|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-SC82\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SC8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-SC82|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <OutputPath>bin\Release-SC82\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;SC8</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,17 +76,19 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-SC81|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-SC81\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SC8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-SC81|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <OutputPath>bin\Release-SC81\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;SC8</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -84,7 +109,13 @@
     <PackageReference Include="Newtonsoft.Json.Schema" Version="1.0.8" />
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82'">
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Debug-SC90'">
+      <ItemGroup>
+        <PackageReference Include="Sitecore.Kernel.NoReferences" Version="9.0.171219" />
+        <PackageReference Include="Sitecore.Mvc.NoReferences" Version="9.0.171219" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82'">
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" />
@@ -136,7 +167,7 @@
     <Compile Include="Skin\NitroNetTemplateInfo.cs" />
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\release\NitroNet.Common.dll</HintPath>
@@ -155,7 +186,7 @@
         </Reference>
       </ItemGroup>
     </When>
-    <When Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug-SC82' Or '$(Configuration)' == 'Debug-SC81'">
+    <When Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug-SC90' Or '$(Configuration)' == 'Debug-SC82' Or '$(Configuration)' == 'Debug-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\debug\NitroNet.Common.dll</HintPath>

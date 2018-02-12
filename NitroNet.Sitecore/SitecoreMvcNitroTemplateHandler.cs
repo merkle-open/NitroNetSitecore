@@ -14,6 +14,7 @@ using Sitecore.Mvc;
 using Sitecore.Mvc.Presentation;
 using RenderingContext = Veil.RenderingContext;
 using SC = Sitecore;
+using NitroNet.Sitecore.DynamicPlaceholder;
 
 namespace NitroNet.Sitecore
 {
@@ -55,8 +56,8 @@ namespace NitroNet.Sitecore
 		{
 			throw new NotImplementedException();
 		}
-
-		public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
+#if SC9
+        public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
 		{
 		    var htmlHelper = CreateHtmlHelper(context);
 
@@ -71,10 +72,25 @@ namespace NitroNet.Sitecore
 		        throw new ArgumentException($"'Index' attribute of {{placeholder}} helper needs to be an integer. The chosen index is '{index}'");
 		    }
 
-		    context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIndex));
-        }
+            context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIndex));
+            
 
-	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
+        }
+#elif SC8
+        public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
+	    {
+	        var htmlHelper = CreateHtmlHelper(context);
+	        var dynamicKey = key;
+	        if (!string.IsNullOrEmpty(index))
+	        {
+	            dynamicKey = key + "_" + index;
+	        }
+
+
+	        context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
+	    }
+#endif
+        public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
 	        object model, RenderingContext context)
 	    {
             var requestContext = PageContext.Current.RequestContext;

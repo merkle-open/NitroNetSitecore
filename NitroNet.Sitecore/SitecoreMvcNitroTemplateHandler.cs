@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using NitroNet.Mvc;
-using NitroNet.Sitecore.DynamicPlaceholder;
 using NitroNet.Sitecore.Rendering;
 using NitroNet.ViewEngine;
 using NitroNet.ViewEngine.TemplateHandler;
@@ -59,16 +58,21 @@ namespace NitroNet.Sitecore
 
 		public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
 		{
-			var htmlHelper = CreateHtmlHelper(context);
-		    var dynamicKey = key;
-		    if (!string.IsNullOrEmpty(index))
-		    {
-		        dynamicKey = key + "_" + index;
-		    }
-				
+		    var htmlHelper = CreateHtmlHelper(context);
 
-			context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
-		}
+		    if (string.IsNullOrEmpty(index))
+		    {
+		        context.Writer.Write(htmlHelper.Sitecore().Placeholder(key));
+		        return;
+		    }
+
+		    if (!int.TryParse(index, out var parsedIndex))
+		    {
+		        throw new ArgumentException($"'Index' attribute of {{placeholder}} helper needs to be an integer. The chosen index is '{index}'");
+		    }
+
+		    context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIndex));
+        }
 
 	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
 	        object model, RenderingContext context)

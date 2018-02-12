@@ -4,10 +4,22 @@ using Sitecore.Mvc.Pipelines.Response.RenderRendering;
 using Sitecore.Mvc.Presentation;
 using System;
 
-namespace NitroNet.Sitecore.Caching.Support
+namespace NitroNet.Sitecore.Pipelines.MvcRenderRendering
 {
     public class GenerateCacheKey : global::Sitecore.Mvc.Pipelines.Response.RenderRendering.GenerateCacheKey
     {
+        protected override string GetDataPart(global::Sitecore.Mvc.Presentation.Rendering rendering)
+        {
+            var baseResult = base.GetDataPart(rendering) ?? string.Empty;
+
+            var variation = rendering["data"];
+            if (variation == null)
+            {
+                return baseResult;
+            }
+
+            return baseResult + "_#data:" + variation;
+        }
         protected override string GenerateKey(global::Sitecore.Mvc.Presentation.Rendering rendering, RenderRenderingArgs args)
         {
             string text = rendering.Caching.CacheKey.OrIfEmpty(args.Rendering.Renderer.ValueOrDefault((Renderer renderer) => renderer.CacheKey));

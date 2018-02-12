@@ -114,14 +114,14 @@
     <Compile Include="Caching\ISitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCache.cs" />
-    <Compile Include="Caching\Support\GenerateCacheKey.cs" />
-    <Compile Include="Caching\Support\SetCacheability.cs" />
+    <Compile Include="Pipelines\MvcRenderRendering\GenerateCacheKey.cs" />
+    <Compile Include="Pipelines\MvcRenderRendering\SetCacheability.cs" />
     <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
     <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
     <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
     <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderRenderings.cs" />
     <Compile Include="Events\EventHandlingInitializer.cs" />
-    <Compile Include="MvcRendering\Pipelines\GenerateCacheKey.cs" />
+    <Compile Include="Registration\RegisterNitroNetViewEngine.cs" />
     <Compile Include="Rendering\ISitecoreRenderingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecoreMvcNitroTemplateHandler.cs" />
@@ -179,6 +179,7 @@
     <Content Include="App_Config\Include\NitroNet\MvcRenderingPipeline.config" />
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
+    <Content Include="App_Config\Include\NitroNet\RegisterViewEngine.config" />
     <None Include="NitroNet.Sitecore.nuspec" />
   </ItemGroup>
   <ItemGroup />

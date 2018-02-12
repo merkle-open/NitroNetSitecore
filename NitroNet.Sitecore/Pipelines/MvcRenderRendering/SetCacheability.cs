@@ -1,9 +1,6 @@
 ﻿using Sitecore.Mvc.Pipelines.Response.RenderRendering;
-using Sitecore.Mvc.Presentation;
-using System;
-using System.Net;
 
-namespace NitroNet.Sitecore.Caching.Support
+namespace NitroNet.Sitecore.Pipelines.MvcRenderRendering
 {
     public class SetCacheability : global::Sitecore.Mvc.Pipelines.Response.RenderRendering.SetCacheability
     {

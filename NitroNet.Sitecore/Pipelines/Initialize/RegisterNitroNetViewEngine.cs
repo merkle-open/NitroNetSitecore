@@ -1,7 +1,7 @@
-﻿using Sitecore.Pipelines;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Sitecore.Pipelines;
 
-namespace NitroNet.Sitecore.Registration
+namespace NitroNet.Sitecore.Pipelines.Initialize
 {
     public class RegisterNitroNetViewEngine
     {

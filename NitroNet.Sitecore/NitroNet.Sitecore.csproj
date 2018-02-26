@@ -10,48 +10,43 @@
     <RootNamespace>NitroNet.Sitecore</RootNamespace>
     <AssemblyName>NitroNet.Sitecore</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SC9</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>SC9</DefineConstants>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-SC90|AnyCPU' ">
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SC9</DefineConstants>
+    <OutputPath>bin\Debug-SC90\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-SC90|AnyCPU' ">
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;SC9</DefineConstants>
+    <OutputPath>bin\Release-SC90\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -113,18 +108,30 @@
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="9.0.171219" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="9.0.171219" />
+        <Compile Include="DynamicPlaceholder\Helpers\SitecoreHelperExtension.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderInitialKey\RemovePlaceholderUniqueKeySuffixWithCountOrId.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderKeys\GetUniqueIdKeyWithinRendering.cs" />
+        <Content Include="App_Config\Include\NitroNet\DynamicPlaceholder.config" />
       </ItemGroup>
     </When>
     <When Condition="'$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Debug-SC82'">
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" />
+        <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
+        <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderRenderings.cs" />
       </ItemGroup>
     </When>
     <When Condition="'$(Configuration)' == 'Release-SC81' Or '$(Configuration)' == 'Debug-SC81'">
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" />
+        <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
+        <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderRenderings.cs" />
       </ItemGroup>
     </When>
   </Choose>
@@ -147,12 +154,8 @@
     <Compile Include="Caching\SitecoreCache.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\GenerateCacheKey.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\SetCacheability.cs" />
-    <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
-    <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
-    <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
-    <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderRenderings.cs" />
     <Compile Include="Events\EventHandlingInitializer.cs" />
-    <Compile Include="Registration\RegisterNitroNetViewEngine.cs" />
+    <Compile Include="Pipelines\Initialize\RegisterNitroNetViewEngine.cs" />
     <Compile Include="Rendering\ISitecoreRenderingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecoreMvcNitroTemplateHandler.cs" />
@@ -211,7 +214,9 @@
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
     <Content Include="App_Config\Include\NitroNet\RegisterViewEngine.config" />
-    <None Include="NitroNet.Sitecore.nuspec" />
+    <None Include="NitroNet.Sitecore.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

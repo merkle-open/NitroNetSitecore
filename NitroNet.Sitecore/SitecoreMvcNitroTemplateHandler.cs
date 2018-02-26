@@ -14,7 +14,13 @@ using Sitecore.Mvc;
 using Sitecore.Mvc.Presentation;
 using RenderingContext = Veil.RenderingContext;
 using SC = Sitecore;
+
+#if SC8
 using NitroNet.Sitecore.DynamicPlaceholder;
+#else
+using Sitecore.Data;
+using NitroNet.Sitecore.DynamicPlaceholder.Helpers;
+#endif
 
 namespace NitroNet.Sitecore
 {
@@ -56,40 +62,41 @@ namespace NitroNet.Sitecore
 		{
 			throw new NotImplementedException();
 		}
-#if SC9
+
         public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
 		{
 		    var htmlHelper = CreateHtmlHelper(context);
-
+#if SC8
+		    var dynamicKey = key;
+		    if (!string.IsNullOrEmpty(index))
+		    {
+		        dynamicKey = key + "_" + index;
+		    }
+            
+		    context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
+#else
 		    if (string.IsNullOrEmpty(index))
 		    {
 		        context.Writer.Write(htmlHelper.Sitecore().Placeholder(key));
 		        return;
 		    }
 
-		    if (!int.TryParse(index, out var parsedIndex))
+            if (int.TryParse(index, out var parsedIntIndex))
+            {
+                context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIntIndex));
+                return;
+            }
+
+		    if (ID.TryParse(index, out var parsedIdIndex))
 		    {
-		        throw new ArgumentException($"'Index' attribute of {{placeholder}} helper needs to be an integer. The chosen index is '{index}'");
+		        context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, parsedIdIndex));
+		        return;
 		    }
 
-            context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIndex));
-            
-
-        }
-#elif SC8
-        public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
-	    {
-	        var htmlHelper = CreateHtmlHelper(context);
-	        var dynamicKey = key;
-	        if (!string.IsNullOrEmpty(index))
-	        {
-	            dynamicKey = key + "_" + index;
-	        }
-
-
-	        context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
-	    }
+		    throw new ArgumentException($"'Index' attribute of {{placeholder}} helper needs to be an integer or Sitecore.Data.ID string. The chosen index is '{index}'");
 #endif
+        }
+
         public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
 	        object model, RenderingContext context)
 	    {

@@ -7,6 +7,9 @@ using Sitecore.Pipelines.GetPlaceholderRenderings;
 
 namespace NitroNet.Sitecore.DynamicPlaceholder.Pipelines
 {
+    /// <summary>
+    /// Dynamic Placeholders for Sitecore 8.x
+    /// </summary>
     public class GetDynamicPlaceholderRenderings : GetAllowedRenderings
     {
         private readonly GetAllowedRenderings _innerAllowedRenderings;

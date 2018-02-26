@@ -26,7 +26,7 @@
   <Choose>  
 	<When Condition="'$(PrereleaseVersion)' != ''">  
 	  <PropertyGroup>
-	    <NugetPackageVersion>$(PackageVersion)-$(PrereleaseVersion)$(BuildNumber)</NugetPackageVersion>
+	    <NugetPackageVersion>$(PackageVersion)-$(PrereleaseVersion)$([System.String]::Format('{0:000}', $([MSBuild]::Add($(BuildNumber), 0))))</NugetPackageVersion>
 	  </PropertyGroup>
 	</When>
 	<Otherwise>

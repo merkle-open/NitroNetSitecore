@@ -32,8 +32,13 @@ There are [many features which come with NitroNet](https://github.com/namics/Nit
 - [Known Issues](docs/known-issues.md)
 
 ## Future roadmap
-- [ ] Manage Sitecore.Database object by IoC container
-- [ ] Admin pages for Sitecore to show all cached templates/components and to check strings if they are valid.
+[Please look at the milestones regarding the features and time frames of future releases.](https://github.com/namics/NitroNetSitecore/milestones)
+
+**Important features planned for 2018:**
+- SC9 compatibility
+- Youtube tutorial videos
+- Demo solution/integration -> [here](https://github.com/hombreDelPez/NitroNet-Demo-Integration-Habitat/tree/feature/nitronet-sitecore-demo) (almost done)
+- Extending the documentation
 
 ## Contact / Contributing
 If you want to submit a bug or request a feature please feel free to open an issue.

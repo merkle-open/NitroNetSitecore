@@ -195,25 +195,25 @@ Placeholders don't need a special interaction in user code. In Sitecore you need
 
 #### Identical placeholders on the same level
 
-You might run into situations where you want to have multiple placeholders with the same key on the same hierarchical level. Therefore you need to use the `index` or `indexProp` attribute. NitroNet uses Dynamic Placeholders by default.
+You might run into situations where you want to have multiple placeholders with the same key on the same hierarchical level. Therefore you need to use the `index` or `indexprop` attribute. NitroNet uses Dynamic Placeholders by default.
 
 ##### index attribute
 
 ```html
 <div class="m-accordion" data-t-name="Accordion">
-    {{{placeholder name="AccordionArea" index="1"}}}
-    {{{placeholder name="AccordionArea" index="2"}}}
+    {{placeholder name="AccordionArea" index="1"}}
+    {{placeholder name="AccordionArea" index="2"}}
 </div>
 ```
 
-##### indexProp attribute
+##### indexprop attribute
 
 View snippet:
 
 ```html
 <div class="m-accordion" data-t-name="Accordion">
     {{#each items}}
-        {{placeholder name="AccordionArea" indexProp="Id"}}
+        {{placeholder name="AccordionArea" indexprop="Id"}}
     {{/each}}
 </div>
 ```

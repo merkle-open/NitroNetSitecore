@@ -3,6 +3,9 @@ using Sitecore.Mvc.Helpers;
 
 namespace NitroNet.Sitecore.DynamicPlaceholder
 {
+    /// <summary>
+    /// Dynamic Placeholders for Sitecore 8.x
+    /// </summary>
     public static class DynamicPlaceholderExtension
     {
         public static HtmlString DynamicPlaceholder(this SitecoreHelper helper, string key)

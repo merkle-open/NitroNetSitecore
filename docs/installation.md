@@ -48,42 +48,6 @@ Optionally, we recommend to install the [Unity.Mvc](https://www.nuget.org/packag
 
 `PM >` `Install-Package NitroNet.Sitecore.CastleWindsorModules.Sitecore82`
 
-
-##### Register the view engine
-
-To activate NitroNet for Sitecore it's important to add/register the new view engine in your application. Create a Sitecore pipeline processor and add it at the end of the initialize pipeline:
-
-###### Processor
-
-```csharp
-using System.Web.Mvc;
-using NitroNet.Sitecore;
-using Sitecore.Pipelines;
-
-public class RegisterNitroNetViewEngine
-{
-    public virtual void Process(PipelineArgs args)
-    {
-        ViewEngines.Engines.Add(DependencyResolver.Current.GetService<SitecoreNitroNetViewEngine>());
-    }
-}
-```
-
-###### Config
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
-  <sitecore>
-    <pipelines>
-      <initialize>
-        <processor type="MyApplication.RegisterNitroNetViewEngine, MyApplication" />
-      </initialize>
-    </pipelines>
-  </sitecore>
-</configuration>
-```
-
 ##### Register the IoC containers
 
 ###### Microsoft.DependencyInjection

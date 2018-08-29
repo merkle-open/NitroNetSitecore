@@ -65,7 +65,7 @@
     <_NugetApiKey Condition="'$(NugetApiKey)' != ''"> -ApiKey "$(NugetApiKey)"</_NugetApiKey>
     <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
     <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
-    <PackageOutput>$(ProjectName.Replace('.csproj', '')).*.nupkg</PackageOutput>
+    <PackageOutput>$(ProjectName.Replace('.csproj', '')).*$(NugetPackageVersion).nupkg</PackageOutput>
     <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
     <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
   </PropertyGroup>

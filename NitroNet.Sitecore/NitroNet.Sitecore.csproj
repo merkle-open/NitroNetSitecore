@@ -214,6 +214,7 @@
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
     <Content Include="App_Config\Include\NitroNet\RegisterViewEngine.config" />
+    <None Include="App_Config\Include\NitroNet\NitroNet.Sitecore.Settings.config" />
     <None Include="NitroNet.Sitecore.nuspec">
       <SubType>Designer</SubType>
     </None>

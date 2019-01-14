@@ -118,6 +118,12 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Reference Include="NitroNet.CastleWindsorModules">
+      <HintPath>..\..\NitroNet\NitroNet.CastleWindsorModules\bin\Debug\NitroNet.CastleWindsorModules.dll</HintPath>
+    </Reference>
+    <Reference Include="NitroNet.ViewEngine.TemplateHandler">
+      <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\Debug\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -126,6 +132,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Veil">
+      <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\Debug\Veil.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">

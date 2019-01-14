@@ -363,7 +363,7 @@ namespace NitroNet.Sitecore
 	        return false;
 	    }
 
-        public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation, object model, TextWriter writer, ViewContext viewContext)
+        public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation, object model, ViewContext viewContext)
         {
             var requestContext = PageContext.Current.RequestContext;
             var savedSkin = requestContext.RouteData.Values[SkinParameter];
@@ -421,14 +421,14 @@ namespace NitroNet.Sitecore
                 if (renderingId != null)
                 {
                     // TODO: Cache!
-                    writer.Write(htmlHelper.Sitecore()
+                    viewContext.Writer.Write(htmlHelper.Sitecore()
                         .Rendering(renderingId, new { data = dataVariation.Value ?? string.Empty }));
                 }
                 else
                 {
                     var controller = CleanControllerName(componentName);
 
-                    writer.Write(htmlHelper.Sitecore().Controller(controller));
+                    viewContext.Writer.Write(htmlHelper.Sitecore().Controller(controller));
 
                     Log.Warn(
                         string.Format(

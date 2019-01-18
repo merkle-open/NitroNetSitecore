@@ -120,9 +120,6 @@
     </When>
   </Choose>
   <ItemGroup>
-    <Reference Include="NitroNet.UnityModules">
-      <HintPath>..\..\NitroNet\NitroNet.UnityModules\bin\Debug\NitroNet.UnityModules.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -140,6 +137,9 @@
         </Reference>
         <Reference Include="NitroNet.Mvc">
           <HintPath>..\..\NitroNet\NitroNet.Mvc\bin\release\NitroNet.Mvc.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.UnityModules">
+          <HintPath>..\..\NitroNet\NitroNet.UnityModules\bin\release\NitroNet.UnityModules.dll</HintPath>
         </Reference>
         <Reference Include="NitroNet.ViewEngine">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\release\NitroNet.ViewEngine.dll</HintPath>
@@ -159,6 +159,9 @@
         </Reference>
         <Reference Include="NitroNet.Mvc">
           <HintPath>..\..\NitroNet\NitroNet.Mvc\bin\debug\NitroNet.Mvc.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.UnityModules">
+          <HintPath>..\..\NitroNet\NitroNet.UnityModules\bin\debug\NitroNet.UnityModules.dll</HintPath>
         </Reference>
         <Reference Include="NitroNet.ViewEngine">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\debug\NitroNet.ViewEngine.dll</HintPath>

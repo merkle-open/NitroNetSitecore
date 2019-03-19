@@ -34,11 +34,10 @@ There are [many features which come with NitroNet](https://github.com/namics/Nit
 ## Future roadmap
 [Please look at the milestones regarding the features and time frames of future releases.](https://github.com/namics/NitroNetSitecore/milestones)
 
-**Important features planned for 2018:**
-- SC9 compatibility
+**Important features planned in the near future:**
+- [Possibility to exclude certain Sitecore renderings](https://github.com/namics/NitroNetSitecore/pull/25)
+- [Better error message when there are renderings with identical name](https://github.com/namics/NitroNetSitecore/issues/24)
 - Youtube tutorial videos
-- Demo solution/integration -> [here](https://github.com/hombreDelPez/NitroNet-Demo-Integration-Habitat/tree/feature/nitronet-sitecore-demo) (almost done)
-- Extending the documentation
 
 ## Contact / Contributing
 If you want to submit a bug or request a feature please feel free to open an issue.

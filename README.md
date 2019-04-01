@@ -16,28 +16,22 @@ There are [many features which come with NitroNet](https://github.com/namics/Nit
 - Different NuGets for supported Sitecore versions and your preferred IoC framework
 
 ### What's NitroNet?
-
 [NitroNet](https://github.com/namics/NitroNet) is a handlebars view engine with an intelligent built-in file system and the possibility to add custom helpers. Because of these two features NitroNet differs from other existing handlebars view engines.
 
 ### ... and whats Nitro?
 [Nitro](https://github.com/namics/generator-nitro/) is a Node.js application for simple and complex frontend development with a tiny footprint. It provides a proven but flexible structure to develop your frontend code, even in a large team.
 
-## Table of contents
-- [Installation](docs/installation.md)
-- [Configuration](docs/configuration.md)
-- [Getting started](docs/getting-started.md)
-- [Samples](docs/samples.md)
-- [Demo Integration (Habitat)](https://github.com/hombreDelPez/Habitat/tree/feature/nitronet-sitecore-demo)
-- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
-- [Known Issues](docs/known-issues.md)
+## How to get started
+For a particularly smooth start with NitroNet for Sitecore we advise you to just to through the chapters **Installation**, **Configuration** and **Getting started**.
+
+If you need some code samples you can have a look a chapter **Samples** and if you having some problems or are interested how NitroNet for Sitecore is integrated or can be used, just have a look at our **Demo Integration** based on the Sitecore Habitat solution.
+
+You can find all links below under [Table of contents](https://github.com/namics/NitroNetSitecore#table-of-contents).
+
+It's also not a bad idea to have a look at NitroNet itself: https://github.com/namics/NitroNet
 
 ## Future roadmap
 [Please look at the milestones regarding the features and time frames of future releases.](https://github.com/namics/NitroNetSitecore/milestones)
-
-**Important features planned in the near future:**
-- [Possibility to exclude certain Sitecore renderings](https://github.com/namics/NitroNetSitecore/pull/25)
-- [Better error message when there are renderings with identical name](https://github.com/namics/NitroNetSitecore/issues/24)
-- Youtube tutorial videos
 
 ## Contact / Contributing
 If you want to submit a bug or request a feature please feel free to open an issue.
@@ -52,3 +46,12 @@ Thanks to all the people who made and released these awesome resources for free!
 Special thanks to [Marco Schälle](https://github.com/marcoschaelle) and [Stefan Schälle](https://github.com/schaelle) who fight for a smart way to integrate Frontends into ASP.NET and created the predecessor [TerrificNet](https://github.com/namics/TerrificNet) of NitroNet itself. Marco and Stefan were our opinion leaders of this product.
 
 Also special thanks to [Mark Cassidy](https://github.com/cassidydotdk) for all product commits and propagation of our idea to the whole world.
+
+## Table of contents
+- [Installation](docs/installation.md)
+- [Configuration](docs/configuration.md)
+- [Getting started](docs/getting-started.md)
+- [Samples](docs/samples.md)
+- [Demo Integration (Habitat)](https://github.com/hombreDelPez/Habitat/tree/feature/nitronet-sitecore-demo)
+- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
+- [Known Issues](docs/known-issues.md)

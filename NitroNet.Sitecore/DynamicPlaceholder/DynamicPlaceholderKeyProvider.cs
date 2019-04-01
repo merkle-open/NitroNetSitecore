@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace NitroNet.Sitecore.DynamicPlaceholder
 {
+    /// <summary>
+    /// Dynamic Placeholders for Sitecore 8.x
+    /// </summary>
     static internal class DynamicPlaceholderKeyProvider
     {
         //text that ends in a GUID

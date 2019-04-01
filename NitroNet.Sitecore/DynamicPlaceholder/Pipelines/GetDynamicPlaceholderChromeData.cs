@@ -6,6 +6,9 @@ using Sitecore.Web.UI.PageModes;
 
 namespace NitroNet.Sitecore.DynamicPlaceholder.Pipelines
 {
+    /// <summary>
+    /// Dynamic Placeholders for Sitecore 8.x
+    /// </summary>
 	public class GetDynamicPlaceholderChromeData : GetChromeDataProcessor
 	{
 		public override void Process(GetChromeDataArgs args)

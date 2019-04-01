@@ -30,13 +30,13 @@ So for each supported Sitecore version you will find the corresponding NuGets. (
 
 Execute following the line in your NuGet Package Manager to install NitroNet for Sitecore with your preferred IoC framework:
 
-**Microsoft.DependencyInjection**
+###### Microsoft.DependencyInjection
 
 Starting with Sitecore 8.2, this IoC container is supported out of the box.
 
 `PM >` `Install-Package NitroNet.Sitecore.Microsoft.DependencyInjection.Sitecore82`
 
-**Unity**
+###### Unity
 
 `PM >` `Install-Package NitroNet.Sitecore.UnityModules.Sitecore82`
 
@@ -44,25 +44,9 @@ Optionally, we recommend to install the [Unity.Mvc](https://www.nuget.org/packag
 
 `PM >` `Install-Package Unity.Mvc`
 
-**CastleWindsor**
+###### CastleWindsor
 
 `PM >` `Install-Package NitroNet.Sitecore.CastleWindsorModules.Sitecore82`
-
-
-##### Extend your Global.asax(.cs)
-To activate NitroNet for Sitecore it's important to add/register the new view engine in your application. You can do this, with these lines of code ([Gist](https://gist.github.com/hombreDelPez/e5ad065572fdab7145dd72847d8aabd2)):
-
-```csharp
-protected void Application_Start()
-{
-	AreaRegistration.RegisterAllAreas();
-	FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-	RouteConfig.RegisterRoutes(RouteTable.Routes);
-	BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-	ViewEngines.Engines.Add(DependencyResolver.Current.GetService<SitecoreNitroNetViewEngine>());
-}
-```
 
 ##### Register the IoC containers
 

@@ -1,4 +1,4 @@
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT'">
     <!-- Windows specific commands -->
     <NuGetToolsPath>$([System.IO.Path]::Combine($(SolutionDir), ".nuget"))</NuGetToolsPath>
@@ -26,7 +26,7 @@
   <Choose>  
 	<When Condition="'$(PrereleaseVersion)' != ''">  
 	  <PropertyGroup>
-	    <NugetPackageVersion>$(PackageVersion)-$(PrereleaseVersion)$(BuildNumber)</NugetPackageVersion>
+	    <NugetPackageVersion>$(PackageVersion)-$(PrereleaseVersion)$([System.String]::Format('{0:000}', $([MSBuild]::Add($(BuildNumber), 0))))</NugetPackageVersion>
 	  </PropertyGroup>
 	</When>
 	<Otherwise>
@@ -44,7 +44,7 @@
 		</When>
 		<When Condition="'$(NitroNetCorePrereleaseVersion)' !=''">
 			<PropertyGroup>
-				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrereleaseVersion)$(NitroNetCoreBuildnumber)</DependentNitroNetVersion>
+				<DependentNitroNetVersion>$(NitroNetCoreMajorVersion).$(NitroNetCoreMinorVersion).$(NitroNetCorePatchVersion)-$(NitroNetCorePrereleaseVersion)$([System.String]::Format('{0:000}', $([MSBuild]::Add($(NitroNetCoreBuildnumber), 0))))</DependentNitroNetVersion>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
@@ -65,8 +65,8 @@
     <_NugetApiKey Condition="'$(NugetApiKey)' != ''"> -ApiKey "$(NugetApiKey)"</_NugetApiKey>
     <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
     <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
-    <PackageOutput>$(ProjectName.Replace('.csproj', '')).*.nupkg</PackageOutput>
-    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -MSBuildVersion 14 $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
+    <PackageOutput>$(ProjectName.Replace('.csproj', '')).*$(NugetPackageVersion).nupkg</PackageOutput>
+    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
     <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
   </PropertyGroup>
   <Target Name="PublishPackage" Condition="'$(PublishPackage)' == 'true'">

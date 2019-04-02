@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using NitroNet.Mvc;
-using NitroNet.Sitecore.DynamicPlaceholder;
 using NitroNet.Sitecore.Rendering;
 using NitroNet.ViewEngine;
 using NitroNet.ViewEngine.TemplateHandler;
@@ -16,6 +15,13 @@ using Sitecore.Mvc;
 using Sitecore.Mvc.Presentation;
 using RenderingContext = Veil.RenderingContext;
 using SC = Sitecore;
+
+#if SC8
+using NitroNet.Sitecore.DynamicPlaceholder;
+#else
+using Sitecore.Data;
+using NitroNet.Sitecore.DynamicPlaceholder.Helpers;
+#endif
 
 namespace NitroNet.Sitecore
 {
@@ -51,20 +57,41 @@ namespace NitroNet.Sitecore
 			return new HtmlHelper(mvcContext.ViewContext, mvcContext.ViewDataContainer);
 		}
 
-		public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
+        public void RenderPlaceholder(object model, string key, string index, RenderingContext context)
 		{
-			var htmlHelper = CreateHtmlHelper(context);
+		    var htmlHelper = CreateHtmlHelper(context);
+#if SC8
 		    var dynamicKey = key;
 		    if (!string.IsNullOrEmpty(index))
 		    {
 		        dynamicKey = key + "_" + index;
 		    }
-				
+            
+		    context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
+#else
+		    if (string.IsNullOrEmpty(index))
+		    {
+		        context.Writer.Write(htmlHelper.Sitecore().Placeholder(key));
+		        return;
+		    }
 
-			context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
-		}
+            if (int.TryParse(index, out var parsedIntIndex))
+            {
+                context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, 1, 0, parsedIntIndex));
+                return;
+            }
 
-	    public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
+		    if (ID.TryParse(index, out var parsedIdIndex))
+		    {
+		        context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(key, parsedIdIndex));
+		        return;
+		    }
+
+		    throw new ArgumentException($"'Index' attribute of {{placeholder}} helper needs to be an integer or Sitecore.Data.ID string. The chosen index is '{index}'");
+#endif
+        }
+
+        public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
 	        object model, RenderingContext context)
 	    {
             var requestContext = PageContext.Current.RequestContext;

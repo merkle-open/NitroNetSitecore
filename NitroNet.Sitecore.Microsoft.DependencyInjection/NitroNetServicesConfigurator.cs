@@ -1,4 +1,5 @@
-﻿using System.Web.Hosting;
+﻿using System.Configuration;
+using System.Web.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NitroNet.Mvc;
 using NitroNet.Sitecore.Caching;
@@ -11,7 +12,6 @@ using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
 using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
 using NitroNet.ViewEngine.ViewEngines;
-using Sitecore.Configuration;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
 using Veil;
@@ -59,7 +59,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
         protected virtual string GetNitroNetBasePath()
         {
             var rootPath = HostingEnvironment.MapPath("~/");
-            var basePath = PathInfo.Combine(PathInfo.Create(rootPath), PathInfo.Create(Settings.GetAppSetting("NitroNet.BasePath")));
+            var basePath = PathInfo.Combine(PathInfo.Create(rootPath), PathInfo.Create(ConfigurationManager.AppSettings["NitroNet.BasePath"]));
 
             return basePath.ToString();
         }

@@ -10,6 +10,7 @@ using NitroNet.ViewEngine.Config;
 using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
+using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
 using NitroNet.ViewEngine.ViewEngines;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
@@ -52,7 +53,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddTransient<ICacheProvider, MemoryCacheProvider>();
             serviceCollection.AddSingleton<IComponentRepository, DefaultComponentRepository>();
             serviceCollection.AddSingleton<ITemplateRepository, NitroTemplateRepository>();
-            serviceCollection.AddSingleton<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>();
+            serviceCollection.AddSingleton<INitroTemplateHandlerUtils, NitroTemplateHandlerUtils>();
         }
 
         protected virtual string GetNitroNetBasePath()

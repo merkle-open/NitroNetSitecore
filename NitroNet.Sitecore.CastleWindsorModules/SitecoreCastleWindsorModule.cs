@@ -5,6 +5,7 @@ using NitroNet.Sitecore.Caching;
 using NitroNet.Sitecore.Rendering;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
+using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
 using Sitecore;
 using Sitecore.Data;
 using Sitecore.Mvc.Common;

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NitroNet.Sitecore.Caching;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using NitroNet.Sitecore.Caching;
-using Sitecore.Diagnostics;
+using System.Linq;
 using SC = Sitecore;
 
 namespace NitroNet.Sitecore.Rendering
@@ -30,7 +30,9 @@ namespace NitroNet.Sitecore.Rendering
 
             if (layoutItem != null)
             {
-                var renderings = layoutItem.Axes.GetDescendants();
+                var excludedRenderingPaths = GetRenderingExlusionPaths();
+                var renderings = layoutItem.Axes.GetDescendants().Where(r => !excludedRenderingPaths.Any(e => r.Paths.FullPath.IndexOf(e, StringComparison.OrdinalIgnoreCase) >= 0));
+
                 foreach (var rendering in renderings)
                 {
                     if (rendering.TemplateID.ToString().Equals(ControllerRenderingId, StringComparison.InvariantCultureIgnoreCase))
@@ -75,6 +77,23 @@ namespace NitroNet.Sitecore.Rendering
         private static string CleanName(string text)
         {
             return string.IsNullOrEmpty(text) ? string.Empty : text.Replace(" ", string.Empty).Replace("-", string.Empty).ToLower(CultureInfo.InvariantCulture);
+        }
+
+        private List<string> GetRenderingExlusionPaths()
+        {
+            var renderingExclusions = SC.Configuration.Settings.GetSetting("NitroNet.Sitecore.RenderingExclusions", string.Empty);
+            var renderingPathsToExclude = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(renderingExclusions))
+            {
+                var splittedPaths = renderingExclusions.Split('|');
+                foreach (var splittedPath in splittedPaths)
+                {
+                    renderingPathsToExclude.Add(splittedPath.Trim());
+                }
+            }
+
+            return renderingPathsToExclude;
         }
     }
 }

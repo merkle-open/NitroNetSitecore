@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,7 +94,7 @@ namespace NitroNet.Sitecore
         }
 
         public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation,
-	        object model, RenderingContext context)
+	        object model, RenderingContext context, IDictionary<string, string> parameters)
 	    {
             var requestContext = PageContext.Current.RequestContext;
 
@@ -109,13 +110,13 @@ namespace NitroNet.Sitecore
 
 	            var propAssignments = _templateHandlerUtils.DoPropertyAssignments(component, skin, dataVariation, model, context);
 
-                if (_templateHandlerUtils.TryRenderPartial(propAssignments.SubModel, component.Value, skin.Value, context,
-                    RenderPartial))
+                if (_templateHandlerUtils.TryRenderPartial(model, propAssignments.SubModel, component.Value, skin.Value,
+                    context, parameters, RenderPartial))
                 {
                     return;
                 }
 
-	            _templateHandlerUtils.LogErrorIfPropertyNull(propAssignments.ModelFound, propAssignments.SubModel, propAssignments.PropertyName, model);
+                _templateHandlerUtils.LogErrorIfPropertyNull(propAssignments.ModelFound, propAssignments.SubModel, propAssignments.PropertyName, model);
 
                 requestContext.RouteData.Values[ComponentConstants.SkinParameter] = skin.Value ?? string.Empty;
 	            requestContext.RouteData.Values[ComponentConstants.DataParameter] = dataVariation.Value ?? string.Empty;

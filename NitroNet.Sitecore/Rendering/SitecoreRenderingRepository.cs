@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using NitroNet.Sitecore.Exceptions;
 using SC = Sitecore;
 
 namespace NitroNet.Sitecore.Rendering
@@ -39,20 +40,13 @@ namespace NitroNet.Sitecore.Rendering
                     {
                         var cleanedName = CleanName(rendering.Name);
 
-                        try
+                        if (allRenderings.ContainsKey(cleanedName))
                         {
-                            allRenderings.Add(cleanedName, rendering.ID.Guid.ToString());
+                            var duplicateRendering = SC.Context.Database.GetItem(allRenderings[cleanedName]);
+                            throw new NitroNetSitecoreArgumentException($"There exist two renderings with the same name '{cleanedName}' located under '{rendering.Paths.FullPath}' and '{duplicateRendering.Paths.FullPath}'");
                         }
-                        catch (ArgumentException ex)
-                        {
-                            if (ex.Message.Contains("item with the same key has already been added"))
-                            {
-                                var duplicateRendering = SC.Context.Database.GetItem(allRenderings[cleanedName]);
-                                throw new ArgumentException($"There exist two renderings with the same name '{cleanedName}' located under '{rendering.Paths.FullPath}' and '{duplicateRendering.Paths.FullPath}'", ex);
-                            }
 
-                            throw;
-                        }
+                        allRenderings.Add(cleanedName, rendering.ID.Guid.ToString());
                     }
                 }
             }

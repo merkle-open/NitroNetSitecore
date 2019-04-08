@@ -152,6 +152,7 @@
     <Compile Include="Caching\ISitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCache.cs" />
+    <Compile Include="Exceptions\NitroNetSitecoreArgumentException.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\GenerateCacheKey.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\SetCacheability.cs" />
     <Compile Include="Events\EventHandlingInitializer.cs" />

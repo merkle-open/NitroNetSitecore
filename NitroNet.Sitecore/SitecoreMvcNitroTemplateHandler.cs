@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using NitroNet.Mvc;
 using NitroNet.Sitecore.Rendering;
+using NitroNet.ViewEngine.Config;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
 using Sitecore.Diagnostics;
@@ -30,15 +31,17 @@ namespace NitroNet.Sitecore
 
 	    private readonly ISitecoreRenderingRepository _renderingRepository;
 	    private readonly INitroTemplateHandlerUtils _templateHandlerUtils;
+        private readonly INitroNetConfig _nitroNetConfig;
 
-	    public SitecoreMvcNitroTemplateHandler(ISitecoreRenderingRepository renderingRepository,
-	        INitroTemplateHandlerUtils templateHandlerUtils)
-	    {
-	        _renderingRepository = renderingRepository;
-	        _templateHandlerUtils = templateHandlerUtils;
-	    }
+        public SitecoreMvcNitroTemplateHandler(ISitecoreRenderingRepository renderingRepository,
+            INitroTemplateHandlerUtils templateHandlerUtils, INitroNetConfig nitroNetConfig)
+        {
+            _renderingRepository = renderingRepository;
+            _templateHandlerUtils = templateHandlerUtils;
+            _nitroNetConfig = nitroNetConfig;
+        }
 
-	    private static HtmlHelper CreateHtmlHelper(RenderingContext context)
+        private static HtmlHelper CreateHtmlHelper(RenderingContext context)
 		{
 			return CreateHtmlHelper(GetMvcContext(context));
 		}
@@ -98,28 +101,43 @@ namespace NitroNet.Sitecore
 	    {
             var requestContext = PageContext.Current.RequestContext;
 
-	        var savedSkin = requestContext.RouteData.Values[ComponentConstants.SkinParameter];
-	        var savedModel = requestContext.RouteData.Values[ModelParameter];
-	        var savedDataVariation = requestContext.RouteData.Values[ComponentConstants.DataParameter];
+            var savedRouteValues = new Dictionary<string, object>
+            {
+                {ComponentConstants.SkinParameter, requestContext.RouteData.Values[ComponentConstants.SkinParameter]},
+                {ModelParameter, requestContext.RouteData.Values[ModelParameter]},
+                {ComponentConstants.DataParameter, requestContext.RouteData.Values[ComponentConstants.DataParameter]}
+            };
 
-	        try
+
+            try
 	        {
                 // Try to get values from model
                 AggregateRenderingParameter(component, model);
                 AggregateRenderingParameter(skin, model);
 
-	            var propAssignments = _templateHandlerUtils.DoPropertyAssignments(component, skin, dataVariation, model, context);
+	            var subModel = _templateHandlerUtils.FindSubModel(component, skin, dataVariation, model, context);
+                var additionalParameters = _templateHandlerUtils.ResolveAdditionalParameters(model, parameters);
 
-                if (_templateHandlerUtils.TryRenderPartial(model, propAssignments.SubModel, component.Value, skin.Value,
-                    context, parameters, RenderPartial))
+                if (subModel.SubModelFound && subModel.Value != null && !(subModel.Value is string))
                 {
+                    _templateHandlerUtils.ApplyResolvedParameters(subModel.Value, additionalParameters);
+                    _templateHandlerUtils.RenderPartial(subModel.Value, component.Value, skin.Value, context, RenderPartial);
                     return;
                 }
 
-                _templateHandlerUtils.LogErrorIfPropertyNull(propAssignments.ModelFound, propAssignments.SubModel, propAssignments.PropertyName, model);
+                _templateHandlerUtils.ThrowErrorIfSubModelFoundAndNull(subModel.SubModelFound, subModel.Value, subModel.PropertyName, model);
 
                 requestContext.RouteData.Values[ComponentConstants.SkinParameter] = skin.Value ?? string.Empty;
 	            requestContext.RouteData.Values[ComponentConstants.DataParameter] = dataVariation.Value ?? string.Empty;
+
+                if (_nitroNetConfig.PassLiteralsToController)
+                {
+                    foreach (var keyValuePair in additionalParameters)
+                    {
+                        savedRouteValues.Add(keyValuePair.Key, requestContext.RouteData.Values[keyValuePair.Key]);
+                        requestContext.RouteData.Values[keyValuePair.Key] = keyValuePair.Value.Value;
+                    }
+                }
 
                 var parts = component.Value.Split('/');
                 var componentName = parts[parts.Length - 1];
@@ -145,10 +163,18 @@ namespace NitroNet.Sitecore
 	        }
 	        finally
 	        {
-	            requestContext.RouteData.Values[ComponentConstants.SkinParameter] = savedSkin;
-	            requestContext.RouteData.Values[ComponentConstants.DataParameter] = savedDataVariation;
-	            requestContext.RouteData.Values[ModelParameter] = savedModel;
-	        }
+                foreach (var savedRouteValue in savedRouteValues)
+                {
+                    if (savedRouteValue.Value == null)
+                    {
+                        requestContext.RouteData.Values.Remove(savedRouteValue.Key);
+                    }
+                    else
+                    {
+                        requestContext.RouteData.Values[savedRouteValue.Key] = savedRouteValue.Value;
+                    }
+                }
+            }
 	    }
 
 		public Task RenderLabelAsync(string key, RenderingContext context)
@@ -205,7 +231,7 @@ namespace NitroNet.Sitecore
             var propertyName = _templateHandlerUtils.CleanName(renderingParameter.Value);
             object dynamicName;
             
-            if (_templateHandlerUtils.GetValueFromObjectHierarchically(model, propertyName, out dynamicName) && 
+            if (_templateHandlerUtils.GetPropertyValueFromObjectHierarchically(model, propertyName, out dynamicName) && 
                 dynamicName is string)
             {
                 renderingParameter.Value = dynamicName.ToString();

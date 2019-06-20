@@ -1,6 +1,6 @@
 ﻿using NitroNet.Sitecore.Rendering;
-using NitroNet.ViewEngine.Config;
-using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
+using NitroNet.ViewEngine.TemplateHandler;
+using NitroNet.ViewEngine.TemplateHandler.Utils;
 
 namespace NitroNet.Sitecore
 {
@@ -8,19 +8,17 @@ namespace NitroNet.Sitecore
     {
         private readonly ISitecoreRenderingRepository _sitecoreRenderingRepository;
         private readonly INitroTemplateHandlerUtils _templateHandlerUtils;
-        private readonly INitroNetConfig _nitroNetConfig;
 
         public SitecoreMvcNitroTemplateHandlerFactory(ISitecoreRenderingRepository sitecoreRenderingRepository,
-            INitroTemplateHandlerUtils templateHandlerUtils, INitroNetConfig nitroNetConfig)
+            INitroTemplateHandlerUtils templateHandlerUtils)
         {
             _sitecoreRenderingRepository = sitecoreRenderingRepository;
             _templateHandlerUtils = templateHandlerUtils;
-            _nitroNetConfig = nitroNetConfig;
         }
 
         public INitroTemplateHandler Create()
         {
-            return new SitecoreMvcNitroTemplateHandler(_sitecoreRenderingRepository, _templateHandlerUtils, _nitroNetConfig);
+            return new SitecoreMvcNitroTemplateHandler(_sitecoreRenderingRepository, _templateHandlerUtils);
         }
     }
 }

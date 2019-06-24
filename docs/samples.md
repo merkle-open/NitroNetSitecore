@@ -307,9 +307,9 @@ With the introduction of the [Additional Arguments](https://github.com/namics/Ni
 
 Your frontend Handlebars templates may have additional arguments as this feature has already been supported by Nitro for quite some time now. Up to now those parameters were ignored.
 
-### LiteralParsingMode
+### AdditionalArgumentsParsingMode
 
-With **LiteralParsingMode** enabled (either **StaticLiteralsOnly** or **Full**) the parameters get resolved and are applied to the model. To show the impact we look at an example and show how it looks in the end with the different modes.
+With **AdditionalArgumentsParsingMode** enabled (either **StaticLiteralsOnly** or **Full**) the parameters get resolved and are applied to the model. To show the impact we look at an example and show how it looks in the end with the different modes.
 
 **Example Setup**
 
@@ -358,7 +358,7 @@ public ActionResult Index() {
 </div>
 ```
 
-**Result LiteralParsingMode:None**
+**Result AdditionalArgumentsParsingMode:None**
 
 Additional Arguments are ignored.
 ```html
@@ -371,7 +371,7 @@ Additional Arguments are ignored.
 </div>
 ```
 
-**Result LiteralParsingMode:StaticLiteralsOnly**
+**Result AdditionalArgumentsParsingMode:StaticLiteralsOnly**
 
 Only static literals are parsed and overwrites the value set in the controller.
 ```html
@@ -384,7 +384,7 @@ Only static literals are parsed and overwrites the value set in the controller.
 </div>
 ```
 
-**Result LiteralParsingMode:Full**
+**Result AdditionalArgumentsParsingMode:Full**
 
 All values are resolved. As you can see, the modifier on from the parent model is recognized, resolved from the parent model and passed to the sub component.
 ```html
@@ -404,21 +404,16 @@ There is also an additional settings which enables components to be rendered wit
 ```csharp
 // The model
 public class ParentComponentModel {
+    // Properties for the parent component
     public string Text { get; set; }
     public string Modifier { get; set; }
-
+    // Properties which will be passed to the sub component
     public string Title { get; set; }
     public string Content { get; set; }
 }
 
 // Controller snippet
 public ActionResult Index() {
-    var subComponent = new SubComponentModel {
-        
-        
-        Decorator = "subcomponent-decorator"
-    };
-
     return View("parentComponent", new ParentComponentModel {
         Text = "Parent"
         Modifier = "parent-modifier"
@@ -448,7 +443,7 @@ This is the behaviour as you know it. If no matching sub model is found and no `
 
 **Result AdditionalArgumentsOnlyComponents:true**
 
-Remember, this setting only has an effect if **LiteralParsingMode** is enabled (see [here](https://github.com/namics/NitroNet/blob/master/docs/additional-arguments.md)).
+Remember, this setting only has an effect if **AdditionalArgumentsParsingMode** is enabled (see [here](https://github.com/namics/NitroNet/blob/master/docs/additional-arguments.md)).
 
 As you can see no sub model is available on `ParentComponentModel`. But there are several arguments in the sub component call in the Handlebars. NitroNet collects and resolves the values and if this setting is true, creates a dictionary which is passed to sub component without calling a controller.
 

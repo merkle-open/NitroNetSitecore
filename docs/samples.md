@@ -396,8 +396,8 @@ All values are resolved. As you can see, the modifier on from the parent model i
     </div>
 </div>
 ```
-### AdditionalArgumentsOnlyComponents
-There is also an additional settings which enables components to be rendered without a name-matching model on the current context or without explicitly specifying `data`. In our example from before this would mean you need no `SubComponentModel` on the `ParentComponentModel`, you can just pass all values needed via additional arguments. Lets have a look at an example and compare the behaviour of **AdditionalArgumentsOnlyComponents** enabled vs disabled.
+### enableAdditionalArgumentsOnly
+There is also an additional settings which enables components to be rendered without a name-matching model on the current context or without explicitly specifying `data`. In our example from before this would mean you need no `SubComponentModel` on the `ParentComponentModel`, you can just pass all values needed via additional arguments. Lets have a look at an example and compare the behaviour of **enableAdditionalArgumentsOnly** enabled vs disabled.
 
 **Example**
 
@@ -436,12 +436,12 @@ public ActionResult Index() {
 </div>
 ```
 
-**Result AdditionalArgumentsOnlyComponents:false**
+**Result enableAdditionalArgumentsOnly:false**
 
 This is the behaviour as you know it. If no matching sub model is found and no `data` attribute is specified, NitroNet tries to find a matching rendering or controller (see [here](#1-create-a-controller-for-each-or-selected-subcomponents)). 
 
 
-**Result AdditionalArgumentsOnlyComponents:true**
+**Result enableAdditionalArgumentsOnly:true**
 
 Remember, this setting only has an effect if **AdditionalArgumentsParsingMode** is enabled (see [here](https://github.com/namics/NitroNet/blob/master/docs/additional-arguments.md)).
 

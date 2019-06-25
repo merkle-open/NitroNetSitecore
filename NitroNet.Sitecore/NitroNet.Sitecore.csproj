@@ -165,6 +165,8 @@
     <Compile Include="SitecoreNitroNetViewEngine.cs" />
     <Compile Include="Skin\ITemplateInfo.cs" />
     <Compile Include="Skin\NitroNetTemplateInfo.cs" />
+    <Compile Include="TemplateHandlers\SitecoreComponentHelperHandler.cs" />
+    <Compile Include="TemplateHandlers\SitecoreRenderingHelperHandlerFactory.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">

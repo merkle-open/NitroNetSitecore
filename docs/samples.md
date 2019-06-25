@@ -16,25 +16,25 @@ Some helpers mentioned below are custom handlebars helpers from Nitro such as th
 ### An easy example
 When working with Sitecore you can add only partials, placeholders or static components (which have no Sitecore datasource) to a layout file:
 
-```html
+```hbs
 <!DOCTYPE html>
 <html>
-	<head>
-		{{partial name="head"}}
-	</head>
-	<body>
-		<header>
-			{{placeholder name="HeaderArea"}}
-		</header>
-		<div>
-			{{component name="Breadcrumb"}}
-			{{placeholder name="ContentArea"}}
-		</div>
-		<footer>
-			{{placeholder name="FooterArea"}}
-		</footer>
-		{{partial name="foot"}}
-	</body>
+    <head>
+        {{partial name="head"}}
+    </head>
+    <body>
+        <header>
+            {{placeholder name="HeaderArea"}}
+        </header>
+        <div>
+            {{component name="Breadcrumb"}}
+            {{placeholder name="ContentArea"}}
+        </div>
+        <footer>
+            {{placeholder name="FooterArea"}}
+        </footer>
+        {{partial name="foot"}}
+    </body>
 </html>
 ```
 
@@ -52,7 +52,7 @@ In the above example you can only see partials, placeholders and components in t
 
 You can make use of the out of the box functionality of Sitecore where you can define a model on your layout. First change your layout to this:
 
-```html
+```hbs
 <!DOCTYPE html>
 <html lang="{{htmlLanguage}}">
     ...
@@ -86,7 +86,7 @@ Let's look at the following example:
 
 View snippet:
 
-```html
+```hbs
 <div class="o-footerContainer">
     {{title}}
     <div class="o-footerContainer__column"> 
@@ -237,7 +237,7 @@ public class AccordionItemModel
 There are two ways to deal with a component who contains subcomponents (e.g. a molecule that consists of one or more atoms):
 
 #### 1) Create a Controller for each or selected subcomponents
-Sometimes it is necessary to controll the caching of the individual subcomponents (e.g. header component) and therefore necessary to create Sitecore controller renderings and C# Controllers for these subcomponents. If you do not provide a model of the subcomponent, NitroNet tries to invoke a Controller for this subcomponent. You can also create a Sitecore controller rendering for it if you need to set special caching settings for this component because it is run through the rendering pipeline. NitroNet for Sitecore internally invokes the controller respectively the rendering pipeline.
+Sometimes it is necessary to control the caching of the individual subcomponents (e.g. header component) and therefore necessary to create Sitecore controller renderings and C# Controllers for these subcomponents. If you do not provide a model of the subcomponent, NitroNet tries to invoke a Controller for this subcomponent. You can also create a Sitecore controller rendering for it if you need to set special caching settings for this component because it is run through the rendering pipeline. NitroNet for Sitecore internally invokes the controller respectively the rendering pipeline.
 
 In the following example we will look more detailed into that:
 
@@ -297,5 +297,177 @@ For direct values like `title` there needs to be property, for the `footer-link-
 
 If you want to cache the `footer-link-list` component specifically you need to create a Controller Rendering called *FooterLinkList* (hyphens and case sensitivity can be ignored) in Sitecore. Now, the rendering pipeline gets invoked and you can set all the caching configurations for the component. Note that the `data` attribute is considered if you choose *Vary By Data*.
 
+
 #### 2) Create only one Controller for the parent component
 You can find the code example and explanations for this case [here](https://github.com/namics/NitroNet/blob/master/docs/samples.md#a-component-with-subcomponents).
+
+## Additional Arguments
+
+With the introduction of the [Additional Arguments](https://github.com/namics/NitroNet/blob/master/docs/additional-arguments.md) feature, you must pay attention when you fully enable it.
+
+Your frontend Handlebars templates may have additional arguments as this feature has already been supported by Nitro for quite some time now. Up to now those parameters were ignored.
+
+### AdditionalArgumentsParsingMode
+
+With **AdditionalArgumentsParsingMode** enabled (either **StaticLiteralsOnly** or **Full**) the parameters get resolved and are applied to the model. To show the impact we look at an example and show how it looks in the end with the different modes.
+
+**Example Setup**
+
+```csharp
+// The model
+public class ParentComponentModel {
+    public string Text { get; set; }
+    public string Modifier { get; set; }
+    public SubComponentModel SubComponent { get; set;}
+}
+
+public class SubComponentModel {
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public string Modifier { get; set; }
+    public string Decorator { get; set; }
+}
+
+// Controller snippet
+public ActionResult Index() {
+    var subComponent = new SubComponentModel {
+        Title = "Sub title",
+        Content = "SubComponent content",
+        Decorator = "subcomponent-decorator"
+    };
+
+    return View("parentComponent", new ParentComponentModel {
+        Text = "Parent"
+        Modifier = "parent-modifier"
+        SubComponent = subComponent
+    });
+}
+```
+
+```hbs
+{{! The ParentComponent calls the subcomponent }}
+<div class="molecule-parent{{#if modifier}} {{modifier}}{{/if}}">
+    <p>{{text}}</p>
+    {{ pattern name="subcomponent" modifier=modifier decorator="overwrite-decorator"}}
+</div>
+
+{{! The SubComponent }}
+<div class="atom-subcomponent{{#if modifier}} {{modifier}}{{/if}}{{#if decorator}} {{decorator}}{{/if}}">
+    <p>{{title}}</p>
+    <div>{{content}}</div>
+</div>
+```
+
+**Result AdditionalArgumentsParsingMode:None**
+
+Additional Arguments are ignored.
+```html
+<div class="molecule-parent parent-modifier">
+    <p>Parent</p>
+    <div class="atom-subcomponent subcomponent-decorator">
+        <p>Sub title</p>
+        <div>SubComponent content</div>
+    </div>
+</div>
+```
+
+**Result AdditionalArgumentsParsingMode:StaticLiteralsOnly**
+
+Only static literals are parsed and overwrites the value set in the controller.
+```html
+<div class="molecule-parent parent-modifier">
+    <p>Parent</p>
+    <div class="atom-subcomponent overwrite-decorator">
+        <p>Sub title</p>
+        <div>SubComponent content</div>
+    </div>
+</div>
+```
+
+**Result AdditionalArgumentsParsingMode:Full**
+
+All values are resolved. As you can see, the modifier on from the parent model is recognized, resolved from the parent model and passed to the sub component.
+```html
+<div class="molecule-parent parent-modifier">
+    <p>Parent</p>
+    <div class="atom-subcomponent parent-modifier overwrite-decorator">
+        <p>Sub title</p>
+        <div>SubComponent content</div>
+    </div>
+</div>
+```
+### enableAdditionalArgumentsOnly
+There is also an additional settings which enables components to be rendered without a name-matching model on the current context or without explicitly specifying `data`. In our example from before this would mean you need no `SubComponentModel` on the `ParentComponentModel`, you can just pass all values needed via additional arguments. Lets have a look at an example and compare the behaviour of **enableAdditionalArgumentsOnly** enabled vs disabled.
+
+**Example**
+
+```csharp
+// The model
+public class ParentComponentModel {
+    // Properties for the parent component
+    public string Text { get; set; }
+    public string Modifier { get; set; }
+    // Properties which will be passed to the sub component
+    public string Title { get; set; }
+    public string Content { get; set; }
+}
+
+// Controller snippet
+public ActionResult Index() {
+    return View("parentComponent", new ParentComponentModel {
+        Text = "Parent"
+        Modifier = "parent-modifier"
+        Title = "Sub title",
+        Content = "SubComponent content",
+    });
+}
+```
+```hbs
+{{! The ParentComponent calls the subcomponent }}
+<div class="molecule-parent{{#if modifier}} {{modifier}}{{/if}}">
+    <p>{{text}}</p>
+    {{ pattern name="subcomponent" title=title content=content modifier=false decorator="overwrite-decorator"}}
+</div>
+
+{{! The SubComponent }}
+<div class="atom-subcomponent{{#if modifier}} {{modifier}}{{/if}}{{#if decorator}} {{decorator}}{{/if}}">
+    <p>{{title}}</p>
+    <div>{{content}}</div>
+</div>
+```
+
+**Result enableAdditionalArgumentsOnly:false**
+
+This is the behaviour as you know it. If no matching sub model is found and no `data` attribute is specified, NitroNet tries to find a matching rendering or controller (see [here](#1-create-a-controller-for-each-or-selected-subcomponents)). 
+
+
+**Result enableAdditionalArgumentsOnly:true**
+
+Remember, this setting only has an effect if **AdditionalArgumentsParsingMode** is enabled (see [here](https://github.com/namics/NitroNet/blob/master/docs/additional-arguments.md)).
+
+As you can see no sub model is available on `ParentComponentModel`. But there are several arguments in the sub component call in the Handlebars. NitroNet collects and resolves the values and if this setting is true, creates a dictionary which is passed to sub component without calling a controller.
+
+The result looks the following:
+```html
+<div class="molecule-parent parent-modifier">
+    <p>Parent</p>
+    <div class="atom-subcomponent overwrite-decorator">
+        <p>Sub title</p>
+        <div>SubComponent content</div>
+    </div>
+</div>
+```
+
+### forceController
+In some cases you may want to overwrite the above behaviour and call a controller even if additional arguments are available. Therefore the parameter `forceController` was introduced.
+
+Adding this parameter and set it to "true" forces NitroNet to call a controller even if the component could have been rendered from either the model or the additional arguments alone.
+
+**Example**
+```hbs
+{{! The ParentComponent calls a controller }}
+<div class="molecule-parent{{#if modifier}} {{modifier}}{{/if}}">
+    <p>{{text}}</p>
+    {{ pattern name="subcomponent" title=title content=content forceController="true"}}
+</div>
+```

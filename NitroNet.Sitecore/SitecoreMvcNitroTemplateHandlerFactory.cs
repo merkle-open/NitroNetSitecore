@@ -1,7 +1,6 @@
 ﻿using NitroNet.Sitecore.Rendering;
-using NitroNet.ViewEngine;
 using NitroNet.ViewEngine.TemplateHandler;
-using NitroNet.ViewEngine.TemplateHandler.RenderHandler;
+using NitroNet.ViewEngine.TemplateHandler.Utils;
 
 namespace NitroNet.Sitecore
 {

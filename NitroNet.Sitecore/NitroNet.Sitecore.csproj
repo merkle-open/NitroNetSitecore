@@ -10,11 +10,12 @@
     <RootNamespace>NitroNet.Sitecore</RootNamespace>
     <AssemblyName>NitroNet.Sitecore</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,20 +34,40 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-SC93|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-SC93\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-SC93|AnyCPU'">
+    <OutputPath>bin\Release-SC93\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-SC90|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug-SC90\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SC90</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-SC90|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release-SC90\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;SC90</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -91,23 +112,39 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
     <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="1.0.8" />
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Debug-SC90'">
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release-SC93' Or '$(Configuration)' == 'Debug-SC93'">
+      <ItemGroup>
+        <PackageReference Include="Sitecore.Kernel" version="9.3.0" />
+        <PackageReference Include="Sitecore.Mvc" version="9.3.0" />
+        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.4" />
+        <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.4" />
+        <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.4" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.6" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+        <Compile Include="DynamicPlaceholder\Helpers\SitecoreHelperExtension.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderInitialKey\RemovePlaceholderUniqueKeySuffixWithCountOrId.cs" />
+        <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderKeys\GetUniqueIdKeyWithinRendering.cs" />
+        <Content Include="App_Config\Include\NitroNet\DynamicPlaceholder.config" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Debug-SC90'">
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="9.0.171219" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="9.0.171219" />
+        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
         <Compile Include="DynamicPlaceholder\Helpers\SitecoreHelperExtension.cs" />
         <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderInitialKey\RemovePlaceholderUniqueKeySuffixWithCountOrId.cs" />
         <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderKeys\GetUniqueIdKeyWithinRendering.cs" />
@@ -118,6 +155,12 @@
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.171121" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.2.171121" />
+        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
         <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
         <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
         <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
@@ -128,6 +171,12 @@
       <ItemGroup>
         <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.1.160519" />
         <PackageReference Include="Sitecore.Mvc.NoReferences" Version="8.1.160519" />
+        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+        <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
         <Compile Include="DynamicPlaceholder\DynamicPlaceholderExtension.cs" />
         <Compile Include="DynamicPlaceholder\DynamicPlaceholderKeyProvider.cs" />
         <Compile Include="DynamicPlaceholder\Pipelines\GetDynamicPlaceholderChromeData.cs" />
@@ -155,6 +204,7 @@
     <Compile Include="Caching\ISitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCacheManager.cs" />
     <Compile Include="Caching\SitecoreCache.cs" />
+    <Compile Include="Exceptions\NitroNetSitecoreArgumentException.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\GenerateCacheKey.cs" />
     <Compile Include="Pipelines\MvcRenderRendering\SetCacheability.cs" />
     <Compile Include="Events\EventHandlingInitializer.cs" />
@@ -165,15 +215,13 @@
     <Compile Include="Rendering\SitecoreRenderingRepository.cs" />
     <Compile Include="SitecoreMvcNitroTemplateHandlerFactory.cs" />
     <Compile Include="SitecoreNitroNetViewEngine.cs" />
-    <Compile Include="Skin\ISkinDefinition.cs" />
-    <Compile Include="Skin\ISkinRepository.cs" />
     <Compile Include="Skin\ITemplateInfo.cs" />
-    <Compile Include="Skin\NitroNetSkinDefinition.cs" />
-    <Compile Include="Skin\NitroNetSkinRepository.cs" />
     <Compile Include="Skin\NitroNetTemplateInfo.cs" />
+    <Compile Include="TemplateHandlers\SitecoreComponentHelperHandler.cs" />
+    <Compile Include="TemplateHandlers\SitecoreRenderingHelperHandlerFactory.cs" />
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">
+    <When Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release-SC93' Or '$(Configuration)' == 'Release-SC90' Or '$(Configuration)' == 'Release-SC82' Or '$(Configuration)' == 'Release-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\release\NitroNet.Common.dll</HintPath>
@@ -192,7 +240,7 @@
         </Reference>
       </ItemGroup>
     </When>
-    <When Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug-SC90' Or '$(Configuration)' == 'Debug-SC82' Or '$(Configuration)' == 'Debug-SC81'">
+    <When Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug-SC93' Or '$(Configuration)' == 'Debug-SC90' Or '$(Configuration)' == 'Debug-SC82' Or '$(Configuration)' == 'Debug-SC81'">
       <ItemGroup>
         <Reference Include="NitroNet.Common">
           <HintPath>..\..\NitroNet\NitroNet.Common\bin\debug\NitroNet.Common.dll</HintPath>
@@ -214,6 +262,7 @@
     <None Include="app.config" />
     <Content Include="App_Config\Include\NitroNet\EventHandlingInitializer.config" />
     <Content Include="App_Config\Include\NitroNet\RegisterViewEngine.config" />
+    <Content Include="App_Config\Include\NitroNet\NitroNet.Sitecore.Settings.config" />
     <None Include="NitroNet.Sitecore.nuspec">
       <SubType>Designer</SubType>
     </None>

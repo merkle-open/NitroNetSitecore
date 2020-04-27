@@ -2,6 +2,7 @@
 using NitroNet.Mvc;
 using NitroNet.Sitecore.Caching;
 using NitroNet.Sitecore.Rendering;
+using NitroNet.Sitecore.TemplateHandlers;
 using NitroNet.ViewEngine;
 using NitroNet.ViewEngine.Cache;
 using NitroNet.ViewEngine.Config;
@@ -9,6 +10,7 @@ using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
 using NitroNet.ViewEngine.TemplateHandler.HandlebarsNet;
+using NitroNet.ViewEngine.TemplateHandler.Utils;
 using NitroNet.ViewEngine.ViewEngines.HandlebarsNet;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
@@ -47,7 +49,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddSingleton(config);
             serviceCollection.AddSingleton<IFileSystem>(new FileSystem(basePath, config));
 
-            serviceCollection.AddSingleton<IHelperHandlerFactory, DefaultRenderingHelperHandlerFactory>();
+            serviceCollection.AddSingleton<IHelperHandlerFactory, SitecoreRenderingHelperHandlerFactory>();
             serviceCollection.AddSingleton<IHandlebarsNetHelperHandlerFactory, HandlebarsNetHelperHandlerFactory>();
             serviceCollection.AddTransient<IMemberLocator, MemberLocatorFromNamingRule>();
             serviceCollection.AddTransient<INamingRule, NamingRule>();
@@ -57,7 +59,7 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddTransient<ICacheProvider, NullCacheProvider>();
             serviceCollection.AddSingleton<IComponentRepository, DefaultComponentRepository>();
             serviceCollection.AddSingleton<ITemplateRepository, NitroTemplateRepository>();
-            serviceCollection.AddSingleton<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>();
+            serviceCollection.AddSingleton<INitroTemplateHandlerUtils, NitroTemplateHandlerUtils>();
         }
 
         protected virtual string GetNitroNetBasePath()

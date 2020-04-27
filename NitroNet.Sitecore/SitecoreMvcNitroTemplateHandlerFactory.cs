@@ -1,24 +1,24 @@
 ﻿using NitroNet.Sitecore.Rendering;
-using NitroNet.ViewEngine;
 using NitroNet.ViewEngine.TemplateHandler;
+using NitroNet.ViewEngine.TemplateHandler.Utils;
 
 namespace NitroNet.Sitecore
 {
     public class SitecoreMvcNitroTemplateHandlerFactory : INitroTemplateHandlerFactory
     {
-        private readonly IComponentRepository _componentRepository;
         private readonly ISitecoreRenderingRepository _sitecoreRenderingRepository;
+        private readonly INitroTemplateHandlerUtils _templateHandlerUtils;
 
-        public SitecoreMvcNitroTemplateHandlerFactory(IComponentRepository componentRepository,
-            ISitecoreRenderingRepository sitecoreRenderingRepository)
+        public SitecoreMvcNitroTemplateHandlerFactory(ISitecoreRenderingRepository sitecoreRenderingRepository,
+            INitroTemplateHandlerUtils templateHandlerUtils)
         {
-            _componentRepository = componentRepository;
             _sitecoreRenderingRepository = sitecoreRenderingRepository;
+            _templateHandlerUtils = templateHandlerUtils;
         }
 
         public INitroTemplateHandler Create()
         {
-            return new SitecoreMvcNitroTemplateHandler(_componentRepository, _sitecoreRenderingRepository);
+            return new SitecoreMvcNitroTemplateHandler(_sitecoreRenderingRepository, _templateHandlerUtils);
         }
     }
 }

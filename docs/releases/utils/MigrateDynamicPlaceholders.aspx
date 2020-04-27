@@ -9,15 +9,15 @@
 
 <script language="C#" runat="server">
 
-    /// <summary>
-    /// GET Parameters
-    ///
-    /// database: The Sitecore database. Example: web
-    /// 
-    /// itemId: The dynamic placeholder migration is only processed on this start item. Example: {456B38B8-1C42-48AF-858E-FC58A2FC1491}
-    /// 
-    /// enableRecursion: This option enables recursion for the start item. Example: true
-    /// </summary>
+	/// <summary>
+	/// This script migrates the "old" dynamic placeholder format to the new format used in Sitecore 9.
+	/// 
+	/// GET Parameters
+	/// - database: The Sitecore database the script should run on. Example: master
+	/// - itemId: The dynamic placeholder migration is only processed on this start item. Example: {456B38B8-1C42-48AF-858E-FC58A2FC1491}
+	/// - enableRecursion: This option enables recursion for the start item. Example: true
+	/// - allVersions: This option enables the migration of all versions of an item. Example: true
+	/// </summary>
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -62,14 +62,16 @@
             return;
         }
 
-        bool isRecursionEnabled;
-        bool.TryParse(Context.Request.QueryString["enableRecursion"], out isRecursionEnabled);
+	    bool isRecursionEnabled;
+	    bool migrateAllVersions;
+	    bool.TryParse(Context.Request.QueryString["enableRecursion"], out isRecursionEnabled);
+	    bool.TryParse(Context.Request.QueryString["allVersions"], out migrateAllVersions);
 
         var fixRenderings = new UpgradeDynamicPlaceholderHelper(database);
 
         Sitecore.Diagnostics.Log.Info("Dynamic Placeholder Migration: Started", this);
 
-        var result = fixRenderings.Iterate(startItem, isRecursionEnabled);
+        var result = fixRenderings.Iterate(startItem, isRecursionEnabled, migrateAllVersions);
 
         OutputResult(result);
 
@@ -108,7 +110,7 @@
             _database = database;
         }
 
-        public Dictionary<Item, List<KeyValuePair<string, string>>> Iterate(Item startItem, bool isRecursionEnabled)
+        public Dictionary<Item, List<KeyValuePair<string, string>>> Iterate(Item startItem, bool isRecursionEnabled, bool migrateAllVersions)
         {
             var result = new Dictionary<Item, List<KeyValuePair<string, string>>>();
 
@@ -116,21 +118,17 @@
 
             if (startItem != null)
             {
+                items.Add(startItem);
+
                 if (isRecursionEnabled)
                 {
                     items.AddRange(_database.SelectItems(string.Format(ItemsWithPresentationDetailsQuery, startItem.Paths.FullPath)));
-                }
-                else
-                {
-                    items.Add(startItem);
                 }
             }
             else
             {
                 items.AddRange(_database.SelectItems(string.Format(ItemsWithPresentationDetailsQuery, "/sitecore/content")));
             }
-
-            var layoutFieldIds = new[] {FieldIDs.LayoutField, FieldIDs.FinalLayoutField};
 
             foreach (var itemInDefaultLanguage in items)
             {
@@ -139,35 +137,61 @@
                     var item = itemInDefaultLanguage.Database.GetItem(itemInDefaultLanguage.ID, itemLanguage);
                     if (item.Versions.Count > 0)
                     {
-                        foreach (var layoutFieldId in layoutFieldIds)
-                        {
-                            var layoutField = item.Fields[layoutFieldId];
-
-                            // Don't convert standard values!
-                            if (layoutField.ContainsStandardValue)
-                            {
-                                continue;
-                            }
-
-                            var changeResult = ChangeLayoutFieldForItem(item, layoutField);
-
-                            if (changeResult.Any())
-                            {
-                                if (!result.ContainsKey(item))
-                                {
-                                    result.Add(item, changeResult);
-                                }
-                                else
-                                {
-                                    result[item].AddRange(changeResult);
-                                }
-                            }
-                        }
+                        ChangeLayout(result, item, FieldIDs.LayoutField, false);
+                        ChangeLayout(result, item, FieldIDs.FinalLayoutField, true);
                     }
                 }
             }
 
             return result;
+        }
+
+        private void ChangeLayout(Dictionary<Item, List<KeyValuePair<string, string>>> result, Item item, ID layoutFieldId, bool migrateAllVersions)
+        {
+            if (migrateAllVersions)
+            {
+                var versionCount = item.Versions.GetVersionNumbers().Length;
+                var versions = item.Versions.GetVersions(false);
+
+                if (versions.Length != versionCount)
+                {
+                    Sitecore.Diagnostics.Log.Warn(string.Format("MigrateDynamicPlaceholders: {0} - Could not load all item versions", item.Name), this);
+                }
+
+                foreach (var itemVersion in versions)
+                {
+                    ChangeLayoutInternal(result, itemVersion, layoutFieldId);
+                }
+            }
+            else
+            {
+                ChangeLayoutInternal(result, item, layoutFieldId);
+            }
+        }
+
+        private void ChangeLayoutInternal(Dictionary<Item, List<KeyValuePair<string, string>>> result, Item item, ID layoutFieldId)
+        {
+            var layoutField = item.Fields[layoutFieldId];
+
+            // Don't convert standard values!
+            if (layoutField.ContainsStandardValue)
+            {
+                return;
+            }
+
+            var changeResult = ChangeLayoutFieldForItem(item, layoutField);
+
+            if (changeResult.Any())
+            {
+                if (!result.ContainsKey(item))
+                {
+                    result.Add(item, changeResult);
+                }
+                else
+                {
+                    result[item].AddRange(changeResult);
+                }
+            }
         }
 
         private List<KeyValuePair<string, string>> ChangeLayoutFieldForItem(Item currentItem, Field field)
@@ -181,7 +205,7 @@
                 var details = LayoutDefinition.Parse(xml);
 
                 var device = details.GetDevice(DefaultDeviceId);
-
+             
                 if (device != null && device.Renderings != null)
                 {
                     bool requiresUpdate = false;

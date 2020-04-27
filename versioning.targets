@@ -4,7 +4,7 @@
       define solution version here or pass it as MSBuild parameter
       (f.e. "... /p:PackageVersion="1.0.0.156" ...")
     -->
-	<MajorVersion Condition="'$(MajorVersion)' == ''">1</MajorVersion>
+	<MajorVersion Condition="'$(MajorVersion)' == ''">2</MajorVersion>
 	<MinorVersion Condition="'$(MinorVersion)' == ''">1</MinorVersion>
 	<PatchVersion Condition="'$(PatchVersion)' == ''">0</PatchVersion>
 	<BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>

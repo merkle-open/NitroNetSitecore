@@ -2,12 +2,18 @@
 using Sitecore.Mvc.Extensions;
 using Sitecore.Mvc.Pipelines.Response.RenderRendering;
 using Sitecore.Mvc.Presentation;
-using System;
 
 namespace NitroNet.Sitecore.Pipelines.MvcRenderRendering
 {
     public class GenerateCacheKey : global::Sitecore.Mvc.Pipelines.Response.RenderRendering.GenerateCacheKey
     {
+
+#if !SC8 && !SC90
+        public GenerateCacheKey(RendererCache rendererCache) : base(rendererCache)
+        {
+        }
+#endif
+
         protected override string GetDataPart(global::Sitecore.Mvc.Presentation.Rendering rendering)
         {
             var baseResult = base.GetDataPart(rendering) ?? string.Empty;

@@ -3,12 +3,14 @@ using Castle.Windsor;
 using NitroNet.CastleWindsorModules;
 using NitroNet.Sitecore.Caching;
 using NitroNet.Sitecore.Rendering;
+using NitroNet.Sitecore.TemplateHandlers;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
 using Sitecore;
 using Sitecore.Data;
 using Sitecore.Mvc.Common;
 using Veil;
+using Veil.Helper;
 
 namespace NitroNet.Sitecore.CastleWindsorModules
 {
@@ -21,6 +23,9 @@ namespace NitroNet.Sitecore.CastleWindsorModules
             container.Register(Component.For<ISitecoreCacheManager>().ImplementedBy<SitecoreCacheManager>());
             container.Register(Component.For<INitroTemplateHandlerFactory>().ImplementedBy<SitecoreMvcNitroTemplateHandlerFactory>());
             container.Register(Component.For<Database>().UsingFactoryMethod(() => Context.Database));
+
+            //overwrite registration with the specific sitecore implementation
+            container.Register(Component.For<IHelperHandlerFactory>().ImplementedBy<SitecoreRenderingHelperHandlerFactory>().LifestyleSingleton());
         }
     }
 }

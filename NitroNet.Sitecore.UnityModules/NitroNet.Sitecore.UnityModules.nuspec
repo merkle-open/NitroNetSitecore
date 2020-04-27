@@ -5,7 +5,8 @@
     <version>$version$</version>
     <authors>Namics AG</authors>
     <owners>Namics AG</owners>
-    <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx</licenseUrl>
+    <license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/namics/NitroNetSitecore" />
     <projectUrl>https://github.com/namics/NitroNetSitecore</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/namics/NitroNet/master/nuget_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

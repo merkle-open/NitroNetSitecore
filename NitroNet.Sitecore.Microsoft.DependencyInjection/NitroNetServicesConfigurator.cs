@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Web.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using NitroNet.Mvc;
 using NitroNet.Sitecore.Caching;
 using NitroNet.Sitecore.Rendering;
@@ -10,12 +8,17 @@ using NitroNet.ViewEngine.Config;
 using NitroNet.ViewEngine.IO;
 using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Grid;
-using NitroNet.ViewEngine.ViewEngines;
+using NitroNet.ViewEngine.TemplateHandler.HandlebarsNet;
+using NitroNet.ViewEngine.ViewEngines.HandlebarsNet;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Common;
+using System.Configuration;
+using System.Web.Hosting;
+using NitroNet.ViewEngine.ViewEngines;
 using Veil;
 using Veil.Compiler;
 using Veil.Helper;
+
 
 namespace NitroNet.Sitecore.Microsoft.DependencyInjection
 {
@@ -45,11 +48,13 @@ namespace NitroNet.Sitecore.Microsoft.DependencyInjection
             serviceCollection.AddSingleton<IFileSystem>(new FileSystem(basePath, config));
 
             serviceCollection.AddSingleton<IHelperHandlerFactory, DefaultRenderingHelperHandlerFactory>();
+            serviceCollection.AddSingleton<IHandlebarsNetHelperHandlerFactory, HandlebarsNetHelperHandlerFactory>();
             serviceCollection.AddTransient<IMemberLocator, MemberLocatorFromNamingRule>();
             serviceCollection.AddTransient<INamingRule, NamingRule>();
             serviceCollection.AddTransient<IModelTypeProvider, DefaultModelTypeProvider>();
-            serviceCollection.AddTransient<ViewEngine.IViewEngine, VeilViewEngine>();
-            serviceCollection.AddTransient<ICacheProvider, MemoryCacheProvider>();
+            serviceCollection.AddTransient<IViewEngine, HandlebarsNetViewEngine>();
+            serviceCollection.AddTransient<IHandlebarsNetEngine, HandlebarsNetEngine>();
+            serviceCollection.AddTransient<ICacheProvider, NullCacheProvider>();
             serviceCollection.AddSingleton<IComponentRepository, DefaultComponentRepository>();
             serviceCollection.AddSingleton<ITemplateRepository, NitroTemplateRepository>();
             serviceCollection.AddSingleton<INitroTemplateHandlerFactory, MvcNitroTemplateHandlerFactory>();

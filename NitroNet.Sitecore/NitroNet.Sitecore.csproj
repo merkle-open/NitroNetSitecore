@@ -136,6 +136,9 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Reference Include="NitroNet.ViewEngine.TemplateHandler">
+      <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\Debug\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -199,9 +202,6 @@
         </Reference>
         <Reference Include="NitroNet.ViewEngine">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\debug\NitroNet.ViewEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="NitroNet.ViewEngine.TemplateHandler">
-          <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\debug\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
         </Reference>
         <Reference Include="Veil">
           <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\debug\Veil.dll</HintPath>

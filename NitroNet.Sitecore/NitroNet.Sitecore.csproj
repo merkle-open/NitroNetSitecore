@@ -112,6 +112,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Handlebars.Net" version="1.11.5" />
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
     <PackageReference Include="MSBuild.Extension.Pack" Version="1.8.0">
       <PrivateAssets>all</PrivateAssets>
@@ -218,6 +219,8 @@
     <Compile Include="Skin\ITemplateInfo.cs" />
     <Compile Include="Skin\NitroNetTemplateInfo.cs" />
     <Compile Include="TemplateHandlers\SitecoreComponentHelperHandler.cs" />
+    <Compile Include="TemplateHandlers\SitecoreHandlebarsNetComponentHandler.cs" />
+    <Compile Include="TemplateHandlers\SitecoreHandlebarsNetHelperHandlerFactory.cs" />
     <Compile Include="TemplateHandlers\SitecoreRenderingHelperHandlerFactory.cs" />
   </ItemGroup>
   <Choose>
@@ -232,8 +235,11 @@
         <Reference Include="NitroNet.ViewEngine">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\release\NitroNet.ViewEngine.dll</HintPath>
         </Reference>
-        <Reference Include="NitroNet.ViewEngine.TemplateHandler">
-          <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\release\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
+        <Reference Include="NitroNet.HandlebarsNet">
+          <HintPath>..\..\NitroNet\NitroNet.HandlebarsNet\bin\release\NitroNet.HandlebarsNet.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.Veil">
+          <HintPath>..\..\NitroNet\NitroNet.Veil\bin\release\NitroNet.Veil.dll</HintPath>
         </Reference>
         <Reference Include="Veil">
           <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\release\Veil.dll</HintPath>
@@ -250,6 +256,12 @@
         </Reference>
         <Reference Include="NitroNet.ViewEngine">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine\bin\debug\NitroNet.ViewEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.HandlebarsNet">
+          <HintPath>..\..\NitroNet\NitroNet.HandlebarsNet\bin\debug\NitroNet.HandlebarsNet.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.Veil">
+          <HintPath>..\..\NitroNet\NitroNet.Veil\bin\debug\NitroNet.Veil.dll</HintPath>
         </Reference>
         <Reference Include="Veil">
           <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\debug\Veil.dll</HintPath>

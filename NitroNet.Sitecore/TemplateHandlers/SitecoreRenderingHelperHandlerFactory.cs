@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using NitroNet.Veil.Handlers;
+using NitroNet.Veil.Handlers.Grid;
 using NitroNet.ViewEngine.TemplateHandler;
-using NitroNet.ViewEngine.TemplateHandler.Grid;
 using Veil.Helper;
 
 namespace NitroNet.Sitecore.TemplateHandlers

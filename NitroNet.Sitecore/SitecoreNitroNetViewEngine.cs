@@ -9,7 +9,7 @@ using Sitecore.Mvc.Common;
 using Sitecore.Mvc.Presentation;
 using IView = NitroNet.ViewEngine.IView;
 using IViewEngine = System.Web.Mvc.IViewEngine;
-using RenderingContext = Veil.RenderingContext;
+using RenderingContext = NitroNet.ViewEngine.Context.RenderingContext;
 
 namespace NitroNet.Sitecore
 {

@@ -123,8 +123,8 @@
         <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
         <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
         <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.0.0" />
       </ItemGroup>
     </When>
     <When Condition="'$(Configuration)' == 'Release-SC81' Or '$(Configuration)' == 'Debug-SC81'">
@@ -134,8 +134,8 @@
         <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
         <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
         <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.0.0" />
       </ItemGroup>
     </When>
   </Choose>
@@ -159,6 +159,12 @@
         <Reference Include="NitroNet.ViewEngine.TemplateHandler">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\release\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
         </Reference>
+        <Reference Include="NitroNet.HandlebarsNet">
+          <HintPath>..\..\NitroNet\NitroNet.HandlebarsNet\bin\release\NitroNet.HandlebarsNet.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.Veil">
+          <HintPath>..\..\NitroNet\NitroNet.Veil\bin\release\NitroNet.Veil.dll</HintPath>
+        </Reference>
         <Reference Include="Veil">
           <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\release\Veil.dll</HintPath>
         </Reference>
@@ -177,6 +183,12 @@
         </Reference>
         <Reference Include="NitroNet.ViewEngine.TemplateHandler">
           <HintPath>..\..\NitroNet\NitroNet.ViewEngine.TemplateHandler\bin\debug\NitroNet.ViewEngine.TemplateHandler.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.HandlebarsNet">
+          <HintPath>..\..\NitroNet\NitroNet.HandlebarsNet\bin\debug\NitroNet.HandlebarsNet.dll</HintPath>
+        </Reference>
+        <Reference Include="NitroNet.Veil">
+          <HintPath>..\..\NitroNet\NitroNet.Veil\bin\debug\NitroNet.Veil.dll</HintPath>
         </Reference>
         <Reference Include="Veil">
           <HintPath>..\..\NitroNet\Veil\Src\Veil\bin\debug\Veil.dll</HintPath>

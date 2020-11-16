@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,11 +12,10 @@ using NitroNet.ViewEngine.TemplateHandler;
 using NitroNet.ViewEngine.TemplateHandler.Utils;
 using Sitecore.Diagnostics;
 using Sitecore.Mvc;
-using Sitecore.Mvc.Presentation;
-using RenderingContext = Veil.RenderingContext;
 using SC = Sitecore;
 using System.IO;
-
+using Sitecore.Mvc.Presentation;
+using RenderingContext = NitroNet.ViewEngine.Context.RenderingContext;
 #if SC8
 using NitroNet.Sitecore.DynamicPlaceholder;
 #else
@@ -105,8 +103,8 @@ namespace NitroNet.Sitecore
 		    {
 		        dynamicKey = key + "_" + index;
 		    }
-            
-		    context.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
+
+            viewContext.Writer.Write(htmlHelper.Sitecore().DynamicPlaceholder(dynamicKey));
 #else
 	        if (string.IsNullOrEmpty(index))
 	        {
@@ -169,9 +167,9 @@ namespace NitroNet.Sitecore
                     new HashSet<string>(renderingParameters.Keys));
 
                 if (_templateHandlerUtils.TryCreateModel(subModel, additionalParameters, out var finalModel) &&
-                    !(bool.TryParse(forceController.Value, out var isForceController) && isForceController))
+                    !(bool.TryParse(forceController.GetValueAsString(), out var isForceController) && isForceController))
                 {
-                    _templateHandlerUtils.RenderPartial(finalModel, component.Value, skin.Value, context,
+                    _templateHandlerUtils.RenderPartial(finalModel, component.GetValueAsString(), skin.GetValueAsString(), context,
                         RenderPartial);
                     return;
                 }
@@ -179,8 +177,8 @@ namespace NitroNet.Sitecore
                 _templateHandlerUtils.ThrowErrorIfSubModelFoundAndNull(subModel.SubModelFound, subModel.Value,
                     subModel.PropertyName, model);
 
-                requestContext.RouteData.Values[ComponentConstants.SkinParameter] = skin.Value ?? string.Empty;
-                requestContext.RouteData.Values[ComponentConstants.DataParameter] = dataVariation.Value ?? string.Empty;
+                requestContext.RouteData.Values[ComponentConstants.SkinParameter] = skin.ValueObject ?? string.Empty;
+                requestContext.RouteData.Values[ComponentConstants.DataParameter] = dataVariation.ValueObject ?? string.Empty;
 
                 foreach (var keyValuePair in additionalParameters)
                 {
@@ -188,7 +186,7 @@ namespace NitroNet.Sitecore
                     requestContext.RouteData.Values[keyValuePair.Key] = keyValuePair.Value.Value;
                 }
                 
-                var parts = component.Value.Split('/');
+                var parts = component.GetValueAsString().Split('/');
                 var componentName = parts[parts.Length - 1];
                 var cleanComponentName = _templateHandlerUtils.CleanName(componentName);
                 var renderingId = _renderingRepository.GetRenderingId(cleanComponentName);
@@ -198,7 +196,7 @@ namespace NitroNet.Sitecore
                 if (renderingId != null)
                 {
                     context.Writer.Write(htmlHelper.Sitecore()
-                        .Rendering(renderingId, new {data = dataVariation.Value ?? string.Empty}));
+                        .Rendering(renderingId, new {data = dataVariation.ValueObject ?? string.Empty}));
                 }
                 else
                 {
@@ -206,7 +204,91 @@ namespace NitroNet.Sitecore
                     context.Writer.Write(htmlHelper.Sitecore().Controller(controller));
 
                     Log.Warn(
-                        $"Controller {controller} gets directly called by NitroNet. Consider to create a rendering with name \"{cleanComponentName}\" in order to let the controller be called by the Sitecore rendering pipeline. Component: {component.Value}, Template: {skin.Value}, Data: {dataVariation.Value}",
+                        $"Controller {controller} gets directly called by NitroNet. Consider to create a rendering with name \"{cleanComponentName}\" in order to let the controller be called by the Sitecore rendering pipeline. Component: {component.GetValueAsString()}, Template: {skin.GetValueAsString()}, Data: {dataVariation.GetValueAsString()}",
+                        this);
+                }
+            }
+            finally
+            {
+                foreach (var savedRouteValue in savedRouteValues)
+                {
+                    if (savedRouteValue.Value == null)
+                    {
+                        requestContext.RouteData.Values.Remove(savedRouteValue.Key);
+                    }
+                    else
+                    {
+                        requestContext.RouteData.Values[savedRouteValue.Key] = savedRouteValue.Value;
+                    }
+                }
+            }
+        }
+
+        public void RenderComponent(IDictionary<string, RenderingParameter> renderingParameters, object model, RenderingContext context, IDictionary<string, object> parameters)
+        {
+            var requestContext = PageContext.Current.RequestContext;
+
+            var savedRouteValues = new Dictionary<string, object>
+            {
+                {ComponentConstants.SkinParameter, requestContext.RouteData.Values[ComponentConstants.SkinParameter]},
+                {ModelParameter, requestContext.RouteData.Values[ModelParameter]},
+                {ComponentConstants.DataParameter, requestContext.RouteData.Values[ComponentConstants.DataParameter]}
+            };
+
+            try
+            {
+                var component = renderingParameters[ComponentConstants.Name];
+                var skin = renderingParameters[ComponentConstants.SkinParameter];
+                var dataVariation = renderingParameters[ComponentConstants.DataParameter];
+                var forceController = renderingParameters[SitecoreComponentHelperConstants.ForceController];
+
+                // Try to get values from model
+                AggregateRenderingParameter(component, model);
+                AggregateRenderingParameter(skin, model);
+                AggregateRenderingParameter(forceController, model);
+
+                var subModel = _templateHandlerUtils.FindSubModel(renderingParameters, model, context);
+                var additionalParameters = _templateHandlerUtils.ConvertAdditionalArguments(parameters, new HashSet<string>(renderingParameters.Keys));
+
+                if (_templateHandlerUtils.TryCreateModel(subModel, additionalParameters, out var finalModel) &&
+                    !(bool.TryParse(forceController.GetValueAsString(), out var isForceController) && isForceController))
+                {
+                    _templateHandlerUtils.RenderPartial(finalModel, component.GetValueAsString(), skin.GetValueAsString(), context,
+                        RenderPartial);
+                    return;
+                }
+
+                _templateHandlerUtils.ThrowErrorIfSubModelFoundAndNull(subModel.SubModelFound, subModel.Value,
+                    subModel.PropertyName, model);
+
+                requestContext.RouteData.Values[ComponentConstants.SkinParameter] = skin.ValueObject ?? string.Empty;
+                requestContext.RouteData.Values[ComponentConstants.DataParameter] = dataVariation.ValueObject ?? string.Empty;
+
+                foreach (var keyValuePair in additionalParameters)
+                {
+                    savedRouteValues.Add(keyValuePair.Key, requestContext.RouteData.Values[keyValuePair.Key]);
+                    requestContext.RouteData.Values[keyValuePair.Key] = keyValuePair.Value.Value;
+                }
+
+                var parts = component.GetValueAsString().Split('/');
+                var componentName = parts[parts.Length - 1];
+                var cleanComponentName = _templateHandlerUtils.CleanName(componentName);
+                var renderingId = _renderingRepository.GetRenderingId(cleanComponentName);
+
+                var htmlHelper = CreateHtmlHelper(context);
+
+                if (renderingId != null)
+                {
+                    context.Writer.Write(htmlHelper.Sitecore()
+                        .Rendering(renderingId, new { data = dataVariation.ValueObject ?? string.Empty }));
+                }
+                else
+                {
+                    var controller = CleanControllerName(componentName);
+                    context.Writer.Write(htmlHelper.Sitecore().Controller(controller));
+
+                    Log.Warn(
+                        $"Controller {controller} gets directly called by NitroNet. Consider to create a rendering with name \"{cleanComponentName}\" in order to let the controller be called by the Sitecore rendering pipeline. Component: {component.GetValueAsString()}, Template: {skin.GetValueAsString()}, Data: {dataVariation.GetValueAsString()}",
                         this);
                 }
             }
@@ -283,23 +365,23 @@ namespace NitroNet.Sitecore
 	            return false;
 	        }
 
-	        if (!renderingParameter.IsDynamic)
+	        if (renderingParameter.Type != RenderingParameterType.Unresolved)
 	        {
 	            return false;
 	        }
 
-            var propertyName = _templateHandlerUtils.CleanName(renderingParameter.Value);
+            var propertyName = _templateHandlerUtils.CleanName(renderingParameter.GetValueAsString());
             if (_templateHandlerUtils.GetPropertyValueFromObjectHierarchically(model, propertyName, out var dynamicName) && 
                 dynamicName is string)
             {
-                renderingParameter.Value = dynamicName.ToString();
+                renderingParameter.ValueObject = dynamicName.ToString();
                 return true;
             }
 
 	        return false;
 	    }
 
-        public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation, object model, ViewContext viewContext)
+        /*public void RenderComponent(RenderingParameter component, RenderingParameter skin, RenderingParameter dataVariation, object model, ViewContext viewContext)
         {
             var requestContext = PageContext.Current.RequestContext;
             var savedSkin = requestContext.RouteData.Values[SkinParameter];
@@ -380,6 +462,6 @@ namespace NitroNet.Sitecore
                 requestContext.RouteData.Values[DataParameter] = savedDataVariation;
                 requestContext.RouteData.Values[ModelParameter] = savedModel;
             }
-        }
+        }*/
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
-using NitroNet.Veil.Handlers;
+using NitroNet.HandlebarsNet.Handlers;
+using NitroNet.ViewEngine.Context;
 using NitroNet.ViewEngine.TemplateHandler;
 
 namespace NitroNet.Sitecore.TemplateHandlers
 {
-    public class SitecoreComponentHelperHandler : ComponentHelperHandler
+    public class SitecoreHandlebarsNetComponentHandler : HandlebarsNetComponentHandler
     {
-        public SitecoreComponentHelperHandler(INitroTemplateHandler handler) : base(handler)
+        public SitecoreHandlebarsNetComponentHandler(INitroTemplateHandler handler, IRenderingContextFactory renderingContextFactory) : base(handler, renderingContextFactory)
         {
         }
 
-        protected override void AddAdditionalRenderingParameters(IDictionary<string, string> parameters,
+        protected override void AddAdditionalRenderingParameters(IDictionary<string, object> parameters,
             Dictionary<string, RenderingParameter> renderingParametersDictionary)
         {
             base.AddAdditionalRenderingParameters(parameters, renderingParametersDictionary);
@@ -30,7 +31,7 @@ namespace NitroNet.Sitecore.TemplateHandlers
 
             var value = parameters[SitecoreComponentHelperConstants.ForceController];
             //transform bool value into string, to support boolean values as well as strings
-            if (bool.TryParse(value, out var isForceController))
+            if (bool.TryParse(value.ToString(), out var isForceController))
             {
                 renderingParametersDictionary.Add(SitecoreComponentHelperConstants.ForceController,
                     new RenderingParameter(SitecoreComponentHelperConstants.ForceController)
@@ -44,10 +45,5 @@ namespace NitroNet.Sitecore.TemplateHandlers
             renderingParametersDictionary.Add(SitecoreComponentHelperConstants.ForceController,
                 CreateRenderingParameter(SitecoreComponentHelperConstants.ForceController, parameters));
         }
-    }
-
-    public static class SitecoreComponentHelperConstants
-    {
-        public const string ForceController = "forceController";
     }
 }

@@ -21,6 +21,8 @@
     <PrereleaseVersion Condition="'$(PrereleaseVersion)' == ''"></PrereleaseVersion>
 	<!-- product version -->
     <ProductVersion Condition="'$(ProductVersion)' == ''">Sitecore82</ProductVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <!-- get package version from versioning.target, if any -->
   <Choose>  
@@ -66,7 +68,7 @@
     <PackageOutputDir>$([System.IO.Path]::GetDirectoryName('$(ProjectDir)$(IntermediateOutputPath)'))</PackageOutputDir>
     <PackageSpec>$(ProjectPath.Replace('.csproj', '.nuspec'))</PackageSpec>
     <PackageOutput>$(ProjectName.Replace('.csproj', '')).*$(NugetPackageVersion).nupkg</PackageOutput>
-    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)" -Symbols -SymbolPackageFormat snupkg</BuildCommandSolution>
+    <BuildCommandSolution Condition="'$(NugetPackageVersion)' != ''">$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" $(IncludeReferencedProjects) -Properties "ProductVersion=$(ProductVersion);DependentVersion=$(NugetPackageVersion);DependentNitroNetVersion=$(DependentNitroNetVersion)" -Version "$(NugetPackageVersion)"</BuildCommandSolution>
     <PublishCommand>$(NuGetCommand) push "$(PackageOutputDir)\$(PackageOutput)" $(_NugetApiKey) -source "$(NugetRepository)"</PublishCommand>
   </PropertyGroup>
   <Target Name="PublishPackage" Condition="'$(PublishPackage)' == 'true'">

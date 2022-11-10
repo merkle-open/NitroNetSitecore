@@ -3,7 +3,7 @@
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)
 - [Samples](samples.md)
-- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
+- [Release Notes](https://github.com/merkle-open/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
 ## Limitations
@@ -20,4 +20,4 @@ These two pipeline processors get activated with the shipped `MvcRenderingPipeli
 **Important:** Please pay attention if you have already included the official Sitecore fixes (*Sitecore.Support.387950* and *Sitecore.Support.414987*) or customized the `SetCacheability` or the `GenerateCacheKey` processor in your solution!
 
 ## Currently not implemented
-Please consult the [known issues documentation of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/known-issues.md) to see which features are currently not supported.
+Please consult the [known issues documentation of NitroNet](https://github.com/merkle-open/NitroNet/blob/master/docs/known-issues.md) to see which features are currently not supported.

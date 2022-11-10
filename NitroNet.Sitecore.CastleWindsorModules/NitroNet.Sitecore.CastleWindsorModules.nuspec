@@ -6,7 +6,7 @@
     <authors>Namics AG</authors>
     <owners>Namics AG</owners>
     <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx</licenseUrl>
-    <projectUrl>https://github.com/namics/NitroNetSitecore</projectUrl>
+    <projectUrl>https://github.com/merkle-open/NitroNetSitecore</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/namics/NitroNet/master/nuget_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NitroNet Castle Windsor package for Sitecore</description>

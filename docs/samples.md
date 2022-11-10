@@ -3,11 +3,11 @@
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)
 - [Samples](samples.md)
-- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
+- [Release Notes](https://github.com/merkle-open/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
 
-Please see the [samples of NitroNet](https://github.com/namics/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with plain handlebars and/or Nitro.
+Please see the [samples of NitroNet](https://github.com/merkle-open/NitroNet/blob/master/docs/getting-started.md) to see some code samples for the basic MVC features of NitroNet and informations and samples for working with plain handlebars and/or Nitro.
 
 Some helpers mentioned below are custom handlebars helpers from Nitro such as the component or the placeholder helper.
 
@@ -298,4 +298,4 @@ For direct values like `title` there needs to be property, for the `footer-link-
 If you want to cache the `footer-link-list` component specifically you need to create a Controller Rendering called *FooterLinkList* (hyphens and case sensitivity can be ignored) in Sitecore. Now, the rendering pipeline gets invoked and you can set all the caching configurations for the component. Note that the `data` attribute is considered if you choose *Vary By Data*.
 
 #### 2) Create only one Controller for the parent component
-You can find the code example and explanations for this case [here](https://github.com/namics/NitroNet/blob/master/docs/samples.md#a-component-with-subcomponents).
+You can find the code example and explanations for this case [here](https://github.com/merkle-open/NitroNet/blob/master/docs/samples.md#a-component-with-subcomponents).

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore", "NitroNet.Sitecore\NitroNet.Sitecore.csproj", "{D5228116-9EBD-4055-B50B-33A2F28B2A6E}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore.CastleWindsorModules", "NitroNet.Sitecore.CastleWindsorModules\NitroNet.Sitecore.CastleWindsorModules.csproj", "{7AB3D8F6-200A-4C56-8310-4FCBF862815B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitroNet.Sitecore.Microsoft.DependencyInjection", "NitroNet.Sitecore.Microsoft.DependencyInjection\NitroNet.Sitecore.Microsoft.DependencyInjection.csproj", "{4252660C-89CA-43A2-9CBF-8FB66F710A42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0B61BA54-29AD-469C-9F41-170C9879E6C6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

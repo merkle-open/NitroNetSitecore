@@ -3,13 +3,13 @@
 - [Configuration](configuration.md)
 - [Getting started](getting-started.md)
 - [Samples](samples.md)
-- [Release Notes](https://github.com/namics/NitroNetSitecore/releases)
+- [Release Notes](https://github.com/merkle-open/NitroNetSitecore/releases)
 - [Known Issues](known-issues.md)
 
 ## Installation
 
 ### Preconditions
-You need a handlebars frontend with a specific file structure (learn more about that here) or a [Nitro](https://github.com/namics/generator-nitro/) project as a precondition of this installation manual.
+You need a handlebars frontend with a specific file structure (learn more about that here) or a [Nitro](https://github.com/merkle-open/generator-nitro/) project as a precondition of this installation manual.
 
 ### Step 1 - Install Sitecore
 Please install Sitecore on your local machine and create a Visual Studio project (a clean ASP.Net MVC solution) around of this. As a Sitecore developer you will know what to do ;-) .
